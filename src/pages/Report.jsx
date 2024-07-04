@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ReactMic } from 'react-mic'; 
-import logo from './logo.svg';
-import './App.css';
+import logo from '../logo.svg';
+import '../App.css';
 import io from 'socket.io-client';
 
 const socket = io('http://localhost:8000');
 
-function App() {
+function Report() {
   const [result, setResult] = useState('초기값');
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
@@ -96,4 +96,4 @@ function App() {
   );
 }
 
-export default App;
+export default Report;
