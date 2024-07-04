@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ReactMic } from 'react-mic'; 
 import logo from './logo.svg';
 import './App.css';
 import io from 'socket.io-client';
@@ -83,6 +84,12 @@ function App() {
         <button onClick={stopRecording} disabled={!recording}>
           녹음 중지
         </button>
+        <ReactMic
+          record={recording}
+          className="sound-wave"
+          mimeType="audio/wav"
+          strokeColor="#000000"
+          backgroundColor="#FF4081" />
         <p>{result}</p>
       </header>
     </div>
