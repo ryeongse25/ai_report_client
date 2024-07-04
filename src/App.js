@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { ReactMic } from 'react-mic';
+import React, { useState, useEffect, useRef } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import io from 'socket.io-client';
@@ -7,8 +6,10 @@ import io from 'socket.io-client';
 const socket = io('http://localhost:8000');
 
 function App() {
-  const [recording, setRecording] = useState(false);
   const [result, setResult] = useState('초기값');
+  const [recording, setRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const chunksRef = useRef([]);
 
   useEffect(() => {
     socket.on('audio_text', (data) => {
@@ -22,21 +23,51 @@ function App() {
   }, []);
 
   const startRecording = () => {
-    setRecording(true);
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
+        mediaRecorderRef.current = new MediaRecorder(stream);
+        chunksRef.current = [];
+
+        mediaRecorderRef.current.ondataavailable = e => {
+          chunksRef.current.push(e.data);
+        };
+
+        mediaRecorderRef.current.onstop = () => {
+          const blob = new Blob(chunksRef.current, { 'type': 'audio/wav' });
+          const reader = new FileReader();
+
+          reader.onload = event => {
+            const audioData = event.target.result;
+            socket.emit('audio_data', audioData);
+          };
+
+          reader.readAsArrayBuffer(blob);
+          chunksRef.current = [];
+        };
+
+        mediaRecorderRef.current.start();
+        setRecording(true);
+
+        const intervalId = setInterval(() => {
+          if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+            mediaRecorderRef.current.stop();
+            mediaRecorderRef.current.start();
+          }
+        }, 5000);
+
+        mediaRecorderRef.current.intervalId = intervalId;
+      })
+      .catch(err => {
+        console.error('Error accessing microphone:', err);
+      });
   };
 
   const stopRecording = () => {
-    setRecording(false);
-  };
-
-  const onStop = (recordedBlob) => {
-    console.log('Recorded Blob:', recordedBlob);
-    const reader = new FileReader();
-    reader.onload = event => {
-      const audioData = event.target.result;
-      socket.emit('audio_data', audioData);
-    };
-    reader.readAsArrayBuffer(recordedBlob.blob);
+    if (mediaRecorderRef.current) {
+      clearInterval(mediaRecorderRef.current.intervalId);
+      mediaRecorderRef.current.stop();
+      setRecording(false);
+    }
   };
 
   return (
@@ -50,15 +81,8 @@ function App() {
           녹음 시작
         </button>
         <button onClick={stopRecording} disabled={!recording}>
-          녹음 마침
+          녹음 중지
         </button>
-        <ReactMic
-          record={recording}
-          className="sound-wave"
-          onStop={onStop}
-          mimeType="audio/wav"
-          strokeColor="#000000"
-          backgroundColor="#FF4081" />
         <p>{result}</p>
       </header>
     </div>
