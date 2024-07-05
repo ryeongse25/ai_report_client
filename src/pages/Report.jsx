@@ -1,12 +1,50 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ReactMic } from 'react-mic'; 
-import logo from '../logo.svg';
-import '../App.css';
 import io from 'socket.io-client';
+
+import styled from 'styled-components'
+import { FullContainer, GoBackBtn } from '../components/CommonStyles';
 
 const socket = io('http://localhost:8000');
 
-function Report() {
+const RecordBox = styled.div`
+  width: 550px;
+  height: 350px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 25px;
+  border-radius: 20px;
+  color: #db0948;
+  background-color: #d9d9d9;
+`;
+
+const BtnBorder = styled.button`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+`;
+
+const Circle = styled.div`
+  width: 20px;
+  height: 20px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: red;
+`;
+
+const Square = styled.div`
+  width: 20px;
+  height: 20px;
+  margin: 0 auto;
+  background-color: red;
+`;
+
+const Report = () => {
   const [result, setResult] = useState('초기값');
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
@@ -72,27 +110,35 @@ function Report() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          <strong>정확한 접수를 위해 녹음버튼을 눌러주세요</strong>
-        </p>
-        <button onClick={startRecording} disabled={recording}>
-          녹음 시작
-        </button>
-        <button onClick={stopRecording} disabled={!recording}>
-          녹음 중지
-        </button>
-        <ReactMic
-          record={recording}
-          className="sound-wave"
-          mimeType="audio/wav"
-          strokeColor="#000000"
-          backgroundColor="#FF4081" />
-        <p>{result}</p>
-      </header>
-    </div>
+    <FullContainer>
+      <GoBackBtn />
+      <div>
+        <RecordBox>
+          <p style={{ marginBottom: "40px" }}>
+            <b>정확한 접수를 위해 녹음버튼을 눌러주세요</b>
+          </p>
+          <div style={{ width: "300px", overflow: "hidden", margin: "0 auto" }}>
+            <ReactMic
+            record={recording}
+            className="sound-wave"
+            mimeType="audio/wav"
+            strokeColor="#444445"
+            backgroundColor="#d9d9d9" />
+          </div>
+        </RecordBox>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          {!recording ? 
+            <BtnBorder onClick={startRecording} disabled={recording}>
+              <Circle />
+            </BtnBorder> :
+            <BtnBorder onClick={stopRecording} disabled={!recording}>
+              <Square />
+            </BtnBorder>
+          }
+        </div>
+        <p style={{color: 'white'}}>{result}</p>
+      </div>
+    </FullContainer>
   );
 }
 

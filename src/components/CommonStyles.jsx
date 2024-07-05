@@ -1,21 +1,43 @@
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 export const FullContainer = styled.div`
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 export const Container = styled.div`
-    width: 95%;
-    margin: 0 auto;
-    min-width: 700px;
-    max-width: 1500px;
+  width: 95%;
+  margin: 0 auto;
+  min-width: 700px;
+  max-width: 1500px;
 `
 
 export const Image = styled.img`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `
+
+export const GoBackBtn = () => {
+
+  const style = {
+    top: '15px',
+    left: '15px',
+    color: 'white',
+    position: 'absolute',
+    cursor: 'pointer'
+  }
+
+  return (
+    <div style={style} onClick={() => window.location.href = '/'}>
+      <h3>
+        <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: "10px" }} />
+        메인 페이지
+      </h3>
+    </div>
+  )
+}
