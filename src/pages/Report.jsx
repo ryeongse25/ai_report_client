@@ -51,6 +51,7 @@ const Report = () => {
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     socket.on('audio_text', (data) => {
@@ -73,30 +74,24 @@ const Report = () => {
           chunksRef.current.push(e.data);
         };
 
-        mediaRecorderRef.current.onstop = () => {
-          const blob = new Blob(chunksRef.current, { 'type': 'audio/wav' });
-          const reader = new FileReader();
-
-          reader.onload = event => {
-            const audioData = event.target.result;
-            socket.emit('audio_data', audioData);
-          };
-
-          reader.readAsArrayBuffer(blob);
+        mediaRecorderRef.current.onstop = async () => {
+          const blob = new Blob(chunksRef.current, { 'type': 'audio/webm' });
+          const arrayBuffer = await blob.arrayBuffer();
+          const audioData = new Uint8Array(arrayBuffer);
+          const wavBuffer = await convertToWav(audioData);
+          socket.emit('audio_data', wavBuffer);
           chunksRef.current = [];
         };
 
         mediaRecorderRef.current.start();
         setRecording(true);
 
-        const intervalId = setInterval(() => {
+        intervalRef.current = setInterval(() => {
           if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
             mediaRecorderRef.current.stop();
             mediaRecorderRef.current.start();
           }
         }, 5000);
-
-        mediaRecorderRef.current.intervalId = intervalId;
       })
       .catch(err => {
         console.error('Error accessing microphone:', err);
@@ -105,18 +100,37 @@ const Report = () => {
 
   const stopRecording = () => {
     if (mediaRecorderRef.current) {
-      clearInterval(mediaRecorderRef.current.intervalId);
+      clearInterval(intervalRef.current);
       mediaRecorderRef.current.stop();
       setRecording(false);
     }
   };
 
-  // wav 변환
+  const convertToWav = async (audioData) => {
+    const audioContext = new AudioContext();
+    const audioBuffer = await audioContext.decodeAudioData(audioData.buffer);
+    
+    const targetSampleRate = 16000;
+    const numChannels = audioBuffer.numberOfChannels;
+    const length = audioBuffer.length * targetSampleRate / audioBuffer.sampleRate;
+    const offlineContext = new OfflineAudioContext(numChannels, length, targetSampleRate);
+    
+    const bufferSource = offlineContext.createBufferSource();
+    bufferSource.buffer = audioBuffer;
+    
+    bufferSource.connect(offlineContext.destination);
+    bufferSource.start(0);
+    
+    const resampledBuffer = await offlineContext.startRendering();
+    return encodeWAV(resampledBuffer);
+  };
+
   const encodeWAV = (audioBuffer) => {
     const numChannels = audioBuffer.numberOfChannels;
     const sampleRate = audioBuffer.sampleRate;
-    const format = 1;
+    const format = 1; // PCM
     const bitDepth = 16;
+    const bytesPerSample = bitDepth / 8;
 
     let buffers = [];
     for (let i = 0; i < numChannels; i++) {
@@ -124,22 +138,35 @@ const Report = () => {
     }
 
     const interleaved = interleave(buffers);
-    const buffer = new ArrayBuffer(44 + interleaved.length * 2);
+    const buffer = new ArrayBuffer(44 + interleaved.length * bytesPerSample);
     const view = new DataView(buffer);
 
+    /* RIFF identifier */
     writeString(view, 0, 'RIFF');
-    view.setUint32(4, 36 + interleaved.length * 2, true);
+    /* RIFF chunk length */
+    view.setUint32(4, 36 + interleaved.length * bytesPerSample, true);
+    /* RIFF type */
     writeString(view, 8, 'WAVE');
+    /* format chunk identifier */
     writeString(view, 12, 'fmt ');
+    /* format chunk length */
     view.setUint32(16, 16, true);
+    /* sample format (raw) */
     view.setUint16(20, format, true);
+    /* channel count */
     view.setUint16(22, numChannels, true);
+    /* sample rate */
     view.setUint32(24, sampleRate, true);
-    view.setUint32(28, sampleRate * numChannels * 2, true);
-    view.setUint16(32, numChannels * 2, true);
+    /* byte rate (sample rate * block align) */
+    view.setUint32(28, sampleRate * numChannels * bytesPerSample, true);
+    /* block align (channel count * bytes per sample) */
+    view.setUint16(32, numChannels * bytesPerSample, true);
+    /* bits per sample */
     view.setUint16(34, bitDepth, true);
+    /* data chunk identifier */
     writeString(view, 36, 'data');
-    view.setUint32(40, interleaved.length * 2, true);
+    /* data chunk length */
+    view.setUint32(40, interleaved.length * bytesPerSample, true);
 
     floatTo16BitPCM(view, 44, interleaved);
 
@@ -199,6 +226,7 @@ const Report = () => {
             </BtnBorder>
           }
         </div>
+        <p style={{color: 'white'}}>{result}</p>
       </div>
     </FullContainer>
   );
