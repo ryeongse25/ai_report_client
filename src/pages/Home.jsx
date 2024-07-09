@@ -1,7 +1,9 @@
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FullContainer } from "../components/CommonStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import './Home.css'; // 경로를 확인하여 수정
 
 const BtnContainer = styled.div`
   color: #444445;
@@ -61,27 +63,56 @@ const UserBox = styled.div`
   }
 `;
 
+
+const images = [
+  "/images/homeimg1.jpg",
+  "/images/homeimg2.jpg",
+  "/images/homeimg3.jpg"
+];
+
 const Home = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // 5초마다 이미지 전환
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 정리
+  }, []);
+
   return (
     <>
       <FullContainer>
-        <div style={{ textAlign: "center" }}>
-          <h1 style={{ marginBottom: "80px", color: "white" }}>
-            AI 자동 신고 시스템
-          </h1>
-          <BtnContainer>
-            <AdminBox onClick={() => (window.location.href = "/main")}>
-              <div>
-                <p style={{ marginBottom: "10px" }}>
-                  <FontAwesomeIcon icon={faUser} />
-                </p>
-                관리자 페이지
+        <div className="app-container">
+          <video autoPlay muted loop id="background-video">
+            <source src="/videos/firetruck.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div className="container">
+            <div className="image-section">
+              <img src={images[currentImageIndex]} alt="Slideshow" />
+            </div>
+            <div className="main-section">
+              <div className="main-header">
+                <img src="/images/phone.png" alt="Main Icon" />
+                <span>메인 페이지</span>
               </div>
-            </AdminBox>
-            <UserBox onClick={() => (window.location.href = "/report")}>
-              신고하기
-            </UserBox>
-          </BtnContainer>
+              <BtnContainer>
+                <AdminBox onClick={() => (window.location.href = "/main")}>
+                  <div>
+                    <p style={{ marginBottom: "10px" }}>
+                      <FontAwesomeIcon icon={faUser} />
+                    </p>
+                    관리자 페이지
+                  </div>
+                </AdminBox>
+                <UserBox onClick={() => (window.location.href = "/report")}>
+                  신고하기
+                </UserBox>
+              </BtnContainer>
+            </div>
+          </div>
         </div>
       </FullContainer>
     </>
