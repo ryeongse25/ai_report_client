@@ -46,7 +46,7 @@ const Square = styled.div`
 `;
 
 const Report = () => {
-  const [result, setResult] = useState('초기값');
+  const [result, setResult] = useState('');
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
