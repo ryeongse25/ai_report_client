@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ReactMic } from 'react-mic'; 
 import io from 'socket.io-client';
-
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { FullContainer, GoBackBtn } from '../components/CommonStyles';
 
 const socket = io('http://localhost:5000', {
@@ -52,6 +51,7 @@ const Report = () => {
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
   const intervalRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   useEffect(() => {
     socket.on('audio_text', (data) => {
@@ -61,6 +61,38 @@ const Report = () => {
 
     return () => {
       socket.off('audio_text');
+    };
+  }, []);
+
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      console.error('Web Speech API is not supported by this browser.');
+      return;
+    }
+
+    recognitionRef.current = new SpeechRecognition();
+    recognitionRef.current.continuous = true;
+    recognitionRef.current.interimResults = true;
+    recognitionRef.current.lang = 'ko-KR';
+
+    recognitionRef.current.onresult = (event) => {
+      let interimTranscript = '';
+      let finalTranscript = '';
+
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        } else {
+          interimTranscript += event.results[i][0].transcript;
+        }
+      }
+
+      setResult(finalTranscript || interimTranscript);
+    };
+
+    recognitionRef.current.onerror = (event) => {
+      console.error('Speech Recognition Error', event.error);
     };
   }, []);
 
@@ -92,6 +124,8 @@ const Report = () => {
             mediaRecorderRef.current.start();
           }
         }, 5000);
+
+        recognitionRef.current.start();
       })
       .catch(err => {
         console.error('Error accessing microphone:', err);
@@ -102,6 +136,7 @@ const Report = () => {
     if (mediaRecorderRef.current) {
       clearInterval(intervalRef.current);
       mediaRecorderRef.current.stop();
+      recognitionRef.current.stop();
       setRecording(false);
     }
   };
