@@ -15,6 +15,7 @@ function App() {
         <Route path='/report' element={<Report />}></Route>
         <Route path='/report2' element={<Report2 />}></Route>
         <Route path='/login' element={<Login />}></Route>
+        {/* <Route path='/dashboard' element={<Dashboard />}></Route> */}
         <Route path='/signup'></Route>
       </Routes>
       </BrowserRouter>

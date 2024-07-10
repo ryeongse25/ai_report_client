@@ -2,55 +2,77 @@ import styled from 'styled-components'
 import { Container, Image } from '../CommonStyles';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from '@fortawesome/free-regular-svg-icons';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 const CustomHeader = styled.header`
-    height: 70px;
+    height: 80px;
     color: white;
     font-size: 25px;
     min-width: 1040px;
-    background-color: black;
-
-    &:hover {
-        color: black;
-        background-color: white;
-    }
-`
-
-const CustomNav = styled.nav`
-    height: 70px;
-    padding: 20px;
+    background-color: #675C58;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative; 
 `
 
-const Profile = styled.div`
-    width: 30px;
-    height: 30px;
-    margin-left: 25px;
-    border-radius: 50%;
+const NavContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 20px;
+`
+
+const Tab = styled.div`
+    padding: 10px 20px;
     cursor: pointer;
-    overflow: hidden;
+    font-size: 18px;
+    color: ${props => props.active ? 'white' : '#aaa'};
+    background-color: ${props => props.active ? '#A79E9A' : 'transparent'};
+    border-radius: 20px;
+    margin: 0 5px;
+    
+    &:hover {
+        background-color: #A79E9A;
+        color: white;
+    }
+`
+const Logo = styled.img`
+    cursor: pointer;
+    width: 80px;
+    height: auto;
+    margin-left: 20px;
+`;
+
+const HeaderContent = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
 `
 
 const Header = () => {
-    return <>
-    <CustomHeader>
-        <Container>
-            <CustomNav>
-                <div style={{cursor: 'pointer'}} onClick={() => window.location.href = '/'}>LOGO</div>
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    <div style={{fontSize: '29px', cursor: 'pointer'}}>
-                        <FontAwesomeIcon icon={faBell} />
-                    </div>
-                    <Profile>
-                        <Image src='https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg' />
-                    </Profile>
-                </div>
-            </CustomNav>
-        </Container>
-    </CustomHeader>
-    </>
+    return (
+        <CustomHeader>
+            <img 
+                    src={`${process.env.PUBLIC_URL}/images/logoEX.png`} 
+                    alt="LOGO Image"
+                    style={{ width: '80px', height: 'auto', marginLeft: '20px' }}
+                />
+            <HeaderContent>
+                <Logo 
+                    src={`${process.env.PUBLIC_URL}/images/home.png`}  
+                    alt="Home Button"
+                    onClick={() => window.location.href = '/'}  
+                />
+                <NavContainer>
+                    <Tab active>대시보드</Tab>
+                    <Tab>신고현황</Tab>
+                    <Tab>공지사항</Tab>
+                </NavContainer>
+            </HeaderContent>
+        </CustomHeader>
+    )
 }
 
 export default Header;
