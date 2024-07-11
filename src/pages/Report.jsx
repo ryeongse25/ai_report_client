@@ -8,6 +8,13 @@ const socket = io('http://localhost:5000', {
   transports: ['websocket']
 });
 
+const BoldText = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+  color: #CF1010;
+  margin-bottom: 15px;
+`;
+
 const RecordBox = styled.div`
   width: 550px;
   height: 350px;
@@ -19,7 +26,7 @@ const RecordBox = styled.div`
   margin-bottom: 25px;
   border-radius: 20px;
   color: #db0948;
-  background-color: #d9d9d9;
+  background-color: #f5f5f5c0;
 `;
 
 const BtnBorder = styled.button`
@@ -236,11 +243,15 @@ const Report = () => {
 
   return (
     <FullContainer>
+      <video autoPlay muted loop id="background-video">
+            <source src="/videos/firetruck.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+      </video>
       <GoBackBtn />
       <div>
         <RecordBox>
           <p style={{ marginBottom: "40px" }}>
-            <b>정확한 접수를 위해 녹음버튼을 눌러주세요</b>
+            <BoldText>정확한 접수를 위해 녹음버튼을 눌러주세요</BoldText>
           </p>
           <div style={{ width: "300px", overflow: "hidden", margin: "0 auto" }}>
             <ReactMic

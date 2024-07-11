@@ -4,6 +4,12 @@ import Header from "../components/header/Header";
 import Body from "../components/main/Body";
 import Menu from "../components/main/Menu";
 
+import Calendar from '../components/main/Calendar';
+import Notification from '../components/main/Notification';
+import UserInfo from '../components/main/UserInfo';
+import Stats from '../components/main/Stats';
+import '../components/styles.css';
+
 const Main = () => {
     const [category, setCategory] = useState('대시보드');
 

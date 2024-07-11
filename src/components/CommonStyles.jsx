@@ -7,6 +7,7 @@ export const FullContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  
 `
 
 export const Container = styled.div`
@@ -34,10 +35,11 @@ export const GoBackBtn = () => {
 
   return (
     <div style={style} onClick={() => window.location.href = '/'}>
-      <h3>
-        <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: "10px" }} />
-        메인 페이지
-      </h3>
+      <img
+        src={`${process.env.PUBLIC_URL}/images/home.png`} // 이미지 경로
+        alt="Home"
+        style={{ width: '70px', height: 'auto', cursor: 'pointer' }}
+      />
     </div>
   )
 }
