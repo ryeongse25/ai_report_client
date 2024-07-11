@@ -11,10 +11,10 @@ export const FullContainer = styled.div`
 `
 
 export const Container = styled.div`
-  width: 95%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 10 auto;
   min-width: 700px;
-  max-width: 1500px;
+  max-width: 1300px;
 `
 
 export const Image = styled.img`

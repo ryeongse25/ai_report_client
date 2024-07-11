@@ -52,6 +52,10 @@ const HeaderContent = styled.div`
 `
 
 const Header = () => {
+    const navigateTo = (path) => {
+        window.location.href = path;
+    };
+
     return (
         <CustomHeader>
             <img 
@@ -63,12 +67,12 @@ const Header = () => {
                 <Logo 
                     src={`${process.env.PUBLIC_URL}/images/home.png`}  
                     alt="Home Button"
-                    onClick={() => window.location.href = '/'}  
+                    onClick={() => navigateTo('/')}  
                 />
                 <NavContainer>
-                    <Tab active>대시보드</Tab>
-                    <Tab>신고현황</Tab>
-                    <Tab>공지사항</Tab>
+                    <Tab onClick={() => navigateTo('/Main')}>대시보드</Tab>
+                    <Tab onClick={() => navigateTo('/Statspage')}>신고현황</Tab>
+                    <Tab onClick={() => navigateTo('/notification')}>공지사항</Tab>
                 </NavContainer>
             </HeaderContent>
         </CustomHeader>
