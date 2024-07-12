@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import ImageSlider from "../../components/home/ImageSlider";
+
 import styled from "styled-components";
-import { FullContainer } from "../components/CommonStyles";
+import { FullContainer } from "../../components/CommonStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import './Home.css'; // 경로를 확인하여 수정
+import './Home.css';
 
 const BtnContainer = styled.div`
   color: #444445;
@@ -26,10 +28,10 @@ const AdminBox = styled.div`
   border: 3px solid #ccc;
   background: rgb(240, 240, 240);
   background: linear-gradient(
-    180deg,
-    rgba(240, 240, 240, 1) 0%,
-    rgba(200, 200, 200, 1) 80%
-  );
+                180deg,
+                rgba(240, 240, 240, 1) 0%,
+                rgba(200, 200, 200, 1) 80%
+              );
   box-shadow: rgba(150, 150, 150, 0.4) 0px 8px 24px -6px;
   cursor: pointer;
   
@@ -50,10 +52,10 @@ const UserBox = styled.div`
   border-radius: 20px;
   background: rgb(242, 224, 224);
   background: linear-gradient(
-  180deg,
-  rgba(255, 153, 153, 1) 0%,
-  rgba(192, 42, 42, 1) 100%
-  );
+                180deg,
+                rgba(255, 153, 153, 1) 0%,
+                rgba(192, 42, 42, 1) 100%
+              );
   border: 3px solid #E16464;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
 
@@ -64,24 +66,7 @@ const UserBox = styled.div`
   }
 `;
 
-
-const images = [
-  "/images/homeimg1.jpg",
-  "/images/homeimg2.jpg",
-  "/images/homeimg3.jpg"
-];
-
 const Home = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // 3초마다 이미지 전환
-
-    return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 정리
-  }, []);
-
   return (
     <>
       <FullContainer>
@@ -92,12 +77,12 @@ const Home = () => {
           </video>
           <div className="container">
             <div className="image-section">
-              <img src={images[currentImageIndex]} alt="Slideshow" />
+              <ImageSlider />
             </div>
             <div className="main-section">
               <div className="main-header">
                 <img src="/images/mainlogo.png" alt="Main Icon" />
-                <span style={{ fontSize: "30px", marginLeft: "5px",color: "#443C39" }}>LOGO</span>
+                <span style={{ fontSize: "30px", marginLeft: "5px", color: "#443C39" }}>LOGO</span>
               </div>
               <BtnContainer>
                 <AdminBox onClick={() => (window.location.href = "/main")}>
