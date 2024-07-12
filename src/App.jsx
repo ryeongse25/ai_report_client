@@ -26,6 +26,10 @@ function App() {
           <Route path='/notification/write' element={<Write />} />
           <Route path="/statspage" element={<Statspage />} />
           <Route path='/report-details' element={<ReportDetails />}></Route>
+          {/* findID */}
+          <Route path="/" element={<Navigate to="/find-id" />} />
+          <Route path="/find-id" element={<ID />} />
+          <Route path="/find-id-2" element={<ID2 />} />
         </Routes>
       </BrowserRouter>
     </div>
