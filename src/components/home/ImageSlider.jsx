@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 const images = [
-  '/images/homeimg1.jpg',
-  '/images/homeimg2.jpg',
-  '/images/homeimg3.jpg',
-  // 추가 이미지 경로
+  { src: '/images/homeimg1.jpg', link: 'https://www.nfa.go.kr/nfa/' },
+  { src: '/images/homeimg2.jpg', link: 'https://www.police.go.kr/index.do' },
+  { src: '/images/homeimg3.jpg', link: 'https://www.mois.go.kr/frt/a01/frtMain.do' },
+  // 추가 이미지 경로와 링크
 ];
 
 const ImageSlider = () => {
@@ -18,9 +18,14 @@ const ImageSlider = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleClick = () => {
+    const currentImage = images[currentIndex];
+    window.open(currentImage.link, '_blank'); // 새 탭으로 링크 열기
+  };
+
   return (
-    <div style={{width:'100%', height: "100%"}}>
-      <img src={images[currentIndex]} alt="Slideshow" />
+    <div style={{ width: '100%', height: '100%' }} onClick={handleClick}>
+      <img src={images[currentIndex].src} alt="Slideshow" style={{ width: '100%', height: '100%', cursor: 'pointer' }} />
     </div>
   );
 };
