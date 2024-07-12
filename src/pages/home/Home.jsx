@@ -68,40 +68,36 @@ const UserBox = styled.div`
 
 const Home = () => {
   return (
-    <>
-      <FullContainer>
-        <div className="app-container">
-          <video autoPlay muted loop id="background-video">
-            <source src="/videos/firetruck.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="container">
-            <div className="image-section">
-              <ImageSlider />
-            </div>
-            <div className="main-section">
-              <div className="main-header">
-                <img src="/images/mainlogo.png" alt="Main Icon" />
-                <span style={{ fontSize: "30px", marginLeft: "5px", color: "#443C39" }}>LOGO</span>
-              </div>
-              <BtnContainer>
-                <AdminBox onClick={() => (window.location.href = "/main")}>
-                  <div>
-                    <p style={{ marginBottom: "3px"}}>
-                      <FontAwesomeIcon icon={faUser} />
-                    </p>
-                    관리자 페이지
-                  </div>
-                </AdminBox>
-                <UserBox onClick={() => (window.location.href = "/report")}>
-                  신고하기
-                </UserBox>
-              </BtnContainer>
-            </div>
-          </div>
+    <FullContainer>
+      <video autoPlay muted loop id="background-video">
+        <source src="/videos/firetruck.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="home-container">
+        <div className="image-section">
+          <ImageSlider />
         </div>
-      </FullContainer>
-    </>
+        <div className="main-section">
+          <div className="main-header">
+            <img src="/images/mainlogo.png" alt="Main Icon" />
+            <span style={{ fontSize: "30px", marginLeft: "5px", color: "#443C39" }}>LOGO</span>
+          </div>
+          <BtnContainer>
+            <AdminBox onClick={() => (window.location.href = "/main")}>
+              <div>
+                <p style={{ marginBottom: "3px"}}>
+                  <FontAwesomeIcon icon={faUser} />
+                </p>
+                관리자 페이지
+              </div>
+            </AdminBox>
+            <UserBox onClick={() => (window.location.href = "/report")}>
+              신고하기
+            </UserBox>
+          </BtnContainer>
+        </div>
+      </div>
+    </FullContainer>
   );
 };
 
