@@ -5,59 +5,61 @@ import { useNavigate } from 'react-router-dom';
 
 const BodyContainer = styled.div`
   position: relative;
-  height: 750px;
-  min-width: 1100px;
-  margin: 50px 0;
+  height: 800px;
+  min-width: 1300px; /* 창의 너비가 작아질 때 좌우 스크롤을 가능하게 함 */
+  margin: 30px 0;
   border-radius: 10px;
   background-color: gray;
   padding: 20px;
+  overflow: auto; /* 스크롤을 가능하게 함 */
 `;
 
 const CalendarWrapper = styled.div`
   position: absolute;
-  top: 40px;
-  left: 40px;
-  width: 750px;
+  top: 50px;
+  left: 50px;
+  width: 800px;
   height: 450px;
   background-color: white;
   border-radius: 10px;
   padding: 20px;
-  margin-left: 10px;
-  margin-top: 10px;
+  box-sizing: border-box;
 `;
 
 const UserInfoContainer = styled.div`
   position: absolute;
   top: 50px;
   right: 50px;
-  width: 400px;
-  height: 150px;
+  width: 350px;
+  height: 200px;
   background-color: white;
   border-radius: 10px;
   padding: 20px;
+  box-sizing: border-box;
 `;
 
 const ReportContainer = styled.div`
   position: absolute;
   bottom: 50px;
-  left: 40px;
-  width: 750px;
-  height: 150px;
+  left: 50px;
+  width: 800px;
+  height: 200px;
   background-color: white;
   border-radius: 10px;
   padding: 20px;
-  margin-left: 10px;
+  box-sizing: border-box;
 `;
 
 const StatsContainer = styled.div`
   position: absolute;
   bottom: 50px;
   right: 50px;
-  width: 400px;
+  width: 350px;
   height: 450px;
   background-color: white;
   border-radius: 10px;
   padding: 20px;
+  box-sizing: border-box;
 `;
 
 const Button = styled.button`
