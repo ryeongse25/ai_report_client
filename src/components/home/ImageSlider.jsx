@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './ImageSlider.css';
 
 const images = [
-  '/images/homeimage1.jpg',
-  '/images/homeimage2.jpg',
-  '/images/homeimage3.jpg',
+  '/images/homeimg1.jpg',
+  '/images/homeimg2.jpg',
+  '/images/homeimg3.jpg',
   // 추가 이미지 경로
 ];
 
@@ -20,14 +19,8 @@ const ImageSlider = () => {
   }, []);
 
   return (
-    <div className="slider">
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className={`slide ${index === currentIndex ? 'active' : ''}`}
-          style={{ backgroundImage: `url(${image})` }}
-        />
-      ))}
+    <div style={{width:'100%', height: "100%"}}>
+      <img src={images[currentIndex]} alt="Slideshow" />
     </div>
   );
 };

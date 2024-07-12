@@ -8,7 +8,7 @@ import styled from 'styled-components';
 const localizer = momentLocalizer(moment);
 
 const CalendarWrapper = styled.div`
-  position: absolute;
+  position: relative;
   top: 50px; /* 원하는 위치로 조정 */
   left: 50px; /* 원하는 위치로 조정 */
   width: 400px; /* 너비를 조정 */

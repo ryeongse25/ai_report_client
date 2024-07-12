@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 export const FullContainer = styled.div`
   height: 100vh;
@@ -11,8 +9,8 @@ export const FullContainer = styled.div`
 `
 
 export const Container = styled.div`
-  width: 100%;
-  margin: 10 auto;
+  width: 90%;
+  margin: 0 auto;
   min-width: 700px;
   max-width: 1300px;
 `
