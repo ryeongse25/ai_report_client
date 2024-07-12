@@ -1,4 +1,3 @@
-// components/main/CalendarComponent.jsx
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -8,12 +7,9 @@ import styled from 'styled-components';
 const localizer = momentLocalizer(moment);
 
 const CalendarWrapper = styled.div`
-  position: relative;
-  top: 50px; /* 원하는 위치로 조정 */
-  left: 50px; /* 원하는 위치로 조정 */
-  width: 400px; /* 너비를 조정 */
-  height: 400px; /* 높이를 조정 */
-  z-index: 2; /* 대시보드 div 위에 위치하도록 z-index 설정 */
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 
   .rbc-calendar {
     background-color: #f0f0f0;

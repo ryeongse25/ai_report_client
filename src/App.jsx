@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Notification from './pages/notification/Notification';
 import Write from "./pages/notification/Write";
 import Statspage from './pages/Statspage';
+import ReportDetails from './pages/ReportDetails';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/notification" element={<Notification />} />
           <Route path='/notification/write' element={<Write />} />
           <Route path="/statspage" element={<Statspage />} />
+          <Route path='/report-details' element={<ReportDetails />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
