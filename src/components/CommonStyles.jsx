@@ -5,13 +5,12 @@ export const FullContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  
 `
 
 export const Container = styled.div`
   width: 90%;
   margin: 0 auto;
-  min-width: 700px;
+  min-width: 932px;
   max-width: 1300px;
 `
 

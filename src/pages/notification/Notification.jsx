@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Header from '../components/header/Header'; // 헤더 컴포넌트 경로
+import Header from '../../components/header/Header'; // 헤더 컴포넌트 경로
 
 const NotificationContainer = styled.div`
   background-color: #f0f0f0;
