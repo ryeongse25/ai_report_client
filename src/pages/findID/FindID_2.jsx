@@ -1,5 +1,5 @@
 import React from 'react';
-import './ID.css';
+import './FindID.css';
 
 function FindID_2() {
   console.log('Rendering FindID_2 component');
