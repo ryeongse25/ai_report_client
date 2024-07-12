@@ -22,18 +22,16 @@ const Tab = styled.div`
   color: ${props => props.active ? 'white' : '#aaa'};
   background-color: ${props => props.active ? '#A79E9A' : 'transparent'};
   border-radius: 20px;
-  margin: 0 5px;
   
   &:hover {
-      background-color: #A79E9A;
-      color: white;
+    background-color: #A79E9A;
+    color: white;
   }
 `
 const Logo = styled.img`
   cursor: pointer;
   width: 80px;
   height: auto;
-  margin-left: 20px;
 `;
 
 const Header = () => {

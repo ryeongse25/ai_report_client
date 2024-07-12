@@ -5,8 +5,9 @@ import Report from "./pages/Report";
 import Report2 from "./pages/Report2";
 import Login from "./pages/login/Login";
 import Dashboard from "./pages/Dashboard";
-import Notification from './pages/NotificationPage'; // Notification 경로
-import Statspage from './pages/Statspage'; // Stats 경로
+import Notification from './pages/notification/Notification';
+import Write from "./pages/notification/Write";
+import Statspage from './pages/Statspage';
 
 function App() {
   return (
@@ -20,8 +21,9 @@ function App() {
           <Route path='/login' element={<Login />} />
           {/* <Route path='/dashboard' element={<Dashboard />} /> */}
           <Route path='/signup' />
-          <Route path="/notification" element={<Notification />} /> {/* Notification 경로 */}
-          <Route path="/statspage" element={<Statspage />} /> {/* Stats 경로 */}
+          <Route path="/notification" element={<Notification />} />
+          <Route path='/notification/write' element={<Write />} />
+          <Route path="/statspage" element={<Statspage />} />
         </Routes>
       </BrowserRouter>
     </div>
