@@ -9,8 +9,8 @@ import Notification from './pages/notification/Notification';
 import Write from "./pages/notification/Write";
 import Statspage from './pages/Statspage';
 import ReportDetails from './pages/ReportDetails';
-import ID from './id';
-import ID2 from './id2';
+import ID from './pages/findID/id';
+import ID2 from './pages/findID/id2';
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <Route path="/statspage" element={<Statspage />} />
           <Route path='/report-details' element={<ReportDetails />}></Route>
           {/* findID */}
-          <Route path="/" element={<Navigate to="/find-id" />} />
+          {/* <Route path="/" element={<Navigate to="/find-id" />} /> */}
           <Route path="/find-id" element={<ID />} />
           <Route path="/find-id-2" element={<ID2 />} />
         </Routes>
