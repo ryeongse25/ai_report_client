@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Main from "./pages/Main";
 import Report from "./pages/Report";
@@ -9,6 +9,8 @@ import Notification from './pages/notification/Notification';
 import Write from "./pages/notification/Write";
 import Statspage from './pages/Statspage';
 import ReportDetails from './pages/ReportDetails';
+import ID from './id';
+import ID2 from './id2';
 
 function App() {
   return (
