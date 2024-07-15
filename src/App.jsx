@@ -11,7 +11,7 @@ import Statspage from './pages/Statspage';
 import ReportDetails from './pages/ReportDetails';
 import FindID from './pages/findID/FindID';
 import FindID_2 from './pages/findID/FindID_2';
-import SignUp from './SignUp';
+import SignUp from './pages/signup/SignUp';
 
 function App() {
   return (
