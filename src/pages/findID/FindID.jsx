@@ -37,8 +37,12 @@ function FindID() {
 
   return (
     <FullContainer>
-      <div className='findid-bg'>
+      <video autoPlay muted loop id="background-video">
+        <source src="/videos/firetruck.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <GoBackBtn />
+      <div className='findid-bg'>
         <div className='backContainer'>
           <h2 className='title'>아이디 찾기</h2>
           <div className='formContainer'>
