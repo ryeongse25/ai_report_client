@@ -109,7 +109,7 @@ const Report2 = () => {
         }
       }
 
-      setResult(finalTranscript || interimTranscript);
+      setSttText(finalTranscript || interimTranscript);
     };
 
     recognitionRef.current.onerror = (event) => {
