@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { FullContainer, GoBackBtn } from '../../components/CommonStyles';
-
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import React, { useState, useEffect } from 'react';
+import { FullContainer, GoBackBtn } from '../../components/CommonStyles';
 import './SignUp.css';
+
+axios.defaults.withCredentials = true;
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+const getCookie = (name) => {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      let cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          let cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
 
 function Signup() {
   const [id, setId] = useState('');
+  const [idDuplicated, setIdDuplicated] = useState(false);
+
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [idMessage, setIdMessage] = useState('');
   const [email, setEmail] = useState('');
   const [authNumVisible, setAuthNumVisible] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [authNum, setAuthNum] = useState('');
 
-  // id 중복검사
-  useEffect(() => {
-    if (id) {
-      checkIdAvailability(id);
-    } else {
-      setIdMessage('');
-    }
-  }, [id]);
-
-  const checkIdAvailability = async (id) => {
-    try {
-      const response = await axios.post('/', { id }); // api 주소
-      if (response.data.isAvailable) {
-        setIdMessage('사용 가능한 아이디입니다');
-      } else {
-        setIdMessage('중복된 아이디입니다');
-      }
-    } catch (error) {
-      console.error('Error checking ID availability:', error);
-      setIdMessage('아이디 중복 검사에 실패했습니다');
-    }
-  };
+  const onKeyDown = (e) => {
+    if (e.key === ' ') e.preventDefault();
+  }
 
   // email 유효성 검사
   const checkEmailAvailability = async (email) => {
@@ -96,9 +96,28 @@ function Signup() {
     }
   };
    
-  const handleIdChange = (e) => {
+  // 아이디 중복 검사
+  const onIdChange = (e) => {
     setId(e.target.value);
+
+    const csrftoken = getCookie('csrftoken');
+    axios.post('http://localhost:8000/account/idcheck/', {'id': e.target.value}, {
+      headers: {
+        'X-CSRFToken': csrftoken
+      }
+    })
+    .then((res) => {
+      if (res.data.valid) setIdDuplicated(false);
+      else setIdDuplicated(true);
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   };
+
+  const onNameChange = (e) => {
+    setName(e.target.value);
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -106,10 +125,6 @@ function Signup() {
 
   const handleAuthButtonClick = () => {
     checkEmailAvailability(email);
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -173,6 +188,10 @@ function Signup() {
     }
   };
 
+  useEffect(() => {
+    axios.get('http://localhost:8000/account/signup/')
+  }, [])
+
   return (
     <FullContainer>
       <div className="signupContainer">
@@ -188,24 +207,27 @@ function Signup() {
                 <div className="inlineFieldContainer">
                   <div className="fieldContainer">
                     <p><label htmlFor="name">name</label></p>
-                    <input id="name" placeholder="이름" value={name} onChange={handleNameChange} required />
+                    <input placeholder="이름" value={name} onChange={onNameChange} onKeyDown={onKeyDown} required />
                   </div>
                   <div className="fieldContainer">
                     <p><label htmlFor="id">id</label></p>
                     <input 
-                      id="id" 
+                      value={id}
                       placeholder="아이디"
-                      onChange={handleIdChange} 
+                      onChange={onIdChange}
+                      onKeyDown={onKeyDown}
                       required 
                     />
-                    <div className='message'>{idMessage}</div>
+                    <div className='msg' style={{color: idDuplicated ? 'red' : 'green'}}>
+                      { id && (idDuplicated ? '이미 사용중인 아이디입니다.' : '사용 가능한 아이디입니다.')}
+                    </div>
                   </div>
                 </div>
                 <div>
                   <div className="fieldContainer">
                     <label htmlFor="password">pw</label>
-                    <input type="password" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} required />
-                    <input type="password" id="confirm-password" placeholder="비밀번호 재확인" value={confirmPassword} onChange={handleConfirmPasswordChange} required />
+                    <input type="password" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} onKeyDown={onKeyDown} required />
+                    <input type="password" id="confirm-password" placeholder="비밀번호 재확인" value={confirmPassword} onChange={handleConfirmPasswordChange} onKeyDown={onKeyDown} required />
                   </div>
                 </div>
                 <div>
@@ -216,7 +238,8 @@ function Signup() {
                         type="email" 
                         id="email" 
                         placeholder="이메일" 
-                        onChange={handleEmailChange} 
+                        onChange={handleEmailChange}
+                        onKeyDown={onKeyDown}
                         required 
                       />
                       <button type="button" className="authButton" onClick={handleAuthButtonClick}>인증</button>
