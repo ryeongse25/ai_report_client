@@ -53,7 +53,7 @@ const Notification = () => {
       <NotificationContainer>
         <NotificationHeader>
           <h2>공지사항</h2>
-          <WriteButton onClick={() => navigate('/write')}>글쓰기</WriteButton>
+          <WriteButton onClick={() => navigate('/notification/write')}>글쓰기</WriteButton>
         </NotificationHeader>
         {notifications.length > 0 ? (
           notifications.map((notification, index) => (
