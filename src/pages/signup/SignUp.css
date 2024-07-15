@@ -18,7 +18,7 @@
 
 .signupContainer .backContainer {
   width: 750px;
-  height: 450px;
+  height: 500px;
   border-radius: 30px;
   background-color: #d9d9d990;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -121,13 +121,14 @@
 .signupContainer .emailContainer button {
   flex: 1;
   height: 40px;
+  border-radius: 10px;
 }
 
 /* 인증 코드 */
 .signupContainer .authNumContainer {
-  display: none;
+  gap: 10px;
+  display: flex;
   align-items: center;
-  margin-bottom: 1px;
 }
 
 .signupContainer .authNum {
@@ -141,7 +142,9 @@
   background-color: #e0f7ff;
 }
 
-.signupContainer .authNumButton {
+.signupContainer .authNumContainer button {
+  flex: 1;
+  height: 40px;
   border: none;
   color: white;
   border-radius: 10px;
@@ -149,23 +152,24 @@
   cursor: pointer;
 }
 
-.signupContainer .authNumButton:hover {
+.signupContainer .authNumContainer button:hover {
   background-color: #8d7f7a;
 }
 
-.signupContainer .authInput {
+.signupContainer .authNumContainer input {
+  width: 70%;
+  height: 40px;
   border-radius: 15px;
-  box-sizing: border-box;
   background-color: #c0deeb80;
   border: 1px solid #4287a445;
 }
 
-.signupContainer .authInput:hover {
+.signupContainer .authNumContainer input:hover {
   border-color: #007bff;
   background-color: #e0f7ff;
 }
 
-.signupContainer .authInput::placeholder {
+.signupContainer .authNumContainer input::placeholder {
   color: #817f7f;
   font-weight: bold;
 }
