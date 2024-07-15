@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Container } from "../CommonStyles";
 import CalendarComponent from './CalendarComponent';
+import UserComponent from "./UserComponent";
+// import Chart from "./chart";
 import { useNavigate } from 'react-router-dom';
 
 const BodyContainer = styled.div`
@@ -9,8 +11,8 @@ const BodyContainer = styled.div`
   min-width: 1300px; /* 창의 너비가 작아질 때 좌우 스크롤을 가능하게 함 */
   margin: 30px 0;
   border-radius: 10px;
-  background-color: gray;
-  padding: 20px;
+  background-color: #675C58;
+  padding: 10px;
   overflow: auto; /* 스크롤을 가능하게 함 */
 `;
 
@@ -20,8 +22,8 @@ const CalendarWrapper = styled.div`
   left: 50px;
   width: 800px;
   height: 450px;
-  background-color: white;
-  border-radius: 10px;
+  background-color: #f5f5f5c0;
+  border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
 `;
@@ -32,8 +34,8 @@ const UserInfoContainer = styled.div`
   right: 50px;
   width: 350px;
   height: 200px;
-  background-color: white;
-  border-radius: 10px;
+  background-color: #f5f5f5c0;
+  border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
 `;
@@ -44,8 +46,8 @@ const ReportContainer = styled.div`
   left: 50px;
   width: 800px;
   height: 200px;
-  background-color: white;
-  border-radius: 10px;
+  background-color: #f5f5f5c0;
+  border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
 `;
@@ -56,24 +58,25 @@ const StatsContainer = styled.div`
   right: 50px;
   width: 350px;
   height: 450px;
-  background-color: white;
-  border-radius: 10px;
+  background-color: #f5f5f5c0;
+  border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
 `;
 
 const Button = styled.button`
-  background-color: #3174ad;
+  background-color: #CF1010;
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
 
   &:hover {
-    background-color: #255c8a;
+    background-color: #CF101080;
   }
 `;
+
 
 const Body = ({ category }) => {
   const navigate = useNavigate();
@@ -85,8 +88,7 @@ const Body = ({ category }) => {
           <CalendarComponent />
         </CalendarWrapper>
         <UserInfoContainer>
-          <h2>회원 정보</h2>
-          <p>회원 정보</p>
+          <UserComponent />
         </UserInfoContainer>
         <ReportContainer>
           <h2>신고 내역</h2>
@@ -94,8 +96,7 @@ const Body = ({ category }) => {
           <Button onClick={() => navigate('/report-details')}>이동하기</Button>
         </ReportContainer>
         <StatsContainer>
-          <h2>신고 현황</h2>
-          <p>신고 현황 차트</p>
+          {/* <Chart /> */}
         </StatsContainer>
       </BodyContainer>
     </Container>
