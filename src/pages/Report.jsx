@@ -32,8 +32,9 @@ const RecordBox = styled.div`
 const BtnBorder = styled.button`
   width: 60px;
   height: 60px;
+  border: none;
   border-radius: 50%;
-  background-color: white;
+  background-color: rgb(255, 255, 255, 0.5);
   cursor: pointer;
 `;
 
@@ -54,11 +55,14 @@ const Square = styled.div`
 
 const Report = () => {
   const [result, setResult] = useState('');
+  const [ttsText, setTtsText] = useState('');
   const [recording, setRecording] = useState(false);
+  const [ttsFinished, setTtsFinished] = useState(false); // TTS 완료 여부 상태 추가
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
   const intervalRef = useRef(null);
   const recognitionRef = useRef(null);
+  const silenceTimerRef = useRef(null);
 
   useEffect(() => {
     socket.on('audio_text', (data) => {
@@ -96,12 +100,19 @@ const Report = () => {
       }
 
       setResult(finalTranscript || interimTranscript);
+      resetSilenceTimer();
     };
 
     recognitionRef.current.onerror = (event) => {
       console.error('Speech Recognition Error', event.error);
     };
   }, []);
+
+  useEffect(() => {
+    playTts('신고 시작', () => {
+      setTtsFinished(true); // TTS가 완료되면 상태를 true로 설정
+    });
+  }, []); // 빈 배열을 의존성 배열로 설정하여 한 번만 실행되도록 함
 
   const startRecording = () => {
     navigator.mediaDevices.getUserMedia({ audio: true })
@@ -133,6 +144,7 @@ const Report = () => {
         }, 5000);
 
         recognitionRef.current.start();
+        startSilenceTimer();
       })
       .catch(err => {
         console.error('Error accessing microphone:', err);
@@ -145,7 +157,37 @@ const Report = () => {
       mediaRecorderRef.current.stop();
       recognitionRef.current.stop();
       setRecording(false);
+      clearTimeout(silenceTimerRef.current);
     }
+  };
+
+  const startSilenceTimer = () => {
+    silenceTimerRef.current = setTimeout(async () => {
+      stopRecording();
+      const ttsText = await fetchTtsText();
+      setTtsText(ttsText); // TTS 텍스트 상태 설정
+      playTts(ttsText, startRecording);
+    }, 5000); // 5초 동안 음성이 인식되지 않으면 TTS 실행
+  };
+
+  const resetSilenceTimer = () => {
+    clearTimeout(silenceTimerRef.current);
+    startSilenceTimer();
+  };
+
+  const fetchTtsText = async () => {
+    const response = await fetch('http://localhost:5000/get-tts-text');
+    const data = await response.json();
+    return data.text;
+  };
+
+  const playTts = (text, callback) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ko-KR';
+    utterance.onend = () => {
+      if (callback) callback();
+    };
+    window.speechSynthesis.speak(utterance);
   };
 
   const convertToWav = async (audioData) => {
@@ -262,17 +304,20 @@ const Report = () => {
             backgroundColor="#d9d9d9" />
           </div>
         </RecordBox>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          {!recording ? 
-            <BtnBorder onClick={startRecording} disabled={recording}>
-              <Circle />
-            </BtnBorder> :
-            <BtnBorder onClick={stopRecording} disabled={!recording}>
-              <Square />
-            </BtnBorder>
-          }
-        </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {!recording ? 
+              <BtnBorder onClick={startRecording} disabled={recording}>
+                <Circle />
+              </BtnBorder> :
+              <BtnBorder onClick={stopRecording} disabled={!recording}>
+                <Square />
+              </BtnBorder>
+            }
+          </div>
         <p style={{color: 'white'}}>{result}</p>
+        {ttsText && (
+          <p style={{color: 'white', marginTop: '20px'}}>TTS: {ttsText}</p>
+        )}
       </div>
     </FullContainer>
   );

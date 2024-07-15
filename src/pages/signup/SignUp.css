@@ -1,0 +1,185 @@
+.signupContainer {
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signupContainer #background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.signupContainer .backContainer {
+  width: 750px;
+  height: 450px;
+  border-radius: 30px;
+  background-color: #d9d9d990;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signupContainer form {
+  width: 500px;
+  padding: 20px;
+  border-radius: 30px;
+  background-color: #d9d9d990;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signupContainer form > div {
+  width: 100%;
+}
+
+/* 회원가입 문구 */
+.signupContainer h4 {
+  margin: 20px 0;
+  font-size: 28px;
+  color: #675C58;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 이름 아이디 */
+.signupContainer .inlineFieldContainer {
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.signupContainer .inlineFieldContainer > div {
+  width: 50%;
+}
+
+/* label css */
+.signupContainer label {
+  padding: 2px 6px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 10px;
+  color: #ffffffd2;
+  background-color: #675c58d2;
+}
+
+/* input css */
+.signupContainer input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #c0deeb80;
+  border: 1px solid #4287a445;
+}
+
+.signupContainer input:hover {
+  border-color: #007bff;
+  background-color: #e0f7ff;
+}
+
+.signupContainer input::placeholder {
+  color: #817f7f;
+  font-weight: bold;
+}
+
+/* button css */
+.signupContainer button {
+  padding: 10px;
+  color: white;
+  font-size: 17px;
+  border: none;
+  font-weight: bold;
+  text-align: center;
+  background-color: #675C58;
+  cursor: pointer;
+}
+
+.signupContainer button:hover {
+  background-color: #8d7f7a;
+}
+
+/* email section */
+.signupContainer .emailContainer {
+  gap: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.signupContainer .emailContainer input {
+  width: 70%;
+  height: 40px;
+}
+
+.signupContainer .emailContainer button {
+  flex: 1;
+  height: 40px;
+}
+
+/* 인증 코드 */
+.signupContainer .authNumContainer {
+  display: none;
+  align-items: center;
+  margin-bottom: 1px;
+}
+
+.signupContainer .authNum {
+  border-radius: 15px;
+  background-color: #c0deeb80;
+  border: 1px solid #4287a445;
+}
+
+.signupContainer .authNum:hover {
+  border-color: #007bff;
+  background-color: #e0f7ff;
+}
+
+.signupContainer .authNumButton {
+  border: none;
+  color: white;
+  border-radius: 10px;
+  background-color: #675C58;
+  cursor: pointer;
+}
+
+.signupContainer .authNumButton:hover {
+  background-color: #8d7f7a;
+}
+
+.signupContainer .authInput {
+  border-radius: 15px;
+  box-sizing: border-box;
+  background-color: #c0deeb80;
+  border: 1px solid #4287a445;
+}
+
+.signupContainer .authInput:hover {
+  border-color: #007bff;
+  background-color: #e0f7ff;
+}
+
+.signupContainer .authInput::placeholder {
+  color: #817f7f;
+  font-weight: bold;
+}
+
+/* 아이디 중복 확인 */
+.signupContainer .message {
+  color: red;
+  height: 10px;
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+/* 가입 버튼 */
+.signupContainer .submitBtn {
+  width: 500px;
+  margin: 20px 0;
+}
