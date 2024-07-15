@@ -32,8 +32,9 @@ const RecordBox = styled.div`
 const BtnBorder = styled.button`
   width: 60px;
   height: 60px;
+  border: none;
   border-radius: 50%;
-  background-color: white;
+  background-color: rgb(255, 255, 255, 0.5);
   cursor: pointer;
 `;
 
@@ -303,7 +304,6 @@ const Report = () => {
             backgroundColor="#d9d9d9" />
           </div>
         </RecordBox>
-        {ttsFinished && (
           <div style={{ display: "flex", justifyContent: "center" }}>
             {!recording ? 
               <BtnBorder onClick={startRecording} disabled={recording}>
@@ -314,7 +314,6 @@ const Report = () => {
               </BtnBorder>
             }
           </div>
-        )}
         <p style={{color: 'white'}}>{result}</p>
         {ttsText && (
           <p style={{color: 'white', marginTop: '20px'}}>TTS: {ttsText}</p>
