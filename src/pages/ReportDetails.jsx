@@ -19,7 +19,7 @@ const mockData = {
 
 const ReportDetailsContainer = styled.div`
   margin: 20px;
-  background-color: white;
+  background-color: #f5f5f5c0;
   padding: 20px;
   border-radius: 10px;
 `;
