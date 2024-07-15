@@ -171,11 +171,11 @@
 }
 
 /* 아이디 중복 확인 */
-.signupContainer .message {
-  color: red;
+.signupContainer .msg {
   height: 10px;
   margin-top: 5px;
   font-size: 10px;
+  font-weight: 900;
 }
 
 /* 가입 버튼 */
