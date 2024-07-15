@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FullContainer } from '../../components/CommonStyles';
+import { GoBackBtn } from '../../components/CommonStyles';
 import './FindID.css';
 
 function FindID() {
@@ -37,6 +38,7 @@ function FindID() {
   return (
     <FullContainer>
       <div className='findid-bg'>
+      <GoBackBtn />
         <div className='backContainer'>
           <h2 className='title'>아이디 찾기</h2>
           <div className='formContainer'>
