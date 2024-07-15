@@ -31,7 +31,7 @@ function App() {
           <Route path='/report-details' element={<ReportDetails />}></Route>
           {/* findID */}
           {/* <Route path="/" element={<Navigate to="/find-id" />} /> */}
-          <Route path="/find-id" element={<FindID />} />
+          <Route path="/findid" element={<FindID />} />
           <Route path="/find-id-2" element={<FindID_2 />} />
         </Routes>
       </BrowserRouter>

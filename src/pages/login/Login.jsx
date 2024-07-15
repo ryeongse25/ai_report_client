@@ -30,7 +30,7 @@ const Login = () => {
 
   return (
     <FullContainer>
-      <div className="app-container">
+      <div className="login-container">
           <video autoPlay muted loop id="background-video">
             <source src="/videos/firetruck.mp4" type="video/mp4" />
             Your browser does not support the video tag.

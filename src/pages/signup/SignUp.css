@@ -1,14 +1,14 @@
 .signupContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: #5a4b44;
   font-family: Arial, sans-serif;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-  
-#background-video {
+
+.signupContainer #background-video {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,190 +17,171 @@
   z-index: -1;
   object-fit: cover;
 }
-  
-.backContainer {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #d9d9d990;
-  padding: 20px;
-  border-radius: 30px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+.signupContainer .backContainer {
   width: 750px;
   height: 450px;
+  border-radius: 30px;
+  background-color: #d9d9d990;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-}
-  
-.formWrapper {
-  width: 100%;
-  display: flex;
   flex-direction: column;
+}
+
+.signupContainer form {
+  width: 500px;
+  padding: 20px;
+  border-radius: 30px;
+  background-color: #d9d9d990;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signupContainer form > div {
+  width: 100%;
+}
+
+/* 회원가입 문구 */
+.signupContainer h4 {
+  margin: 20px 0;
+  font-size: 28px;
+  color: #675C58;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 이름 아이디 */
+.signupContainer .inlineFieldContainer {
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.signupContainer .inlineFieldContainer > div {
+  width: 50%;
+}
+
+/* label css */
+.signupContainer label {
+  padding: 2px 6px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 10px;
+  color: #ffffffd2;
+  background-color: #675c58d2;
+}
+
+/* input css */
+.signupContainer input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #c0deeb80;
+  border: 1px solid #4287a445;
+}
+
+.signupContainer input:hover {
+  border-color: #007bff;
+  background-color: #e0f7ff;
+}
+
+.signupContainer input::placeholder {
+  color: #817f7f;
+  font-weight: bold;
+}
+
+/* button css */
+.signupContainer button {
+  padding: 10px;
+  color: white;
+  font-size: 17px;
+  border: none;
+  font-weight: bold;
+  text-align: center;
+  background-color: #675C58;
+  cursor: pointer;
+}
+
+.signupContainer button:hover {
+  background-color: #8d7f7a;
+}
+
+/* email section */
+.signupContainer .emailContainer {
+  gap: 10px;
+  height: 50px;
+  display: flex;
   align-items: center;
 }
-  
-.signupContainer .formContainer {
-  background-color: #d9d9d990;
-  padding: 60px 40px 15px 40px;
-  border-radius: 30px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
+
+.signupContainer .emailContainer input {
+  width: 70%;
+  height: 40px;
 }
-  
-  .title {
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #675C58;
-    width: 100%; 
-    display: flex; 
-    justify-content: center; 
-    margin-top: -30px; 
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .fieldContainer {
-    position: relative;
-    margin-bottom: 30px;
-  }
-  
-  .inlineFieldContainer {
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
-  }
-  
-  .label {
-    position: absolute;
-    top: -18px;
-    left: 3.5px;
-    background-color: #675c58d2;
-    padding: 0 5px;
-    font-size: 13px;
-    font-weight: bold;
-    border-radius: 10px;
-    color: #ffffffd2;
-  }
-  
-  .input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 15px;
-    box-sizing: border-box;
-    background-color: #c0deeb80;
-    border: 1px solid #4287a445;
-  }
-  
-  .input:hover {
-    border-color: #007bff;
-    background-color: #e0f7ff;
-  }
-  
-  .input::placeholder {
-    color: #817f7f;
-    font-weight: bold;
-  }
-  
-  .button {
-    width: 480px;
-    background-color: #675C58;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 14px;
-    font-size: 17px;
-    font-weight: bold;
-  }
-  
-  .button:hover {
-    background-color: #8d7f7a;
-  }
 
-  .authNumContainer {
-    display: none;
-    align-items: center;
-    margin-bottom: 1px;
-  }
+.signupContainer .emailContainer button {
+  flex: 1;
+  height: 40px;
+}
 
-  .authNum {
-    flex-grow: 1;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 15px;
-    box-sizing: border-box;
-    background-color: #c0deeb80;
-    border: 1px solid #4287a445;
-  }
+/* 인증 코드 */
+.signupContainer .authNumContainer {
+  display: none;
+  align-items: center;
+  margin-bottom: 1px;
+}
 
-  .authNum:hover {
-    border-color: #007bff;
-    background-color: #e0f7ff;
-  }
+.signupContainer .authNum {
+  border-radius: 15px;
+  background-color: #c0deeb80;
+  border: 1px solid #4287a445;
+}
 
-  .authNumButton {
-    background-color: #675C58;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  
-  .authNumButton:hover {
-    background-color: #8d7f7a;
-  }
-  
-  .authButtonContainer {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1px;
-  }
-  
-  .authInput {
-    flex-grow: 1;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 15px;
-    box-sizing: border-box;
-    background-color: #c0deeb80;
-    border: 1px solid #4287a445;
-  }
-  
-  .authInput:hover {
-    border-color: #007bff;
-    background-color: #e0f7ff;
-  }
-  
-  .authInput::placeholder {
-    color: #817f7f;
-    font-weight: bold;
-  }
-  
-  .authButton {
-    background-color: #675C58;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  
-  .authButton:hover {
-    background-color: #8d7f7a;
-  }
+.signupContainer .authNum:hover {
+  border-color: #007bff;
+  background-color: #e0f7ff;
+}
 
-  .message {
-    margin-top: 5px;
-    font-size: 10px;
-    color: red;
-  }
-  
+.signupContainer .authNumButton {
+  border: none;
+  color: white;
+  border-radius: 10px;
+  background-color: #675C58;
+  cursor: pointer;
+}
+
+.signupContainer .authNumButton:hover {
+  background-color: #8d7f7a;
+}
+
+.signupContainer .authInput {
+  border-radius: 15px;
+  box-sizing: border-box;
+  background-color: #c0deeb80;
+  border: 1px solid #4287a445;
+}
+
+.signupContainer .authInput:hover {
+  border-color: #007bff;
+  background-color: #e0f7ff;
+}
+
+.signupContainer .authInput::placeholder {
+  color: #817f7f;
+  font-weight: bold;
+}
+
+/* 아이디 중복 확인 */
+.signupContainer .message {
+  color: red;
+  height: 10px;
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+/* 가입 버튼 */
+.signupContainer .submitBtn {
+  width: 500px;
+  margin: 20px 0;
+}
