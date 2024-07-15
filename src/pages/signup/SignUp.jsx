@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GoBackBtn } from '../../components/CommonStyles';
+import { FullContainer, GoBackBtn } from '../../components/CommonStyles';
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ function Signup() {
   const [name, setName] = useState('');
   const [idMessage, setIdMessage] = useState('');
   const [email, setEmail] = useState('');
-  const [authNumVisible, setAuthNumVisible] = useState(false);
+  const [authNumVisible, setAuthNumVisible] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [authNum, setAuthNum] = useState('');
 
@@ -174,67 +174,68 @@ function Signup() {
   };
 
   return (
-    <div className="signupContainer">
-      <video autoPlay muted loop id="background-video">
-        <source src="/videos/firetruck.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <GoBackBtn />
-      <div className="backContainer">
-        <div className="formWrapper">
-          <div className="title">회원가입</div>
-          <div className="formContainer">
-            <form className="form" onSubmit={handleSubmit}>
-              <div className="inlineFieldContainer">
-                <div className="fieldContainer">
-                  <label className="label" htmlFor="name">name</label>
-                  <input className="input" type="text" id="name" placeholder="이름" value={name} onChange={handleNameChange} required />
-                </div>
-                <div className="fieldContainer">
-                  <label className="label" htmlFor="id">id</label>
-                  <input 
-                    className="input" 
-                    type="text" 
-                    id="id" 
-                    placeholder="아이디"
-                    onChange={handleIdChange} 
-                    required 
-                  />
-                  <div className='message'>{idMessage}</div>
-                </div>
-              </div>
-              <div className="fieldContainer">
-                <label className="label" htmlFor="password">pw</label>
-                <input className="input" type="password" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} required />
-                <input className="input" type="password" id="confirm-password" placeholder="비밀번호 재확인" value={confirmPassword} onChange={handleConfirmPasswordChange} required />
-              </div>
-              <div className="fieldContainer">
-                <label className="label" htmlFor="email">e-mail</label>
-                <div className="authButtonContainer">
-                  <input 
-                    className="authInput" 
-                    type="text" 
-                    id="email" 
-                    placeholder="이메일" 
-                    onChange={handleEmailChange} 
-                    required 
-                  />
-                  <button type="button" className="authButton" onClick={handleAuthButtonClick}>인증</button>
-                </div>
-                {authNumVisible && (
-                  <div className="authNumContainer">
-                    <input className="authNum" type="text" id="text" placeholder="인증번호" value={authNum} onChange={handleAuthNumChange} required />
-                    <button type="button" className="authNumButton" onClick={handleAuthNumCheck}>확인</button>
+    <FullContainer>
+      <div className="signupContainer">
+        <video autoPlay muted loop id="background-video">
+          <source src="/videos/firetruck.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <GoBackBtn />
+        <div className="backContainer">
+          <h4>회원가입</h4>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <div className="inlineFieldContainer">
+                  <div className="fieldContainer">
+                    <p><label htmlFor="name">name</label></p>
+                    <input id="name" placeholder="이름" value={name} onChange={handleNameChange} required />
                   </div>
-                )}
+                  <div className="fieldContainer">
+                    <p><label htmlFor="id">id</label></p>
+                    <input 
+                      id="id" 
+                      placeholder="아이디"
+                      onChange={handleIdChange} 
+                      required 
+                    />
+                    <div className='message'>{idMessage}</div>
+                  </div>
+                </div>
+                <div>
+                  <div className="fieldContainer">
+                    <label htmlFor="password">pw</label>
+                    <input type="password" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} required />
+                    <input type="password" id="confirm-password" placeholder="비밀번호 재확인" value={confirmPassword} onChange={handleConfirmPasswordChange} required />
+                  </div>
+                </div>
+                <div>
+                  <div style={{paddingTop: '10px'}}>
+                    <label htmlFor="email">e-mail</label>
+                    <div class='emailContainer'>
+                      <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="이메일" 
+                        onChange={handleEmailChange} 
+                        required 
+                      />
+                      <button type="button" className="authButton" onClick={handleAuthButtonClick}>인증</button>
+                    </div>
+                  </div>
+                  {authNumVisible && (
+                    <div className="authNumContainer">
+                      <input className="authNum" type="text" id="text" placeholder="인증번호" value={authNum} onChange={handleAuthNumChange} required />
+                      <button type="button" className="authNumButton" onClick={handleAuthNumCheck}>확인</button>
+                    </div>
+                  )}
+                </div>
               </div>
             </form>
-          </div>
-          <button type="submit" className="button">가입하기</button>
+          <button type="submit" className="submitBtn">가입하기</button>
         </div>
       </div>
-    </div>
-  );
+    </FullContainer>
+  )
 }
 
 export default Signup;
