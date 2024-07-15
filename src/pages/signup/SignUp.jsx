@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { GoBackBtn } from '../../components/CommonStyles';
+
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import './SignUp.css';
@@ -177,6 +179,7 @@ function Signup() {
         <source src="/videos/firetruck.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      <GoBackBtn />
       <div className="backContainer">
         <div className="formWrapper">
           <div className="title">회원가입</div>
