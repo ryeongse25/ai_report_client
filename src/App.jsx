@@ -11,6 +11,7 @@ import Statspage from './pages/Statspage';
 import ReportDetails from './pages/ReportDetails';
 import FindID from './pages/findID/FindID';
 import FindID_2 from './pages/findID/FindID_2';
+import SignUp from './SignUp';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path='/report2' element={<Report2 />} />
           <Route path='/login' element={<Login />} />
           {/* <Route path='/dashboard' element={<Dashboard />} /> */}
-          <Route path='/signup' />
+          <Route path='/signup' element={<SignUp />} />
           <Route path="/notification" element={<Notification />} />
           <Route path='/notification/write' element={<Write />} />
           <Route path="/statspage" element={<Statspage />} />
