@@ -58,7 +58,7 @@ const Square = styled.div`
 `;
 
 const Report2 = () => {
-  const [result, setResult] = useState('stt');
+  const [sttText, setSttText] = useState('');
   const [ttsText, setTtsText] = useState('');
   const [recording, setRecording] = useState(false);
   const [ttsFinished, setTtsFinished] = useState(false); // TTS 완료 여부 상태 추가
@@ -70,6 +70,7 @@ const Report2 = () => {
     .then((res) => {
       setRecording(true);
       console.log(res);
+      recognitionRef.current.start();
     })
     .catch((error) => console.error(error))
   }
@@ -79,6 +80,7 @@ const Report2 = () => {
     .then((res) => {
       setRecording(false);
       console.log(res);
+      recognitionRef.current.stop();
     })
     .catch((error) => console.error(error))
   }
@@ -149,7 +151,7 @@ return (
               </BtnBorder>
             }
           </div>
-        <p style={{color: 'white'}}>{result}</p>
+        <p style={{color: 'white'}}>{sttText}</p>
         {ttsText && (
           <p style={{color: 'white', marginTop: '20px'}}>TTS: {ttsText}</p>
         )}
