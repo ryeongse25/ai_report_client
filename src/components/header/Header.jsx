@@ -53,7 +53,7 @@ const Header = () => {
               onClick={() => navigateTo('/')}  
             />
             <Tab onClick={() => navigateTo('/Main')}>대시보드</Tab>
-            <Tab onClick={() => navigateTo('/Statspage')}>신고현황</Tab>
+            <Tab onClick={() => navigateTo('/report-details')}>신고현황</Tab>
             <Tab onClick={() => navigateTo('/notification')}>공지사항</Tab>
           </NavContainer>
         </div>

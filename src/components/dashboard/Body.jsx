@@ -91,9 +91,9 @@ const Body = ({ category }) => {
           <UserComponent />
         </UserInfoContainer>
         <ReportContainer>
-          <h2>신고 내역</h2>
-          <p>신고 내역</p>
-          <Button onClick={() => navigate('/report-details')}>이동하기</Button>
+          <h2>공지 사항</h2>
+          <p>공지 사항</p>
+          <Button onClick={() => navigate('/notification')}>이동하기</Button>
         </ReportContainer>
         <StatsContainer>
           {/* <Chart /> */}

@@ -8,8 +8,8 @@ import Header from '../components/header/Header';
 // 임의의 신고 내역 데이터
 const mockData = {
   "2024-07-01": [
-    { id: 1, report: "신고 내역 1", detail: "상세 내용 1" },
-    { id: 2, report: "신고 내역 2", detail: "상세 내용 2" },
+    { id: 1, report: "7월 1일 세계 멸망", detail: "무서워" },
+    { id: 2, report: "운석 충돌", detail: "안녕히가세요" },
   ],
   "2024-07-02": [
     { id: 1, report: "신고 내역 3", detail: "상세 내용 3" },
