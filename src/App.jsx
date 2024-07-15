@@ -10,7 +10,6 @@ import Write from "./pages/notification/Write";
 import Statspage from './pages/Statspage';
 import ReportDetails from './pages/ReportDetails';
 import FindID from './pages/findID/FindID';
-import FindID_2 from './pages/findID/FindID_2';
 import SignUp from './pages/signup/SignUp';
 
 function App() {
@@ -31,8 +30,7 @@ function App() {
           <Route path='/report-details' element={<ReportDetails />}></Route>
           {/* findID */}
           {/* <Route path="/" element={<Navigate to="/find-id" />} /> */}
-          <Route path="/findid" element={<FindID />} />
-          <Route path="/find-id-2" element={<FindID_2 />} />
+          <Route path="/find-id" element={<FindID />} />
         </Routes>
       </BrowserRouter>
     </div>
