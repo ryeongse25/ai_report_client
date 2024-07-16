@@ -1,9 +1,13 @@
 import styled from 'styled-components';
-import { Container } from "../CommonStyles";
-import CalendarComponent from './CalendarComponent';
-import UserComponent from "./UserComponent";
-// import Chart from "./chart";
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+import { getUser } from '../../apis/user';
+
+// import Chart from "./chart";
+import { Container } from "../CommonStyles";
+import UserComponent from "./UserComponent";
+import CalendarComponent from './CalendarComponent';
 
 const BodyContainer = styled.div`
   position: relative;
@@ -78,8 +82,17 @@ const Button = styled.button`
 `;
 
 
-const Body = ({ category }) => {
+const Body = () => {
   const navigate = useNavigate();
+
+  const [name, setName] = useState('')
+
+  useEffect(() => {
+    getUser().then((res) => {
+      if (res) setName(res.name);
+      else navigate('/login');
+    })
+  }, [])
 
   return (
     <Container>
@@ -88,7 +101,7 @@ const Body = ({ category }) => {
           <CalendarComponent />
         </CalendarWrapper>
         <UserInfoContainer>
-          <UserComponent />
+          <UserComponent name={name}/>
         </UserInfoContainer>
         <ReportContainer>
           <h2>공지 사항</h2>

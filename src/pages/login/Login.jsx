@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 import './Login.css'; 
 import { login } from '../../apis/user';
 import { FullContainer } from '../../components/CommonStyles';
