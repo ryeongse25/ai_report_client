@@ -29,6 +29,7 @@ const Tab = styled.div`
     color: white;
   }
 `
+
 const Logo = styled.img`
   cursor: pointer;
   width: 80px;

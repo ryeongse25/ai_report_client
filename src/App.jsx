@@ -4,13 +4,13 @@ import Main from "./pages/Main";
 import Report from "./pages/Report";
 import Report2 from "./pages/Report2";
 import Login from "./pages/login/Login";
-import Dashboard from "./pages/Dashboard";
 import Notification from './pages/notification/Notification';
 import Write from "./pages/notification/Write";
 import Statspage from './pages/Statspage';
 import ReportDetails from './pages/ReportDetails';
 import FindID from './pages/findID/FindID';
 import SignUp from './pages/signup/SignUp';
+import ChangePW from './pages/changePW/changePW';
 
 function App() {
   return (
@@ -22,15 +22,13 @@ function App() {
           <Route path='/report' element={<Report />} />
           <Route path='/report2' element={<Report2 />} />
           <Route path='/login' element={<Login />} />
-          {/* <Route path='/dashboard' element={<Dashboard />} /> */}
           <Route path='/signup' element={<SignUp />} />
           <Route path="/notification" element={<Notification />} />
           <Route path='/notification/write' element={<Write />} />
           <Route path="/statspage" element={<Statspage />} />
           <Route path='/report-details' element={<ReportDetails />}></Route>
-          {/* findID */}
-          {/* <Route path="/" element={<Navigate to="/find-id" />} /> */}
           <Route path="/findid" element={<FindID />} />
+          <Route path="/changepw" element={<ChangePW />} />
         </Routes>
       </BrowserRouter>
     </div>
