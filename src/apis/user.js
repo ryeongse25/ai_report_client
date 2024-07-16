@@ -106,3 +106,25 @@ export const signup = (id, name, email, password) => {
     console.error('회원가입:', error);
   })
 }
+
+// 유저 정보 가져오기
+export const getUser = async () => {
+  const access = localStorage.getItem('access');
+
+  try {
+    const res = await axios.post(SERVER_URL + 'userJWT/', {}, {
+      headers: {
+        Authorization: access
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// 로그아웃
+export const logout = () => {
+  localStorage.removeItem('access');
+  window.location.href = '/';
+}

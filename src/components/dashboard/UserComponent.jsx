@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../apis/user';
 
 const UserComponentContainer = styled.div`
   display: flex;
@@ -60,21 +61,21 @@ const LogoutButton = styled.button`
   }
 `;
 
-const UserComponent = () => {
+const UserComponent = ({name}) => {
     const navigate = useNavigate();
 
   return (
     <UserComponentContainer>
       <div style={{display: 'flex', alignItems: 'center'}}>
         <div style={{width: '180px'}}>
-          <UserName>이름</UserName> 
+          <UserName>{name}</UserName> 
           <CenterName>분당 119 안전센터</CenterName> 
         </div>
         <img src="images\userIcon.png" alt="User Icon" width="90" height="90" />
       </div>
       <ButtonGroupContainer>
         <EditButton>정보수정</EditButton>
-        <LogoutButton onClick={() => navigate('/')}>로그아웃</LogoutButton>
+        <LogoutButton onClick={logout}>로그아웃</LogoutButton>
       </ButtonGroupContainer>
     </UserComponentContainer>
   );
