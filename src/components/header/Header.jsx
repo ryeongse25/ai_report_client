@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Container, Image } from '../CommonStyles';
-import { changeLink } from '../../utils/utils';
+import { useNavigate } from 'react-router-dom';
 
 const CustomHeader = styled.header`
   height: 80px;
@@ -36,6 +36,8 @@ const Logo = styled.img`
 `;
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <CustomHeader>
       <Container>
@@ -47,11 +49,11 @@ const Header = () => {
             <Logo 
               src={`${process.env.PUBLIC_URL}/images/home.png`}  
               alt="Home Button"
-              onClick={() => changeLink('/')}  
+              onClick={() => navigate('/')}  
             />
-            <Tab onClick={() => changeLink('/main')}>대시보드</Tab>
-            <Tab onClick={() => changeLink('/report-details')}>신고현황</Tab>
-            <Tab onClick={() => changeLink('/notification')}>공지사항</Tab>
+            <Tab onClick={() => navigate('/main')}>대시보드</Tab>
+            <Tab onClick={() => navigate('/report-details')}>신고현황</Tab>
+            <Tab onClick={() => navigate('/notification')}>공지사항</Tab>
           </NavContainer>
         </div>
       </Container>

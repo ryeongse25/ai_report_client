@@ -10,14 +10,14 @@ export const errorWithoutBtn = (title, text) => {
   });
 }
 
-export const successWithoutBtn = (title, text) => {
+export const successWithoutBtn = (title, text, cb) => {
   Swal.fire({
     icon: 'success',
     title: title,
     text: text,
     showConfirmButton: false,
     timer: 2000
-  })
+  }).then(() => cb())
 }
 
 export const warningWithoutBtn = (title, text) => {
