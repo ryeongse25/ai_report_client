@@ -53,7 +53,7 @@ export const emailCheck = (email) => {
 
 // 인증코드 발송
 export const sendCode = (email) => {
-  return axios.post(SERVER_URL + 'sendemail/', {email}, {
+  return axios.post(SERVER_URL + 'signupmail/', {email}, {
     headers: {
       'X-CSRFToken': csrftoken
     }
@@ -70,18 +70,39 @@ export const sendCode = (email) => {
 
 // 인증코드 확인
 export const checkCode = (email, code) => {
-  axios.post(SERVER_URL + 'checksignupcode/', {email, code}, {
+  return axios.post(SERVER_URL + 'emailverify/', {email, code}, {
     headers: {
       'X-CSRFToken': csrftoken
     }
   })
   .then((res) => {
-    console.log(res.data);
+    const msg = res.data.message;
+    
+    if (msg == 'SUCCESS') return true;
   })
   .catch((error) => {
     const msg = error.response.data.message
     
     if (msg == 'INVALID_CODE') errorWithoutBtn('인증번호가 정확하지 않습니다.');
     console.log(error);
+  })
+}
+
+export const signup = (id, name, email, password) => {
+  return axios.post(SERVER_URL + 'signup/', { name, id, password, email }, {
+    headers: {
+      'X-CSRFToken': csrftoken
+    }
+  })
+  .then((res) => {
+    const msg = res.data.message;
+    if (msg) return true;
+  })
+  .catch((error) => {
+    const code = error.response.data.errorCode;
+    if (code == 0) errorWithoutBtn('비밀번호는 8글자 이상이어야 합니다.', '대문자, 숫자, 특수기호를 최소 1개 이상 포함해주세요.');
+    else if (code == 1) errorWithoutBtn('이미 가입된 이메일입니다.');
+
+    console.error('회원가입:', error);
   })
 }
