@@ -1,31 +1,17 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { FullContainer } from '../../components/CommonStyles';
+import { useNavigate } from 'react-router-dom';
 
-import { getCookie } from '../../utils/cookie';
-import { changeLink } from '../../utils/utils';
 
 import './Login.css'; 
+import { login } from '../../apis/user';
+import { FullContainer } from '../../components/CommonStyles';
 
 const Login = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
-  // 로그인 버튼 클릭
-  const onClick = (e) => { 
-    const csrftoken = getCookie('csrftoken');
-    axios.post('http://localhost:8000/account/signin/', {id, password}, {
-      headers: {
-        'X-CSRFToken': csrftoken
-      }
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
     // csrf token 가져오기
@@ -61,12 +47,12 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="PW"
                     />
-                <button type="button" onClick={onClick}>로그인</button>
+                <button type="button" onClick={() => login(id, password)}>로그인</button>
               </form>
               <div className="links">
-                <button className="link-button" onClick={() => changeLink('/signup')}>회원가입</button>
-                <button className="link-button" onClick={() => changeLink('/findid')}>ID 찾기</button>
-                <button className="link-button" onClick={() => changeLink('/changepw')}>PW 변경</button>
+                <button className="link-button" onClick={() => navigate('/signup')}>회원가입</button>
+                <button className="link-button" onClick={() => navigate('/findid')}>ID 찾기</button>
+                <button className="link-button" onClick={() => navigate('/changepw')}>PW 변경</button>
               </div>
           </div>
         </div>

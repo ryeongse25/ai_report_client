@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { changeLink } from '../utils/utils';
+import { useNavigate } from 'react-router-dom';
 
 export const FullContainer = styled.div`
   height: 100vh;
@@ -22,6 +22,7 @@ export const Image = styled.img`
 `
 
 export const GoBackBtn = () => {
+  const navigate = useNavigate();
 
   const style = {
     top: '15px',
@@ -32,7 +33,7 @@ export const GoBackBtn = () => {
   }
 
   return (
-    <div style={style} onClick={() => changeLink('/')}>
+    <div style={style} onClick={() => navigate('/')}>
       <img
         src={`${process.env.PUBLIC_URL}/images/home.png`} // 이미지 경로
         alt="Home"

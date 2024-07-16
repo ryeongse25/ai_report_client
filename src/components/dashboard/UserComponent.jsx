@@ -14,14 +14,14 @@ const UserComponentContainer = styled.div`
   height: 100%;
 `;
 
-const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
+const UserName = styled.h3`
+  font-size: 20px;
+  padding: 0 10px;
 `;
 
-const UserName = styled.h2`
-  font-size: 20px;
-  margin: 0;
+const CenterName = styled.h3`
+  color: grey;
+  font-size: 18px;
   padding: 0 10px;
 `;
 
@@ -62,20 +62,19 @@ const LogoutButton = styled.button`
 
 const UserComponent = () => {
     const navigate = useNavigate();
-  
-    const handleLogout = () => {
-      navigate('/');
-    };
 
   return (
     <UserComponentContainer>
-      <UserInfo>
-        <UserName>분당 119 안전센터</UserName> 
+      <div style={{display: 'flex', alignItems: 'center'}}>
+        <div style={{width: '180px'}}>
+          <UserName>이름</UserName> 
+          <CenterName>분당 119 안전센터</CenterName> 
+        </div>
         <img src="images\userIcon.png" alt="User Icon" width="90" height="90" />
-      </UserInfo>
+      </div>
       <ButtonGroupContainer>
         <EditButton>정보수정</EditButton>
-        <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+        <LogoutButton onClick={() => navigate('/')}>로그아웃</LogoutButton>
       </ButtonGroupContainer>
     </UserComponentContainer>
   );
