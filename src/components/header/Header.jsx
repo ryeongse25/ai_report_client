@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Container, Image } from '../CommonStyles';
+import { changeLink } from '../../utils/utils';
 
 const CustomHeader = styled.header`
   height: 80px;
@@ -35,10 +36,6 @@ const Logo = styled.img`
 `;
 
 const Header = () => {
-  const navigateTo = (path) => {
-    window.location.href = path;
-  };
-
   return (
     <CustomHeader>
       <Container>
@@ -50,11 +47,11 @@ const Header = () => {
             <Logo 
               src={`${process.env.PUBLIC_URL}/images/home.png`}  
               alt="Home Button"
-              onClick={() => navigateTo('/')}  
+              onClick={() => changeLink('/')}  
             />
-            <Tab onClick={() => navigateTo('/Main')}>대시보드</Tab>
-            <Tab onClick={() => navigateTo('/report-details')}>신고현황</Tab>
-            <Tab onClick={() => navigateTo('/notification')}>공지사항</Tab>
+            <Tab onClick={() => changeLink('/main')}>대시보드</Tab>
+            <Tab onClick={() => changeLink('/report-details')}>신고현황</Tab>
+            <Tab onClick={() => changeLink('/notification')}>공지사항</Tab>
           </NavContainer>
         </div>
       </Container>
