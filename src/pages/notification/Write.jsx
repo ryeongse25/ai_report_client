@@ -1,13 +1,37 @@
-import { Container, FullContainer } from "../../components/CommonStyles";
+import { useState } from "react";
+import { cancelAlert } from "../../utils/swal";
+
 import Header from "../../components/header/Header";
 import Editor from "../../components/notification/Editor";
+import { Container } from "../../components/CommonStyles";
+import { writeNotification } from "../../apis/notification";
 
 const Write = () => {
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+
+  const onChangeTitle = (title) => {
+    setTitle(title);
+  }
+
+  const onChangeContent = (content) => {
+    setContent(content);
+  }
+
+  // 글쓰기 취소
+  const cancelWriting = () => {
+    cancelAlert('글 작성을 취소하시겠습니까?', '예 클릭시 작성 중인 내용이 사라지게 됩니다.', '예', '아니요')
+  }
+
   return <>
     <Header />
-    <div style={{minWidth: '1040px'}}>
+    <div style={{minWidth: '1040px', marginBottom: '50px'}}>
       <Container>
-        <Editor />
+        <Editor onChangeTitle={onChangeTitle} onChangeContent={onChangeContent} />
+        <div className='btns'>
+          <button onClick={cancelWriting}>취소</button>
+          <button onClick={() => writeNotification(title, content)}>글쓰기</button>
+        </div>
       </Container>
     </div>
   </>
