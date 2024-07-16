@@ -38,14 +38,11 @@ import {
 import 'ckeditor5/ckeditor5.css';
 import './Editor.css';
 
-const Editor = () => {
+const Editor = ({onChangeTitle, onChangeContent}) => {
   const editorContainerRef = useRef(null);
 	const editorRef = useRef(null);
-
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
-  const [content, setContent] = useState('')
 
-  console.log(content);
 	useEffect(() => {
 		setIsLayoutReady(true);
 
@@ -183,17 +180,15 @@ const Editor = () => {
 
   return (
     <div style={{marginTop: '50px'}}>
-      <textarea name="title" placeholder='제목을 입력해주세요.'></textarea>
+      <textarea placeholder='제목을 입력해주세요.' 
+        onChange={(e) => onChangeTitle(e.target.value)}>
+      </textarea>
       <div className="main-container">
         <div className="editor-container editor-container_classic-editor" ref={editorContainerRef}>
           <div className="editor-container__editor">
-            <div ref={editorRef}>{isLayoutReady && <CKEditor editor={ClassicEditor} config={editorConfig} onChange={(event, editor) => setContent(editor.getData())} />}</div>
+            <div ref={editorRef}>{isLayoutReady && <CKEditor editor={ClassicEditor} config={editorConfig} onChange={(event, editor) => onChangeContent(editor.getData())} />}</div>
           </div>
         </div>
-      </div>
-      <div className='btns'>
-        <button>취소</button>
-        <button>글쓰기</button>
       </div>
     </div>
 )}
