@@ -2,26 +2,16 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import React, { useState, useEffect } from 'react';
 import { FullContainer, GoBackBtn } from '../../components/CommonStyles';
+
+import { getCookie } from '../../utils/cookie';
+import { blockSpace } from '../../utils/keyboard';
+
 import './SignUp.css';
+import { errorWithoutBtn, successWithoutBtn, warningWithoutBtn } from '../../utils/swal';
 
 axios.defaults.withCredentials = true;
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-const getCookie = (name) => {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-      let cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-          let cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
-      }
-  }
-  return cookieValue;
-}
 
 function Signup() {
   const [id, setId] = useState('');
@@ -35,11 +25,6 @@ function Signup() {
   const [code, setCode] = useState('');
   const [confirmed, setConfirmed] = useState(false); // 이메일 인증 완료 여부
   const [authNumVisible, setAuthNumVisible] = useState(false);
-
-  // 스페이스바 막기
-  const onKeyDown = (e) => {
-    if (e.key === ' ') e.preventDefault();
-  }
 
   // email 인증번호 확인
   // const handleAuthNumCheck = async () => {
@@ -89,7 +74,12 @@ function Signup() {
 
   // 이메일 인증 버튼 클릭
   const onEmailClick = () => {
+    // 이메일 유효성 검사
+    // 코드 작성하기~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     const csrftoken = getCookie('csrftoken');
+    
+    // 이메일 중복 검사
     axios.post('http://localhost:8000/account/emailcheck/', {'email': email}, {
       headers: {
         'X-CSRFToken': csrftoken
@@ -97,14 +87,8 @@ function Signup() {
     })
     .then((res) => {
       // 이메일 중복 검사 성공
-      if (!res.data.valid) {
-        Swal.fire({
-          icon: 'error',
-          title: '이미 가입된 이메일입니다.',
-          showConfirmButton: false,
-          timer: 2000
-        });
-      } else {
+      if (!res.data.valid) errorWithoutBtn('이미 가입된 이메일입니다.');
+      else {
         // 이메일 인증코드 보내는 api 호출
         axios.post('http://localhost:8000/account/sendemail/', {'email': email}, {
           headers: {
@@ -114,30 +98,20 @@ function Signup() {
         .then((res) => {
           // 이메일 발송 성공
           console.log(res);
-          Swal.fire({
-            icon: 'success',
-            title: '인증번호가 발송되었습니다',
-            showConfirmButton: false,
-            timer: 2000
-          });
+          successWithoutBtn('인증번호가 발송되었습니다.');
           setAuthNumVisible(true);
         })
         .catch((error) => {
           // 이메일 발송 실패
           console.log(error);
-          Swal.fire({
-            icon: 'error',
-            title: '이메일 발송에 실패하였습니다.',
-            text: '잠시후 다시 시도해주세요.',
-            showConfirmButton: false,
-            timer: 2000
-          });
+          errorWithoutBtn('이메일 발송에 실패하였습니다.', '잠시후 다시 시도해주세요.');
         })
       }
     })
     .catch((error) => {
       // 이메일 중복 확인 실패
-      console.log(error)
+      console.log(error);
+      errorWithoutBtn('알 수 없는 오류가 발생하였습니다.', '잠시후 다시 시도해주세요.');
     })
   }
 
@@ -151,6 +125,7 @@ function Signup() {
     })
     .then((res) => {
       console.log(res.data)
+      setConfirmed(true);
     })
     .catch((error) => {
       console.log(error);
@@ -160,37 +135,20 @@ function Signup() {
   // 가입하기 버튼
   const handleSubmit = async () => {
     if (!name || !id || !password || !confirmPassword || !email) {
-      Swal.fire({
-        icon: 'warning',
-        title: '모든 정보를 입력해주세요',
-        showConfirmButton: false,
-        timer: 2000
-      });
+      warningWithoutBtn('모든 정보를 입력해주세요.');
       return;
     } else if (!confirmed) {
-      Swal.fire({
-        icon: 'warning',
-        title: '이메일 인증을 완료해주세요.',
-        showConfirmButton: false,
-        timer: 2000
-      });
+      warningWithoutBtn('이메일 인증을 완료해주세요.');
       return;
-    }
-
-    // 비밀번호 재확인
-    if (password !== confirmPassword) {
-      Swal.fire({
-        icon: 'error',
-        title: '비밀번호가 일치하지 않습니다',
-        showConfirmButton: true,
-        timer: 2000
-      });
+    } else if (password !== confirmPassword) {
+      errorWithoutBtn('비밀번호가 일치하지 않습니다.')
       return;
     }
 
     try {
-      const response = await axios.post('/', { name, id, password, email, code }); // api 주소
+      const response = await axios.post('/', { name, id, password, email, code });
       if (response.data.success) {
+        
         Swal.fire({
           icon: 'success',
           title: '회원가입에 성공했습니다',
@@ -215,6 +173,7 @@ function Signup() {
   };
 
   useEffect(() => {
+    // csrf token 가져오기
     axios.get('http://localhost:8000/account/signup/')
   }, [])
 
@@ -233,7 +192,11 @@ function Signup() {
                 <div className="inlineFieldContainer">
                   <div className="fieldContainer">
                     <p><label htmlFor="name">name</label></p>
-                    <input placeholder="이름" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={onKeyDown} required />
+                    <input placeholder="이름" 
+                      value={name} 
+                      onChange={(e) => setName(e.target.value)} 
+                      onKeyDown={blockSpace} 
+                    />
                   </div>
                   <div className="fieldContainer">
                     <p><label htmlFor="id">id</label></p>
@@ -241,8 +204,7 @@ function Signup() {
                       value={id}
                       placeholder="아이디"
                       onChange={onIdChange}
-                      onKeyDown={onKeyDown}
-                      required 
+                      onKeyDown={blockSpace}
                     />
                     <div className='msg' style={{color: idDuplicated ? 'red' : 'green'}}>
                       { id && (idDuplicated ? '이미 사용중인 아이디입니다.' : '사용 가능한 아이디입니다.')}
@@ -252,8 +214,18 @@ function Signup() {
                 <div>
                   <div className="fieldContainer">
                     <label htmlFor="password">pw</label>
-                    <input type="password" id="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={onKeyDown} required />
-                    <input type="password" id="confirm-password" placeholder="비밀번호 재확인" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onKeyDown={onKeyDown} required />
+                    <input type="password" 
+                      placeholder="비밀번호" 
+                      value={password} 
+                      onChange={(e) => setPassword(e.target.value)} 
+                      onKeyDown={blockSpace}
+                    />
+                    <input type="password" 
+                      placeholder="비밀번호 재확인" 
+                      value={confirmPassword} 
+                      onChange={(e) => setConfirmPassword(e.target.value)} 
+                      onKeyDown={blockSpace} 
+                    />
                   </div>
                 </div>
                 <div>
@@ -263,15 +235,19 @@ function Signup() {
                       <input
                         placeholder="이메일" 
                         onChange={(e) => setEmail(e.target.value)}
-                        onKeyDown={onKeyDown}
-                        required 
+                        onKeyDown={blockSpace}
                       />
                       <button type="button" onClick={onEmailClick}>인증</button>
                     </div>
                   </div>
                   {authNumVisible &&
                   <div className="authNumContainer">
-                    <input className='authNum' placeholder="인증번호" value={code} onChange={(e) => setCode(e.target.value)} required />
+                    <input className='authNum' 
+                      placeholder="인증번호" 
+                      value={code} 
+                      onChange={(e) => setCode(e.target.value)}
+                      onKeyDown={blockSpace}
+                    />
                     <button type="button" onClick={onClickAuthBtn}>확인</button>
                   </div>}
                 </div>

@@ -1,32 +1,36 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { FullContainer } from '../../components/CommonStyles';
+
+import { getCookie } from '../../utils/cookie';
+import { changeLink } from '../../utils/utils';
+
 import './Login.css'; 
 
 const Login = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      // API 호출 (fetch방식..?)
-      console.log('ID:', id);
-      console.log('Password:', password);
+  // 로그인 버튼 클릭
+  const onClick = (e) => { 
+    const csrftoken = getCookie('csrftoken');
+    axios.post('http://localhost:8000/account/signin/', {id, password}, {
+      headers: {
+        'X-CSRFToken': csrftoken
+      }
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   };
 
-  // 회원가입
-  const handleSignup = () => {
-      // 회원가입 로직
-  };
-
-  // 아이디 찾기
-  const handleFindId = () => {
-      // 아이디 찾기 로직
-  };
-
-  // 비밀번호 변경
-  const handleChangePassword = () => {
-      // 비밀번호 변경 로직
-  };
+  useEffect(() => {
+    // csrf token 가져오기
+    axios.get('http://localhost:8000/account/signup/')
+  }, [])
 
   return (
     <FullContainer>
@@ -37,18 +41,15 @@ const Login = () => {
           </video>
           <div className="container">
             <div className="image-section">
-                <img src="/images/1.jpg" alt="Logo" />
+              <img src="/images/1.jpg" alt="Logo" />
             </div>
             <div className="login-section">
               <div className="login-header">
                 <img src="/images/phone.png" alt="Login Icon" />
                 <span>로그인</span>
               </div>
-              <form onSubmit={handleSubmit}>
+              <form>
                 <input
-                    type="text"
-                    id="id"
-                    name="id"
                     value={id}
                     onChange={(e) => setId(e.target.value)}
                     placeholder="ID"
@@ -56,19 +57,16 @@ const Login = () => {
                     />
                 <input
                     type="password"
-                    id="pw"
-                    name="pw"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="PW"
-                    required
                     />
-                <button type="submit">로그인</button>
+                <button type="button" onClick={onClick}>로그인</button>
               </form>
               <div className="links">
-                <button className="link-button" onClick={handleSignup}>회원가입</button>
-                <button className="link-button" onClick={handleFindId}>ID 찾기</button>
-                <button className="link-button" onClick={handleChangePassword}>PW 변경</button>
+                <button className="link-button" onClick={() => changeLink('/signup')}>회원가입</button>
+                <button className="link-button" onClick={() => changeLink('/findid')}>ID 찾기</button>
+                <button className="link-button" onClick={() => changeLink('/changepw')}>PW 변경</button>
               </div>
           </div>
         </div>

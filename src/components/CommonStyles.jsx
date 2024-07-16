@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { changeLink } from '../utils/utils';
 
 export const FullContainer = styled.div`
   height: 100vh;
@@ -31,7 +32,7 @@ export const GoBackBtn = () => {
   }
 
   return (
-    <div style={style} onClick={() => window.location.href = '/'}>
+    <div style={style} onClick={() => changeLink('/')}>
       <img
         src={`${process.env.PUBLIC_URL}/images/home.png`} // 이미지 경로
         alt="Home"
