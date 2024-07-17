@@ -10,7 +10,7 @@ const ReportDetails = () => {
 
   useEffect(() => {
     const allReports = [
-      { id: 1, content: '신고 내용 1', address: '서울시 강남구', urgency: '높음' },
+      { id: 1, content: '신고 내용 1ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ', address: '서울시 강남구', urgency: '높음' },
       { id: 2, content: '신고 내용 2', address: '서울시 서초구', urgency: '중간' },
       { id: 3, content: '신고 내용 3', address: '서울시 종로구', urgency: '낮음' },
       { id: 4, content: '신고 내용 4', address: '서울시 강동구', urgency: '높음' },
@@ -32,17 +32,32 @@ const ReportDetails = () => {
         <div className='Details'>
           <h1>신고 상세 페이지</h1>
           <div className='detail-contents'>
-            <p>ID: {report.id}</p>
-            <p>주소: {report.address}</p>
-            <p>긴급도: {report.urgency}</p>
-            <p>내용: {report.content}</p>
+            <div className='detail-item'>
+              <label>ID</label>
+              <span>{report.id}</span>
+            </div>
+            <div className='detail-item'>
+              <label>주소</label>
+              <span>{report.address}</span>
+            </div>
+            <div className='detail-item'>
+              <label>긴급도</label>
+              <span>{report.urgency}</span>
+            </div>
+            <div className='detail-item'>
+              <label>내용</label>
+              <span>{report.content}</span>
+            </div>
           </div>
-          <img 
-            src="/images/list.png" 
-            alt="목록" 
-            className="toList-button" 
-            onClick={() => navigate('/callreport')}  
-          />
+            <div className="list-button-container">
+            <img 
+              src="/images/list.png" 
+              alt="목록" 
+              className="toList-button" 
+              onClick={() => navigate('/callreport')}  
+            />
+            <p>목록으로</p>
+          </div>
         </div>
     </div>
   );
