@@ -7,6 +7,7 @@ import { ReactMic } from 'react-mic';
 import styled from 'styled-components';
 import { FullContainer, GoBackBtn } from '../components/CommonStyles';
 
+const SERVER_URL = 'http://localhost:8000/stt/';
 const socket = io('http://localhost:5000', {
   transports: ['websocket']
 });
@@ -66,7 +67,7 @@ const Report2 = () => {
   const recognitionRef = useRef(null);
 
   const startRecording = () => {
-    axios.post('http://localhost:8000/stt/start_recording/')
+    axios.post(SERVER_URL + 'start_recording/')
     .then((res) => {
       setRecording(true);
       console.log(res);
@@ -76,7 +77,7 @@ const Report2 = () => {
   }
 
   const stopRecording = () => {
-    axios.post('http://localhost:8000/stt/stop_recording/')
+    axios.post(SERVER_URL + 'stop_recording/')
     .then((res) => {
       setRecording(false);
       console.log(res);

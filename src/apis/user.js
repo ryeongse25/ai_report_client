@@ -128,3 +128,35 @@ export const logout = () => {
   localStorage.removeItem('access');
   window.location.href = '/';
 }
+
+// 아이디 찾기 : 이메일 인증코드 발송
+export const findid = (email) => {
+  return axios.post(SERVER_URL + 'findid/', { email }, {
+    headers: {
+      'X-CSRFToken': csrftoken
+    }
+  })
+  .then((res) => {return res.data.valid ? true : false})
+  .catch((error) => {
+    const status = error.response.status;
+    if (status == 404) errorWithoutBtn('해당 이메일로 가입된 정보가 없습니다.');
+    console.error('아이디 찾기:', error);
+  })
+}
+
+// 아이디 찾기 : 인증코드 확인
+export const verifyid = (email, code) => {
+  return axios.post(SERVER_URL + 'verifyid/', { email, code }, {
+    headers: {
+      'X-CSRFToken': csrftoken
+    }
+  })
+  .then((res) => {
+    return res.data.id;
+  })
+  .catch((error) => {
+    const msg = error.response.data.message;
+    if (msg == 'INVALID_CODE') errorWithoutBtn('인증번호가 정확하지 않습니다.');
+    console.log(error);
+  })
+}
