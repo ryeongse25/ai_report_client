@@ -50,12 +50,11 @@
   width: 400px;
   height: 40px;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
 }
   
 .findid-bg .form label {
-  top: 467px;
+  top: 430px;
   position: absolute;
   padding: 2px 8px;
   font-size: 13px;
@@ -104,4 +103,21 @@
   height: 20px;
   font-size: 14px;
   margin-top: 5px;
+}
+
+.findid-bg .id-result {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+/* 로그인 페이지 이동 버튼 */
+.findid-bg .login {
+  padding: 5px 10px;
+  margin-top: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+  background-color: #675C58;
+  cursor: pointer;
 }
