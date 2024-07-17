@@ -11,6 +11,8 @@ import ReportDetails from './pages/ReportDetails';
 import FindID from './pages/findID/FindID';
 import SignUp from './pages/signup/SignUp';
 import ChangePW from './pages/changePW/changePW';
+import CallReport from './pages/callReport/CallReport'
+import ReportContent from './pages/callReport/ReportContent'
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path='/report-details' element={<ReportDetails />}></Route>
           <Route path="/findid" element={<FindID />} />
           <Route path="/changepw" element={<ChangePW />} />
+          <Route path='/callreport' element={<CallReport />} />
+          <Route path='/reportcontent/:id' element={<ReportContent />} />
         </Routes>
       </BrowserRouter>
     </div>
