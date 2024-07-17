@@ -17,17 +17,14 @@ function FindID() {
 
   // 인증 메일 발송 버튼
   const onSend = async () => {
-    if (!email) return;
-
-    // 이메일 유효성 검사
-    const res = isValidEmail(email);
-    if (!res) {
-      errorWithoutBtn('이메일 주소가 올바르지 않습니다.');
+    if (email == '') return;
+    if (!isValidEmail(email)) {
+      errorWithoutBtn('이메일 형식이 올바르지 않습니다.');
       return;
     }
 
-    const code = await findid(email);
-    if (code) {
+    const res = await findid(email);
+    if (res) {
       setIsCode(true);
       successWithoutBtn('인증번호가 발송되었습니다.', '5분 안에 인증번호를 입력해주세요.', () => {});
     }
