@@ -88,6 +88,7 @@ export const checkCode = (email, code) => {
   })
 }
 
+// 회원가입
 export const signup = (id, name, email, password) => {
   return axios.post(SERVER_URL + 'signup/', { name, id, password, email }, {
     headers: {
@@ -154,6 +155,36 @@ export const verifyid = (email, code) => {
   .then((res) => {
     return res.data.id;
   })
+  .catch((error) => {
+    const msg = error.response.data.message;
+    if (msg == 'INVALID_CODE') errorWithoutBtn('인증번호가 정확하지 않습니다.');
+    console.log(error);
+  })
+}
+
+// 비밀번호 변경 : 인증코드 발송
+export const changepw = (id, email) => {
+  return axios.post(SERVER_URL + 'findpw/', { id, email }, {
+    headers: {
+      'X-CSRFToken': csrftoken
+    }
+  })
+  .then((res) => {return res.data.valid ? true : false})
+  .catch((error) => {
+    const status = error.response.status;
+    if (status == 404) errorWithoutBtn('아이디나 이메일 정보가 정확하지 않습니다.');
+    console.error('비밀번호 변경:', error);
+  })
+}
+
+// 비밀번호 변경 : 인증코드 확인
+export const verifypw = (id, email, code) => {
+  return axios.post(SERVER_URL + 'verifypw/', { id, email, code }, {
+    headers: {
+      'X-CSRFToken': csrftoken
+    }
+  })
+  .then((res) => {return res.data.message == 'SUCCESS' ? true : false})
   .catch((error) => {
     const msg = error.response.data.message;
     if (msg == 'INVALID_CODE') errorWithoutBtn('인증번호가 정확하지 않습니다.');

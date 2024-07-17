@@ -1,44 +1,47 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FullContainer } from '../../components/CommonStyles';
-import { GoBackBtn } from '../../components/CommonStyles';
+
+// js
+import { changepw, verifypw } from '../../apis/user';
+import { isValidEmail } from '../../utils/utils';
+import { errorWithoutBtn, successWithoutBtn } from '../../utils/swal';
+
+// css
 import './changePW.css';
+import { GoBackBtn } from '../../components/CommonStyles';
+import { FullContainer } from '../../components/CommonStyles';
 
 function FindPW() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+
   const [id, setId] = useState('');
-  const [error, setError] = useState('');
+  const [code, setCode] = useState('');
+  const [email, setEmail] = useState('');
+  const [isCode, setIsCode] = useState(false);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  // 메일 발송
+  const onSend = async () => {
+    if (email == '' || id == '') {
+      errorWithoutBtn('모든 정보를 입력해주세요.');
+      return;
+    }
+    if (!isValidEmail(email)) {
+      errorWithoutBtn('이메일 형식이 올바르지 않습니다.');
+      return;
+    }
 
-  const handleIdChange = (e) => {
-    setId(e.target.value);
-  };
-
-  const handleEmailSubmit = async () => {
-    try {
-      const response = await fetch('/account/changepw', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, id }),
-      });
-
-      const result = await response.json();
-
-      if (result.valid) {
-        navigate('/change-pw-2');
-      } else {
-        setError('해당 아이디 혹은 이메일이 존재하지 않습니다.');
-      }
-    } catch (error) {
-      setError('서버 오류가 발생했습니다. 나중에 다시 시도해주세요.');
+    const res = await changepw(id, email);
+    if (res) {
+      setIsCode(true);
+      successWithoutBtn('인증번호가 발송되었습니다.', '5분 안에 인증번호를 입력해주세요.', () => {});
     }
   };
+
+  // 인증번호 확인
+  const onClick = async () => {
+    const res = await verifypw(id, email, code);
+    // 비밀번호 재설정 페이지로 이동
+  }
 
   return (
     <FullContainer>
@@ -52,31 +55,40 @@ function FindPW() {
           <h2 className='title'>비밀번호 변경</h2>
           <div className='formContainer'>
             <div className='description'>비밀번호 재설정을 위해 정보를 입력해 주십시오.</div>
-            <div className='form' onSubmit={(e) => e.preventDefault()}>
-              <div className='changepw-inputGroup'>
+            <div className='form'>
+            <div className='changepw-inputGroup'>
                 <label htmlFor="id">ID</label>
                 <input 
                   id="id" 
-                  placeholder="아이디" 
                   value={id}
-                  onChange={handleIdChange}
-                  required 
+                  placeholder="ID" 
+                  onChange={(e) => setId(e.target.value)}
                 />
               </div>
               <div className='changepw-inputGroup'>
                 <label htmlFor="email">e-mail</label>
                 <input 
                   id="email" 
-                  placeholder="이메일" 
                   value={email}
-                  onChange={handleEmailChange}
-                  required 
+                  placeholder="이메일" 
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <button type="button" onClick={handleEmailSubmit}>인증메일 발송</button>
-            </div>
-            <div className='error'>
-              {error && <p>{error}</p>}
+              <div className='changepw-inputGroup'>
+                {isCode && <>
+                  <label htmlFor="code">인증번호</label>
+                  <input 
+                    id="code" 
+                    placeholder="인증번호" 
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                  />
+                </>}
+              </div>
+              {isCode ? 
+                <button type="button" onClick={onClick}>확인</button> :
+                <button type="button" onClick={onSend}>인증메일 발송</button>
+              }
             </div>
           </div>
       </div>
