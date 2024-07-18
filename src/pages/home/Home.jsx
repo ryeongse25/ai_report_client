@@ -23,7 +23,7 @@ const Logo = styled.img`
 
 const NavItems = styled.div`
   display: flex;
-  align-items: center;
+  align-items: top;
   gap: 20px;
 `;
 

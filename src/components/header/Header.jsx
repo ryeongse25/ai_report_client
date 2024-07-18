@@ -30,10 +30,9 @@ const Tab = styled.div`
   }
 `
 
-const Logo = styled.img`
+const Logo = styled.div`
+  width: 90px;
   cursor: pointer;
-  width: 80px;
-  height: auto;
 `;
 
 const Header = () => {
@@ -43,15 +42,10 @@ const Header = () => {
     <CustomHeader>
       <Container>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <div style={{width: '90px'}}>
+          <Logo onClick={() => navigate('/')}>
             <Image src={`${process.env.PUBLIC_URL}/images/logoEX.png`} />
-          </div>
+          </Logo>
           <NavContainer>  
-            <Logo 
-              src={`${process.env.PUBLIC_URL}/images/home.png`}  
-              alt="Home Button"
-              onClick={() => navigate('/')}  
-            />
             <Tab onClick={() => navigate('/main')}>대시보드</Tab>
             <Tab onClick={() => navigate('/callreport')}>신고현황</Tab>
             <Tab onClick={() => navigate('/notification')}>공지사항</Tab>

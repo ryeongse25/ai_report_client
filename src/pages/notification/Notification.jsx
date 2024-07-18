@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { getUser } from '../../apis/user';
+import { getNotice } from '../../apis/notification';
+
 import styled from 'styled-components';
 import Header from '../../components/header/Header';
-import { Container } from "../../components/CommonStyles";
-import { getUser } from '../../apis/user';
+import Content from '../../components/notification/Content';
 
 const NotificationContainer = styled.div`
   margin: 20px;
@@ -46,34 +49,40 @@ const Notification = () => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
+    // 관리자 여부 확인
     getUser().then((res) => {
-      console.log(res);
       const admin = res.is_admin;
-      console.log(admin);
       if (admin) setIsAdmin(true);
+    })
+
+    // 전체 공지사항 가져오기
+    getNotice().then((res) => {
+      setNotifications(res);
     })
   }, []);
 
   return (
-    <Container>
+    <>
       <Header />
       <NotificationContainer>
         <NotificationHeader>
           <h2>공지사항</h2>
           {isAdmin && <WriteButton onClick={() => navigate('/notification/write')}>글쓰기</WriteButton>}
         </NotificationHeader>
+
         {notifications.length > 0 ? (
-          notifications.map((notification, index) => (
+          notifications.map((notice, index) => (
             <NotificationItem key={index}>
-              <h3>{notification.title}</h3>
-              <p>{notification.content}</p>
+              <p>{index + 1}</p>
+              <h3>{notice.fields.title}</h3>
+              <p>{notice.fields.created_at.slice(0, 10)}</p>
             </NotificationItem>
           ))
         ) : (
           <p>작성된 공지사항이 없습니다.</p>
         )}
       </NotificationContainer>
-    </Container>
+    </>
   );
 };
 
