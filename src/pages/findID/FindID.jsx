@@ -46,7 +46,7 @@ function FindID() {
   return (
     <FullContainer>
       <video autoPlay muted loop id="background-video">
-        <source src="/videos/firetruck.mp4" type="video/mp4" />
+        <source src="/videos/4525900-hd_1920_1080_30fps.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <GoBackBtn />
