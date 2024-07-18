@@ -55,7 +55,7 @@ const Notification = () => {
   }, []);
 
   return (
-    <Container>
+    <>
       <Header />
       <NotificationContainer>
         <NotificationHeader>
@@ -73,7 +73,7 @@ const Notification = () => {
           <p>작성된 공지사항이 없습니다.</p>
         )}
       </NotificationContainer>
-    </Container>
+    </>
   );
 };
 
