@@ -8,6 +8,16 @@ const socket = io('http://localhost:5000', {
   transports: ['websocket']
 });
 
+const WhiteContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(rgba(0, 0, 255, 0.3), rgba(255, 255, 255, 1)), url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+`;
+
 const BoldText = styled.p`
   font-size: 20px;
   font-weight: bold;
@@ -17,7 +27,7 @@ const BoldText = styled.p`
 
 const RecordBox = styled.div`
   width: 550px;
-  height: 350px;
+  height: 400px;
   display: flex;
   text-align: center;
   align-items: center;
@@ -36,6 +46,7 @@ const BtnBorder = styled.button`
   border-radius: 50%;
   background-color: rgb(255, 255, 255, 0.5);
   cursor: pointer;
+  margin-bottom: 30px;
 `;
 
 const Circle = styled.div`
@@ -51,6 +62,55 @@ const Square = styled.div`
   height: 20px;
   margin: 0 auto;
   background-color: red;
+`;
+
+const MacWindow = styled.div`
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+`;
+
+const MacHeader = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #f5f5f5;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom: 1px solid #ccc;
+`;
+
+const Dot = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background-color: ${props => props.color};
+`;
+
+const MacBody = styled.div`
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
+
+const STTText = styled.p`
+  color: black;
+  font-size: 18px; /* 글자 크기 */
+  position: absolute; /* 위치를 절대값으로 설정 */
+  top: 95%; /* 상단에서의 거리 */
+  left: 50%; /* 왼쪽에서의 거리 */
+  transform: translate(-50%, -50%); /* 중앙 정렬 */
+  text-align: center;
 `;
 
 const Report = () => {
@@ -284,26 +344,27 @@ const Report = () => {
   };
 
   return (
-    <FullContainer>
-      <video autoPlay muted loop id="background-video">
-            <source src="/videos/firetruck.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-      </video>
+    <WhiteContainer>
+
       <GoBackBtn />
-      <div>
-        <RecordBox>
-          <p style={{ marginBottom: "40px" }}>
+      <MacWindow>
+        <MacHeader>
+          <Dot color="#FF605C" />
+          <Dot color="#FFBD44" />
+          <Dot color="#00CA4E" />
+        </MacHeader>
+        <MacBody>
+          <RecordBox>
             <BoldText>정확한 접수를 위해 녹음버튼을 눌러주세요</BoldText>
-          </p>
-          <div style={{ width: "300px", overflow: "hidden", margin: "0 auto" }}>
-            <ReactMic
-            record={recording}
-            className="sound-wave"
-            mimeType="audio/wav"
-            strokeColor="#444445"
-            backgroundColor="#d9d9d9" />
-          </div>
-        </RecordBox>
+            <div style={{ width: "300px", overflow: "hidden", margin: "0 auto" }}>
+              <ReactMic
+                record={recording}
+                className="sound-wave"
+                mimeType="audio/wav"
+                strokeColor="#444445"
+                backgroundColor="#d9d9d9" />
+            </div>
+          </RecordBox>
           <div style={{ display: "flex", justifyContent: "center" }}>
             {!recording ? 
               <BtnBorder onClick={startRecording} disabled={recording}>
@@ -314,12 +375,13 @@ const Report = () => {
               </BtnBorder>
             }
           </div>
-        <p style={{color: 'white'}}>{result}</p>
-        {ttsText && (
-          <p style={{color: 'white', marginTop: '20px'}}>TTS: {ttsText}</p>
-        )}
-      </div>
-    </FullContainer>
+          <STTText>{result}</STTText>
+          {ttsText && (
+            <STTText style={{ marginTop: '20px' }}>TTS: {ttsText}</STTText>
+          )}
+        </MacBody>
+      </MacWindow>
+    </WhiteContainer>
   );
 }
 

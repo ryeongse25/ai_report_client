@@ -6,6 +6,7 @@ export const FullContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
 `
 
 export const Container = styled.div`
