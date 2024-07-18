@@ -90,34 +90,36 @@ const ReportList = () => {
           />
           <button onClick={handleSearchClick} style={{ width: '20%' }}>검색</button>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>주소</th>
-              <th>긴급도</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reports.map((report) => (
-              <tr key={report.id}>
-                <td>
-                  <Link to={`/reportdetails/${report.id}`}>{report.id}</Link>
-                </td>
-                <td>{report.address}</td>
-                <td>{report.urgency}</td>
+        <div className='table-container'>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>주소</th>
+                <th>긴급도</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="pagination">
-          <button onClick={handlePrevPage} disabled={currentPage === 1}>
-            &lt;
-          </button>
-          <span>{currentPage} / {totalPages}</span>
-          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-            &gt;
-          </button>
+            </thead>
+            <tbody>
+              {reports.map((report) => (
+                <tr key={report.id}>
+                  <td>
+                    <Link to={`/reportdetails/${report.id}`}>{report.id}</Link>
+                  </td>
+                  <td>{report.address}</td>
+                  <td>{report.urgency}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="pagination">
+            <button onClick={handlePrevPage} disabled={currentPage === 1}>
+              &lt;
+            </button>
+            <span>{currentPage} / {totalPages}</span>
+            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+              &gt;
+            </button>
+          </div>
         </div>
       </div>
     </div>
