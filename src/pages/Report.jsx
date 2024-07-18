@@ -13,7 +13,7 @@ const WhiteContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(rgba(0, 0, 255, 0.3), rgba(255, 255, 255, 1)), url('/images/background.jpg');
+  background: white;
   background-size: cover;
   background-position: center;
 `;
@@ -111,6 +111,9 @@ const STTText = styled.p`
   left: 50%; /* 왼쪽에서의 거리 */
   transform: translate(-50%, -50%); /* 중앙 정렬 */
   text-align: center;
+  min-width: 500px;
+  max-width: 80%; /* 최대 너비를 설정하여 텍스트가 줄 바꿈되도록 함 */
+  word-wrap: break-word; /* 단어를 자동으로 줄 바꿈 */
 `;
 
 const Report = () => {
@@ -356,13 +359,13 @@ const Report = () => {
         <MacBody>
           <RecordBox>
             <BoldText>정확한 접수를 위해 녹음버튼을 눌러주세요</BoldText>
-            <div style={{ width: "300px", overflow: "hidden", margin: "0 auto" }}>
+            <div style={{ width: "500px", overflow: "hidden", margin: "0 auto" }}>
               <ReactMic
                 record={recording}
                 className="sound-wave"
                 mimeType="audio/wav"
                 strokeColor="#444445"
-                backgroundColor="#d9d9d9" />
+                backgroundColor="#f5f5f5c0" />
             </div>
           </RecordBox>
           <div style={{ display: "flex", justifyContent: "center" }}>
