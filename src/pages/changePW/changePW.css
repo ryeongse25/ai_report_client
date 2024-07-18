@@ -14,7 +14,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color: #D5D9DB62;
+  background-color: #E5E8E962;
   border-radius: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -23,7 +23,7 @@
   width: 500px;
   height: 300px; 
   border-radius: 30px;
-  background-color: #D5D9DB62;
+  background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -70,7 +70,7 @@
   font-weight: bold;
   color: #ffffffd2;
   border-radius: 165px;
-  background-color: #675c58d2;
+  background-color: #e43d59b5;
   margin-right: 1px;
   text-align: center;
 }
@@ -79,13 +79,13 @@
   width: 100%; 
   padding: 10px;
   border-radius: 15px;
-  border: 1px solid #4287a445;
-  background-color: #c0deeb80;
+  border: 1px solid #f1f5f6;
+  background-color: #f1f5f6;
 }
 
 .changepw-bg .form input:hover {
-  border-color: #007bff;
-  background-color: #e0f7ff;
+  border-color: #deeaed;
+  background-color: #deeaed;
 }
 
 .changepw-bg .form input::placeholder {
@@ -101,12 +101,12 @@
   font-weight: bold;
   border: none;
   border-radius: 15px;
-  background-color: #675C58;
+  background-color: #817f7f;
   cursor: pointer;
 }
 
 .changepw-bg .form button:hover {
-  background-color: #8d7f7a;
+  background-color: #e43d59b5;
 }
 
 .changepw-bg .error {
