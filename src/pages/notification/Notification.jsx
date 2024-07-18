@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../../components/header/Header';
 import { Container } from "../../components/CommonStyles";
+import { getUser } from '../../apis/user';
 
 const NotificationContainer = styled.div`
   margin: 20px;
@@ -40,11 +41,17 @@ const WriteButton = styled.button`
 
 const Notification = () => {
   const navigate = useNavigate();
+
+  const [isAdmin, setIsAdmin] = useState(false); 
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const storedNotifications = JSON.parse(localStorage.getItem('notifications')) || [];
-    setNotifications(storedNotifications);
+    getUser().then((res) => {
+      console.log(res);
+      const admin = res.is_admin;
+      console.log(admin);
+      if (admin) setIsAdmin(true);
+    })
   }, []);
 
   return (
@@ -53,7 +60,7 @@ const Notification = () => {
       <NotificationContainer>
         <NotificationHeader>
           <h2>공지사항</h2>
-          <WriteButton onClick={() => navigate('/notification/write')}>글쓰기</WriteButton>
+          {isAdmin && <WriteButton onClick={() => navigate('/notification/write')}>글쓰기</WriteButton>}
         </NotificationHeader>
         {notifications.length > 0 ? (
           notifications.map((notification, index) => (
