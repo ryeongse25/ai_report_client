@@ -36,7 +36,7 @@ export const GoBackBtn = () => {
   return (
     <div style={style} onClick={() => navigate('/')}>
       <img
-        src={`${process.env.PUBLIC_URL}/images/home.png`} // 이미지 경로
+        src={`${process.env.PUBLIC_URL}/images/logoEx.png`} // 이미지 경로
         alt="Home"
         style={{ width: '70px', height: 'auto', cursor: 'pointer' }}
       />
