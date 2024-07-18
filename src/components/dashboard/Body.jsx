@@ -24,7 +24,7 @@ const CalendarWrapper = styled.div`
   left: 50px;
   width: 800px;
   height: 450px;
-  background-color: #f5f5f5c0;
+  background-color: #D5D9DB55;
   border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
@@ -36,7 +36,7 @@ const UserInfoContainer = styled.div`
   right: 50px;
   width: 350px;
   height: 200px;
-  background-color: #f5f5f5c0;
+  background-color: #D5D9DB55;
   border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
@@ -48,7 +48,7 @@ const StatsContainer = styled.div`
   right: 50px;
   width: 350px;
   height: 450px;
-  background-color: #f5f5f5c0;
+  background-color: #D5D9DB55;
   border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
