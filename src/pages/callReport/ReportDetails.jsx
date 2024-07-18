@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './ReportContent.css';
 import Header from '../../components/header/Header'; 
+import './ReportContent.css';
 
 const ReportDetails = () => {
   const { id } = useParams();

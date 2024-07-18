@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ReportItem from './ReportItem';
 
 // 서버랑 연결할 때 사용
 // const ReportList = () => {
@@ -103,7 +102,7 @@ const ReportList = () => {
             {reports.map((report) => (
               <tr key={report.id}>
                 <td>
-                  <Link to={`/reportcontent/${report.id}`}>{report.id}</Link>
+                  <Link to={`/reportdetails/${report.id}`}>{report.id}</Link>
                 </td>
                 <td>{report.address}</td>
                 <td>{report.urgency}</td>

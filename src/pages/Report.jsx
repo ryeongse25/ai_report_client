@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ReactMic } from 'react-mic'; 
 import io from 'socket.io-client';
+import { ReactMic } from 'react-mic'; 
+import React, { useState, useEffect, useRef } from 'react';
+
 import styled from 'styled-components';
-import { FullContainer, GoBackBtn } from '../components/CommonStyles';
+import { GoBackBtn } from '../components/CommonStyles';
 
 const socket = io('http://localhost:5000', {
   transports: ['websocket']
@@ -27,7 +28,7 @@ const BoldText = styled.p`
 
 const RecordBox = styled.div`
   width: 550px;
-  height: 400px;
+  height: 270px;
   display: flex;
   text-align: center;
   align-items: center;
@@ -65,7 +66,8 @@ const Square = styled.div`
 `;
 
 const MacWindow = styled.div`
-  width: 90%;
+  width: 60%;
+  height: 500px;
   max-width: 1200px;
   margin: 50px auto;
   padding: 20px;
