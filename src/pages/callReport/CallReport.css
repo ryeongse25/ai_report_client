@@ -39,11 +39,13 @@
   }
 
 .searchBar input {
-  padding: 8px;
+  padding-left: 10px;
   font-size: 16px;
-  border: 1px solid #f9f9f9;
-  border-radius: 20px;
   margin-right: 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #DCDFE1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .searchBar input:hover {
@@ -53,15 +55,16 @@
 .searchBar button {
   padding: 8px 16px;
   font-size: 16px;
-  background-color: #222f68;
-  color: white;
+  font-weight: 900;
   border: none;
   border-radius: 20px;
+  background-color: #DCDFE1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
 }
 
 .searchBar button:hover {
-  background-color: rgba(26, 37, 86, 0.76); 
+  background-color: #c3c4c4;
 }
 
 .pagination {
