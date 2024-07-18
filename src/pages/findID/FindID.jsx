@@ -32,6 +32,7 @@ function FindID() {
 
   // 인증 코드 확인 버튼
   const onClick = async () => {
+    if (code == '') return;
     const res = await verifyid(email, code);
     if (res) setId(res);
   }
@@ -45,29 +46,32 @@ function FindID() {
       <GoBackBtn />
       <div className='findid-bg'>
         <div className='backContainer'>
-          <h2 className='title'>아이디 찾기</h2>
+          <h2>아이디 찾기</h2>
           <div className='formContainer'>
             {id == '' ? <>
-              <div className='description'>이메일 정보를 입력해 주십시오.</div>
+              <h4>이메일 정보를 입력해 주십시오.</h4>
               <div className='form'>
                 <label htmlFor="email">e-mail</label>
                 <input
-                  placeholder="이메일" 
+                  id='email'
                   value={email}
+                  placeholder="이메일" 
                   onChange={(e) => setEmail(e.target.value)}
-                  />
-                <button type="button" onClick={onSend}>인증메일 발송</button>
+                />
               </div>
               <div className='form' style={{marginTop: '5px'}}>
                 {isCode && <>
+                  <label htmlFor="code">인증번호</label>
                   <input
-                    placeholder="인증번호" 
+                    id='code'
                     value={code}
+                    placeholder="인증번호" 
                     onChange={(e) => setCode(e.target.value)}
                     />
-                  <button type="button" onClick={onClick}>확인</button>
                 </>}
               </div>
+              {isCode ? <button type="button" onClick={onClick}>확인</button> :
+              <button type="button" onClick={onSend}>인증메일 발송</button>}
             </> : 
             <>
               <p className='id-result'>아이디 : {id}</p>

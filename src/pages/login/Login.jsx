@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './Login.css'; 
 import { login } from '../../apis/user';
-import { FullContainer } from '../../components/CommonStyles';
+import { FullContainer, GoBackBtn } from '../../components/CommonStyles';
 
 const Login = () => {
   const [id, setId] = useState('');
@@ -19,6 +19,7 @@ const Login = () => {
 
   return (
     <FullContainer>
+      <GoBackBtn />
       <div className="login-container">
           <video autoPlay muted loop id="background-video">
             <source src="/videos/firetruck.mp4" type="video/mp4" />

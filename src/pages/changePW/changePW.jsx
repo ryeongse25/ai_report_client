@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 // js
 import { changepw, verifypw } from '../../apis/user';
@@ -12,8 +11,6 @@ import { GoBackBtn } from '../../components/CommonStyles';
 import { FullContainer } from '../../components/CommonStyles';
 
 function FindPW() {
-  const navigate = useNavigate();
-
   const [id, setId] = useState('');
   const [code, setCode] = useState('');
   const [email, setEmail] = useState('');
