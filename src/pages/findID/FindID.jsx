@@ -17,7 +17,10 @@ function FindID() {
 
   // 인증 메일 발송 버튼
   const onSend = async () => {
-    if (email == '') return;
+    if (email == '') {
+      errorWithoutBtn('이메일 주소를 입력해주세요.')
+      return;
+    };
     if (!isValidEmail(email)) {
       errorWithoutBtn('이메일 형식이 올바르지 않습니다.');
       return;
@@ -32,7 +35,10 @@ function FindID() {
 
   // 인증 코드 확인 버튼
   const onClick = async () => {
-    if (code == '') return;
+    if (code == '') {
+      errorWithoutBtn('메일 주소로 발송된 인증번호를 입력해주세요.')
+      return;
+    };
     const res = await verifyid(email, code);
     if (res) setId(res);
   }
