@@ -7,7 +7,7 @@ const CustomHeader = styled.header`
   color: white;
   font-size: 25px;
   min-width: 1040px;
-  background-color: #675C58;
+  background-color: #D5D9DB62;
 `
 
 const NavContainer = styled.div`
@@ -47,7 +47,7 @@ const Header = () => {
           </Logo>
           <NavContainer>  
             <Tab onClick={() => navigate('/main')}>대시보드</Tab>
-            <Tab onClick={() => navigate('/callreport')}>신고현황</Tab>
+            <Tab onClick={() => navigate('/callreport')}>신고내역</Tab>
             <Tab onClick={() => navigate('/notification')}>공지사항</Tab>
           </NavContainer>
         </div>

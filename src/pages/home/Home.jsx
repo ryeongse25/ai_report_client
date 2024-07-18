@@ -38,14 +38,22 @@ const NavItem = styled.div`
   }
 `;
 
+const PopupWrapper = styled.div`
+  position: fixed; /* 부모 요소를 고정 위치로 설정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+`;
+
 const PopupContent = styled.div`
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 100px;
+  left: 200px;
   background: white;
   padding: 20px;
   border-radius: 10px;
-  z-index: 2;
   cursor: grab;
   &.dragging {
     cursor: grabbing;
@@ -163,33 +171,35 @@ const Home = () => {
       </CentralTextContainer>
 
       {isPopupOpen && (
-        <Draggable onStart={handleStart} onStop={handleStop}>
-          <PopupContent
-            className={isDragging ? 'dragging' : ''}
-            style={{ width: imgSize.width, height: imgSize.height + 80 }}
-          >
-            <ImageContainer>
-              <a href="https://www.police.go.kr/index.do" target="_blank" rel="noopener noreferrer">
-                <img
-                  src="/images/popup.jpg"
-                  alt="Popup"
-                  ref={imgRef}
-                  onLoad={handleImageLoad}
-                  style={{ width: '100%', height: '100%' }}
-                />
-              </a>
-              <CloseButton onClick={closePopup}>X</CloseButton>
-              <CheckboxContainer>
-                <input
-                  type="checkbox"
-                  checked={!showPopupToday}
-                  onChange={() => setShowPopupToday(!showPopupToday)}
-                />
-                <label>오늘 하루 이 창 띄우지 않기</label>
-              </CheckboxContainer>
-            </ImageContainer>
-          </PopupContent>
-        </Draggable>
+        <PopupWrapper>
+          <Draggable onStart={handleStart} onStop={handleStop} bounds="parent">
+            <PopupContent
+              className={isDragging ? 'dragging' : ''}
+              style={{ width: imgSize.width, height: imgSize.height + 80 }}
+            >
+              <ImageContainer>
+                <a href="https://www.police.go.kr/index.do" target="_blank" rel="noopener noreferrer">
+                  <img
+                    src="/images/popup.jpg"
+                    alt="Popup"
+                    ref={imgRef}
+                    onLoad={handleImageLoad}
+                    style={{ width: '100%', height: '100%' }}
+                  />
+                </a>
+                <CloseButton onClick={closePopup}>X</CloseButton>
+                <CheckboxContainer>
+                  <input
+                    type="checkbox"
+                    checked={!showPopupToday}
+                    onChange={() => setShowPopupToday(!showPopupToday)}
+                  />
+                  <label>오늘 하루 이 창 띄우지 않기</label>
+                </CheckboxContainer>
+              </ImageContainer>
+            </PopupContent>
+          </Draggable>
+        </PopupWrapper>
       )}
     </div>
   );
