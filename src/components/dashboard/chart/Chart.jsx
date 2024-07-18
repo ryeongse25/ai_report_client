@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import 'chart.js/auto';
 import axios from 'axios';
-import './chart.css';
+import 'chart.js/auto';
+import './Chart.css';
 
-const DonutChart = () => {
+const Chart = () => {
   const [chartData, setChartData] = useState(null);
 
   const fetchChartData = async () => {
@@ -99,11 +99,10 @@ const DonutChart = () => {
       <div className='title-container'>
         <h2>출동통계</h2>
         <img 
-          src="/refresh.png"
+          src="/images/refresh.png"
           alt="새로고침"
-          onClick={fetchChartData}
           className='refreshBtn'
-          style={{ cursor: 'pointer', width: '45px', height: '45px', marginLeft: '10px' }}
+          onClick={fetchChartData}
         />
       </div>
       {chartData ? <Doughnut data={chartData} options={options} /> : null}
@@ -111,4 +110,4 @@ const DonutChart = () => {
   );
 };
 
-export default DonutChart;
+export default Chart;
