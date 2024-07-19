@@ -6,9 +6,14 @@ import { getUser } from "../../apis/user";
 import { cancelAlert } from "../../utils/swal";
 import { getNoticeById, writeNotification, editNotice } from "../../apis/notification";
 
+import styled from 'styled-components'
 import Header from "../../components/header/Header";
 import Editor from "../../components/notification/Editor";
-import { Container } from "../../components/CommonStyles";
+
+const WriteBox =  styled.div`
+  width: 900px;
+  margin: 0 auto;
+`
 
 const Write = () => {
   const {id} = useParams();
@@ -46,7 +51,7 @@ const Write = () => {
   return <>
     <Header />
     <div style={{minWidth: '1040px', marginBottom: '50px'}}>
-      <Container>
+      <WriteBox>
         <Editor title={title} content={content} onChangeTitle={onChangeTitle} onChangeContent={onChangeContent} />
         <div className='btns'>
           <button onClick={cancelWriting}>취소</button>
@@ -55,7 +60,7 @@ const Write = () => {
             <button onClick={() => writeNotification(userid, title, content)}>글쓰기</button>
           }
         </div>
-      </Container>
+      </WriteBox>
     </div>
   </>
 }
