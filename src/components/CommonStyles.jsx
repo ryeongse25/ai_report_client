@@ -43,3 +43,13 @@ export const GoBackBtn = () => {
     </div>
   )
 }
+
+export const BackgroundVideo1 = () => {
+
+  return (
+    <video autoPlay muted loop id='background-video'>
+      <source src="/videos/4525900-hd_1920_1080_30fps.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  )
+}

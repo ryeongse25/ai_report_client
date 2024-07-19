@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import Draggable from 'react-draggable';
+
 import './Home.css';
+import styled from "styled-components";
+import Draggable from 'react-draggable';
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { BackgroundVideo1 } from "../../components/CommonStyles";
 
 const Navbar = styled.div`
   position: absolute;
@@ -150,10 +152,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <video autoPlay muted loop id="background-video">
-        <source src="/videos/4525900-hd_1920_1080_30fps.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <BackgroundVideo1 />
       <Navbar>
         <Logo src="/images/logoEX.png" alt="Logo" />
         <NavItems>
