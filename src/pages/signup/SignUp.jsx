@@ -146,8 +146,8 @@ function Signup() {
                     </div>
                   </div>
                   {authNumVisible &&
-                  <div className="authNumContainer">
-                    <input className='authNum' 
+                  <div className="emailContainer">
+                    <input 
                       placeholder="인증번호" 
                       value={code} 
                       onChange={(e) => setCode(e.target.value)}
