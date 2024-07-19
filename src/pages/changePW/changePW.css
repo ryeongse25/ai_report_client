@@ -32,11 +32,11 @@
 }
 
 .changepw-bg .title {
-  font-size: 28px;
-  color: #675C58;
+  font-family: 'KimjungchulGothic';
+  font-size: 34px;
   font-weight: bold;
+  color: #675C58;
   margin-bottom: 20px;
-  margin-top: -30px;
 }
 
 .changepw-bg .description {
@@ -114,4 +114,11 @@
   height: 20px;
   font-size: 14px;
   margin-top: 5px;
+}
+
+@font-face {
+  font-family: 'KimjungchulGothic';
+  src: url('../../fonts/KimjungchulGothic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }

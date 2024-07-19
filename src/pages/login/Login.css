@@ -1,7 +1,7 @@
 .login-container .container {
     width: 750px; 
     display: flex;
-    background-color: #f5f5f5c0;
+    background-color: #E5E8E962;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
 }
@@ -32,16 +32,17 @@
 
 .login-container .login-header img {
     position: relative;
-    top: -4px;
-    width: 35px;
-    height: 35px;
+    top: -1px;
+    width: 50px;
+    height: 50px;
     margin-right: 5px;
 }
 
 .login-container .login-header span {
-    font-family: 'Do Hyeon';
+    font-family: 'KimjungchulGothic';
     font-size: 27px;
     font-weight: bold;
+    color: #675C58;
 }
 
 .login-container form {
@@ -56,8 +57,8 @@
     margin: 3px 0;
     padding: 0.5rem;
     border-radius: 15px;
-    border: 1px solid #a1a2a5;
-    background-color: #2c1d2144;
+    border: 1px solid #e3e4e4;
+    background-color: #f1f5f6;
 }
 
 .login-container form button {
@@ -67,12 +68,13 @@
     color: white;
     border: none;
     border-radius: 10px;
-    background-color: #bb2042;
+    background-color: #e43d59b5;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .login-container form button:hover {
-    background-color: #bb20428a;
+    background-color: #817f7fad;
 }
 
 /* 회원가입, ID 찾기, PW 변경 버튼 */
@@ -100,3 +102,11 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'KimjungchulGothic';
+    src: url('../../fonts/KimjungchulGothic-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
