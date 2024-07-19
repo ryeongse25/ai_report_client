@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
+import { getUser } from "../../apis/user";
 import { cancelAlert } from "../../utils/swal";
 
 import Header from "../../components/header/Header";
 import Editor from "../../components/notification/Editor";
 import { Container } from "../../components/CommonStyles";
 import { writeNotification } from "../../apis/notification";
-import { getUser } from "../../apis/user";
 
 const Write = () => {
-  const [id, setId] = useState('');
+  const [userid, setUserId] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -26,7 +26,7 @@ const Write = () => {
   }
 
   useEffect(() => {
-    getUser().then((res) => setId(res.id));
+    getUser().then((res) => setUserId(res.id));
   }, [])
 
   return <>
@@ -36,7 +36,7 @@ const Write = () => {
         <Editor onChangeTitle={onChangeTitle} onChangeContent={onChangeContent} />
         <div className='btns'>
           <button onClick={cancelWriting}>취소</button>
-          <button onClick={() => writeNotification(id, title, content)}>글쓰기</button>
+          <button onClick={() => writeNotification(userid, title, content)}>글쓰기</button>
         </div>
       </Container>
     </div>

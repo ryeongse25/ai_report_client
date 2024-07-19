@@ -31,7 +31,7 @@ const Tab = styled.div`
 `
 
 const Logo = styled.div`
-  width: 90px;
+  width: 80px;
   cursor: pointer;
 `;
 
@@ -41,14 +41,14 @@ const Header = () => {
   return (
     <CustomHeader>
       <Container>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <Logo onClick={() => navigate('/')}>
             <Image src={`${process.env.PUBLIC_URL}/images/logoEX.png`} />
           </Logo>
           <NavContainer>  
             <Tab onClick={() => navigate('/main')}>대시보드</Tab>
             <Tab onClick={() => navigate('/callreport')}>신고내역</Tab>
-            <Tab onClick={() => navigate('/notification')}>공지사항</Tab>
+            <Tab onClick={() => navigate('/notice')}>공지사항</Tab>
           </NavContainer>
         </div>
       </Container>
