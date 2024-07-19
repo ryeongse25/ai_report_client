@@ -10,7 +10,7 @@ import { errorWithoutBtn, successWithoutBtn, warningWithoutBtn } from '../../uti
 
 // css
 import './SignUp.css';
-import { FullContainer, GoBackBtn } from '../../components/CommonStyles';
+import { BackgroundVideo1, FullContainer, GoBackBtn } from '../../components/CommonStyles';
 
 function Signup() {
   const navigate = useNavigate();
@@ -88,11 +88,8 @@ function Signup() {
   return (
     <FullContainer>
       <div className="signupContainer">
-        <video autoPlay muted loop id="background-video">
-          <source src="/videos/firetruck.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
         <GoBackBtn />
+        <BackgroundVideo1 />
         <div className="backContainer">
           <h4>회원가입</h4>
             <form>

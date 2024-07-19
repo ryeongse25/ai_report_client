@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const NoticeTable = ({notice}) => {
-  const n = 5;
+  const n = 9;
   const navigate = useNavigate();
 
+  const [noticeByPage, setNoticeByPage] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(Math.ceil(notice.length / n))
 
@@ -17,8 +18,13 @@ const NoticeTable = ({notice}) => {
   };
 
   useEffect(() => {
+    const indexOfLastNotice = currentPage * n;
+    const indexOfFirstNotice = indexOfLastNotice - n;
+    const currentNtocie = notice.slice(indexOfFirstNotice, indexOfLastNotice);
+    setNoticeByPage(currentNtocie);
+
     setTotalPage(Math.ceil(notice.length / n));
-  }, [notice])
+  }, [notice, currentPage])
 
   return (
     <div className='container'>
@@ -32,7 +38,7 @@ const NoticeTable = ({notice}) => {
           </tr>
         </thead>
         <tbody>
-          {notice.map((n, index) => (
+          {noticeByPage.map((n, index) => (
             <tr key={index} onClick={() => navigate('/notice/' + n.pk)}>
               <td style={{textAlign: 'center'}}>{n.pk}</td>
               <td>{n.fields.title}</td>

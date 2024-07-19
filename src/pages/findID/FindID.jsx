@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isValidEmail } from '../../utils/utils';
+import { findid, verifyid } from '../../apis/user';
 import { errorWithoutBtn, successWithoutBtn } from '../../utils/swal';
 
 import './FindID.css';
-import { GoBackBtn } from '../../components/CommonStyles';
 import { FullContainer } from '../../components/CommonStyles';
-import { findid, verifyid } from '../../apis/user';
+import { BackgroundVideo1, GoBackBtn } from '../../components/CommonStyles';
 
 function FindID() {
   const navigate = useNavigate();
@@ -45,11 +45,8 @@ function FindID() {
 
   return (
     <FullContainer>
-      <video autoPlay muted loop id="background-video">
-        <source src="/videos/4525900-hd_1920_1080_30fps.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
       <GoBackBtn />
+      <BackgroundVideo1 />
       <div className='findid-bg'>
         <div className='backContainer'>
           <h2>아이디 찾기</h2>

@@ -7,7 +7,7 @@ import { errorWithoutBtn, successWithoutBtn } from '../../utils/swal';
 
 // css
 import './changePW.css';
-import { GoBackBtn } from '../../components/CommonStyles';
+import { BackgroundVideo1, GoBackBtn } from '../../components/CommonStyles';
 import { FullContainer } from '../../components/CommonStyles';
 
 function FindPW() {
@@ -42,11 +42,8 @@ function FindPW() {
 
   return (
     <FullContainer>
-      <video autoPlay muted loop id="background-video">
-        <source src="/videos/4525900-hd_1920_1080_30fps.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
       <GoBackBtn />
+      <BackgroundVideo1 />
       <div className='changepw-bg'>
         <div className='backContainer'>
           <h2 className='title'>비밀번호 변경</h2>
