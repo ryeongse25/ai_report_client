@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { successWithoutBtn } from '../utils/swal';
 
 const access = localStorage.getItem('access');
 const SERVER_URL = 'http://localhost:8000/post/';
@@ -15,12 +16,12 @@ export const getNotice = () => {
 }
 
 // 공지사항 글쓰기
-export const writeNotification = (id, title, content) => {
-  axios.post(SERVER_URL + 'postcreate/', {id, title, content}, {
+export const writeNotification = (user_id, title, content) => {
+  axios.post(SERVER_URL + 'postcreate/', {user_id, title, content}, {
     headers: {
       Authorization: access
     }
   })
-  .then((res) => console.log(res))
+  .then(() => successWithoutBtn('공지사항이 등록되었습니다.', '', () => window.location.href = '/notice'))
   .catch((error) => console.log(error))
 }

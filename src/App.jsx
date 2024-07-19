@@ -4,13 +4,14 @@ import Main from "./pages/Main";
 import Report from "./pages/Report";
 import Report2 from "./pages/Report2";
 import Login from "./pages/login/Login";
-import Notification from './pages/notification/Notification';
 import Write from "./pages/notification/Write";
 import FindID from './pages/findID/FindID';
 import SignUp from './pages/signup/SignUp';
 import ChangePW from './pages/changePW/changePW';
 import CallReport from './pages/callReport/CallReport'
 import ReportDetails from "./pages/callReport/ReportDetails";
+import NoticePost from "./pages/notification/NoticePost";
+import NoticeList from "./pages/notification/NoticeList";
 
 function App() {
   return (
@@ -25,8 +26,9 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path="/findid" element={<FindID />} />
           <Route path="/changepw" element={<ChangePW />} />
-          <Route path="/notification" element={<Notification />} />
-          <Route path='/notification/write' element={<Write />} />
+          <Route path="/notice" element={<NoticeList />} />
+          <Route path='/notice/:id' element={<NoticePost />} />
+          <Route path='/notice/write' element={<Write />} />
           <Route path='/callreport' element={<CallReport />} />
           <Route path='/reportdetails/:id' element={<ReportDetails />} />
         </Routes>
