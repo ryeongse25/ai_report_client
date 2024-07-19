@@ -14,7 +14,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color: #d9d9d990;
+  background-color: #E5E8E962;
   border-radius: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -23,7 +23,7 @@
   width: 500px;
   height: 250px;
   border-radius: 30px;
-  background-color: #d9d9d990;
+  background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -54,6 +54,7 @@
   height: 40px;
   display: flex;
   align-items: center;
+  margin-top: 20px;
 }
 
 /* 이메일, 인증번호 라벨 */
@@ -65,9 +66,9 @@
   line-height: 35px;
   font-weight: bold;
   text-align: center;
-  color: #ffffffd2;
+  color: white;
   border-radius: 165px;
-  background-color: #675c58d2;
+  background-color: #e43d59b5;
 }
 
 /* input */
@@ -75,13 +76,13 @@
   flex-grow: 1;
   padding: 10px;
   border-radius: 15px;
-  border: 1px solid #4287a445;
-  background-color: #c0deeb80;
+  border: 1px solid #f1f5f6;
+  background-color: #f1f5f6;
 }
 
 .findid-bg .form input:hover {
-  border-color: #007bff;
-  background-color: #e0f7ff;
+  border-color: #deeaed;
+  background-color: #deeaed;
 }
 
 .findid-bg .form input::placeholder {
@@ -98,13 +99,13 @@
   font-weight: bold;
   border: none;
   border-radius: 15px;
-  background-color: #675C58;
+  background-color: #817f7f;
   margin-top: 10px;
   cursor: pointer;
 }
 
 .findid-bg button:not(.login):hover {
-  background-color: #8d7f7a;
+  background-color: #e43d59b5;
 }
 
 /* 아이디 결과 */
