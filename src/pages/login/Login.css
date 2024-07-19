@@ -88,7 +88,8 @@
     font: inherit;
     margin: 0 5px;
     cursor: pointer;
-    color: #143252; 
+    color: #143252;
+    background-color: transparent;
     text-decoration: underline; 
 }
 
