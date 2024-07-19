@@ -33,9 +33,10 @@
 
 /* 아이디 찾기 타이틀 */
 .findid-bg h2 {
-  font-size: 28px;
-  color: #675C58;
+  font-family: 'Do Hyeon';
+  font-size: 34px;
   font-weight: bold;
+  color: #675C58;
   margin-bottom: 20px;
 }
 
@@ -124,4 +125,11 @@
   border: none;
   background-color: #675C58;
   cursor: pointer;
+}
+
+@font-face {
+  font-family: 'Do Hyeon';
+  src: url('../../fonts/DoHyeon-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }

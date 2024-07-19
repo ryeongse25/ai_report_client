@@ -61,7 +61,6 @@ function FindID() {
                 <input
                   id='email'
                   value={email}
-                  placeholder="이메일" 
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>

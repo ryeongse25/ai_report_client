@@ -28,7 +28,7 @@ const Login = () => {
           </div>
           <div className="login-section">
             <div className="login-header">
-              <img src="/images/phone.png" alt="Login Icon" />
+              <img src="/images/mainlogo.png" alt="Login Icon" />
               <span>로그인</span>
             </div>
             <form>

@@ -58,7 +58,6 @@ function FindPW() {
                 <input 
                   id="id" 
                   value={id}
-                  placeholder="ID" 
                   onChange={(e) => setId(e.target.value)}
                 />
               </div>
@@ -67,7 +66,6 @@ function FindPW() {
                 <input 
                   id="email" 
                   value={email}
-                  placeholder="이메일" 
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
