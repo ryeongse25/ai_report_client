@@ -6,7 +6,7 @@ const CustomHeader = styled.header`
   height: 80px;
   color: white;
   font-size: 25px;
-  min-width: 1040px;
+  min-width: 1200px;
   background-color: #D5D9DB62;
 `
 
