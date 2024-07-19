@@ -55,6 +55,7 @@
     font-weight: bold;
     color: #222f68;
     min-width: 100px;
+    text-align: center;
   }
   
 .detail-item span {
@@ -63,6 +64,20 @@
     color: #000000;
   }
  
+.detail-item-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+.detail-item-row .detail-item {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+.detail-item-row .detail-item:last-child {
+    margin-right: 0;
+  }
+
 .list-button-container {
     display: flex;
     align-items: center;

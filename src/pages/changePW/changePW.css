@@ -32,7 +32,7 @@
 }
 
 .changepw-bg .title {
-  font-family: 'Do Hyeon';
+  font-family: 'KimjungchulGothic';
   font-size: 34px;
   font-weight: bold;
   color: #675C58;
@@ -117,8 +117,8 @@
 }
 
 @font-face {
-  font-family: 'Do Hyeon';
-  src: url('../../fonts/DoHyeon-Regular.ttf') format('truetype');
+  font-family: 'KimjungchulGothic';
+  src: url('../../fonts/KimjungchulGothic-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
