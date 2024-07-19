@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 
 import Chart from './chart/Chart';
 import UserComponent from "./UserComponent";
-import CalendarComponent from './CalendarComponent';
 import NoticeComponent from './NoticeComponent';
+import CustomCalendar from './customCalendar/CustomCalendar';
 
 const BodyContainer = styled.div`
   position: relative;
@@ -66,7 +66,7 @@ const Body = () => {
   return (
     <BodyContainer>
       <CalendarWrapper>
-        <CalendarComponent />
+        <CustomCalendar />
       </CalendarWrapper>
       <UserInfoContainer>
         <UserComponent name={name}/>
