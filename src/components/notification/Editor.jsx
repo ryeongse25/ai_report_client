@@ -38,7 +38,7 @@ import {
 import 'ckeditor5/ckeditor5.css';
 import './Editor.css';
 
-const Editor = ({onChangeTitle, onChangeContent}) => {
+const Editor = ({title, content, onChangeTitle, onChangeContent}) => {
   const editorContainerRef = useRef(null);
 	const editorRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
@@ -180,13 +180,14 @@ const Editor = ({onChangeTitle, onChangeContent}) => {
 
   return (
     <div style={{marginTop: '50px'}}>
-      <textarea placeholder='제목을 입력해주세요.' 
+      <textarea placeholder='제목을 입력해주세요.'
+	  	value={title}
         onChange={(e) => onChangeTitle(e.target.value)}>
       </textarea>
       <div className="main-container">
         <div className="editor-container editor-container_classic-editor" ref={editorContainerRef}>
           <div className="editor-container__editor">
-            <div ref={editorRef}>{isLayoutReady && <CKEditor editor={ClassicEditor} config={editorConfig} onChange={(event, editor) => onChangeContent(editor.getData())} />}</div>
+            <div ref={editorRef}>{isLayoutReady && <CKEditor editor={ClassicEditor} config={editorConfig} data={content} onChange={(event, editor) => onChangeContent(editor.getData())} />}</div>
           </div>
         </div>
       </div>

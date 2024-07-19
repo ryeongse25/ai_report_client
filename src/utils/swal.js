@@ -30,7 +30,7 @@ export const warningWithoutBtn = (title, text) => {
   })
 }
 
-export const cancelAlert = (title, text, btn1, btn2) => {
+export const cancelAlert = (title, text, btn1, btn2, cb) => {
   Swal.fire({
     icon: 'warning',
     title: title,
@@ -39,6 +39,6 @@ export const cancelAlert = (title, text, btn1, btn2) => {
     confirmButtonText: btn1,
     cancelButtonText: btn2
   }).then((res) => {
-    if (res.isConfirmed) window.location.href = '/notification';
+    if (res.isConfirmed) cb();
   })
 }

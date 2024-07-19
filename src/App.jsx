@@ -29,6 +29,7 @@ function App() {
           <Route path="/notice" element={<NoticeList />} />
           <Route path='/notice/:id' element={<NoticePost />} />
           <Route path='/notice/write' element={<Write />} />
+          <Route path='/notice/write/:id' element={<Write />} />
           <Route path='/callreport' element={<CallReport />} />
           <Route path='/reportdetails/:id' element={<ReportDetails />} />
         </Routes>
