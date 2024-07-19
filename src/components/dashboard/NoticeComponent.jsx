@@ -1,5 +1,7 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
+import { getNotice } from '../../apis/notification';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const ReportContainer = styled.div`
   position: absolute;
@@ -33,12 +35,19 @@ const PlusButton = styled.div`
 const NoticeComponent = () => {
   const navigate = useNavigate();
 
+  const [notice, setNotice] = useState([]);
+
+  useEffect(() => {
+    getNotice((res) => setNotice(res))
+  }, [])
+
   return (
     <ReportContainer>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <h2>공지 사항</h2>
-          <PlusButton onClick={() => navigate('/notification')}><span>+</span></PlusButton>
+          <PlusButton onClick={() => navigate('/notice')}><span>+</span></PlusButton>
         </div>
+        {notice}
     </ReportContainer>
   )
 }
