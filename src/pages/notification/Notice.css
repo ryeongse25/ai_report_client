@@ -82,7 +82,11 @@
 .notice-container th, .notice-container td {
   padding: 8px;
   border: 1px solid #E1E4E6;
+}
+
+.notice-container tr:hover {
   cursor: pointer;
+  background-color: #DCDFE1;
 }
 
 .notice-container th {
