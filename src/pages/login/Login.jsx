@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import './Login.css'; 
 import { login } from '../../apis/user';
 import { BackgroundVideo1, FullContainer, GoBackBtn } from '../../components/CommonStyles';
+import { enterKey } from '../../utils/keyboard';
 
 const Login = () => {
   const [id, setId] = useState('');
@@ -40,8 +41,9 @@ const Login = () => {
               <input
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="PW"
+                  onKeyDown={(e) => enterKey(e, () => login(id, password))}
+                  onChange={(e) => setPassword(e.target.value)}
                   />
               <button type="button" onClick={() => login(id, password)}>로그인</button>
             </form>
