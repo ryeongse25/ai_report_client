@@ -54,8 +54,8 @@ const Editor = ({onChangeTitle, onChangeContent}) => {
 			items: [
 				'undo',
 				'redo',
-				'|',
-				'heading',
+				// '|',
+				// 'heading',
 				'|',
 				'bold',
 				'italic',

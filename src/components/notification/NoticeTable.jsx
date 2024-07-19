@@ -5,11 +5,8 @@ const NoticeTable = ({notice}) => {
   const n = 5;
   const navigate = useNavigate();
 
-  const [allNotice, setAllNotice] = useState(notice);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(Math.ceil(notice.length / n))
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -20,12 +17,11 @@ const NoticeTable = ({notice}) => {
   };
 
   useEffect(() => {
-    setAllNotice(notice);
     setTotalPage(Math.ceil(notice.length / n));
   }, [notice])
 
   return (
-    <div class='container'>
+    <div className='container'>
       <table>
         <thead>
           <tr>

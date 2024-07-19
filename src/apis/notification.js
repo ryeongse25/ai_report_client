@@ -15,6 +15,18 @@ export const getNotice = () => {
   .catch((error) => console.log(error))
 }
 
+// 아이디에 해당하는 공지사항 가져오기
+export const getNoticeById = (id) => {
+  return axios.get(`${SERVER_URL}postdetail/${id}/`, {
+    headers: {
+      Authorization: access
+    }
+  })
+  .then((res) => {return res.data})
+  .catch((error) => console.log(error))
+
+}
+
 // 공지사항 글쓰기
 export const writeNotification = (user_id, title, content) => {
   axios.post(SERVER_URL + 'postcreate/', {user_id, title, content}, {
