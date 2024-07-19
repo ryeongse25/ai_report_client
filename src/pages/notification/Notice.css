@@ -68,23 +68,23 @@
   background-color: #06426a;
 }
 
+.notice-container .container {
+  padding: 30px;
+}
+
 .notice-container table {
-  border: 2px dashed red;
   width: 100%;
   border-radius: 20px;
   border-collapse: collapse;
+  overflow: hidden;
 }
 
 .notice-container th, .notice-container td {
-  border: 2px dashed blue;
   padding: 8px;
   border: 1px solid #E1E4E6;
+  cursor: pointer;
 }
 
 .notice-container th {
   background-color: #E1E4E6;
-}
-
-.notice-container .table-container {
-  padding: 30px;
 }
