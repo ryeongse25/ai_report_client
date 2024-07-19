@@ -8,7 +8,7 @@
 }
 
 .notice-header {
-  height: 60px;
+  height: 80px;
   padding: 0 15px;
   display: flex;
   align-items: center;
@@ -25,9 +25,10 @@
 
 /* 검색어 input */
 .notice-header > div input {
-  width: 500px;
-  height: 30px;
+  width: 600px;
+  height: 40px;
   border: none;
+  font-size: 16px;
   padding-left: 10px;
   border-radius: 20px;
   background-color: #DCDFE1;
@@ -36,7 +37,7 @@
 
 /* 검색 & 글쓰기 버튼 */
 .notice-header button {
-  height: 30px;
+  height: 40px;
   font-weight: 900;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -44,7 +45,7 @@
 
 /* 검색 버튼 */
 .notice-header > div button {
-  width: 80px;
+  width: 100px;
   border: none;
   border-radius: 20px;
   background-color: #DCDFE1;
@@ -56,7 +57,7 @@
 
 /* 글쓰기 버튼 */
 .notice-header .write {
-  width: 100px;
+  width: 120px;
   border: none;
   color: white;
   border-radius: 20px;
@@ -65,4 +66,25 @@
 
 .notice-header .write:hover {
   background-color: #06426a;
+}
+
+.notice-container table {
+  border: 2px dashed red;
+  width: 100%;
+  border-radius: 20px;
+  border-collapse: collapse;
+}
+
+.notice-container th, .notice-container td {
+  border: 2px dashed blue;
+  padding: 8px;
+  border: 1px solid #E1E4E6;
+}
+
+.notice-container th {
+  background-color: #E1E4E6;
+}
+
+.notice-container .table-container {
+  padding: 30px;
 }

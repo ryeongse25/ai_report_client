@@ -12,7 +12,7 @@ const Notification = () => {
   const navigate = useNavigate();
 
   const [isAdmin, setIsAdmin] = useState(false); 
-  const [notifications, setNotifications] = useState([]);
+  const [notice, setNotice] = useState([]);
 
   useEffect(() => {
     // 관리자 여부 확인
@@ -23,7 +23,7 @@ const Notification = () => {
 
     // 전체 공지사항 가져오기
     getNotice().then((res) => {
-      setNotifications(res);
+      setNotice(res);
     })
   }, []);
 
@@ -38,8 +38,8 @@ const Notification = () => {
           </div>
           {isAdmin && <button className='write' onClick={() => navigate('/notification/write')}>글쓰기</button>}
         </div>
-        {notifications.length > 0 ? (
-          <NoticeList />
+        {notice ? (
+          <NoticeList notice={notice} />
         ) : (
           <p>작성된 공지사항이 없습니다.</p>
         )}
