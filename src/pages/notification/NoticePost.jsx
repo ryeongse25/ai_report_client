@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { getUser } from "../../apis/user";
-import { getNoticeById } from "../../apis/notification";
+import { deleteNotice, getNoticeById } from "../../apis/notification";
 
 import './NoticePost.css'
 import Header from "../../components/header/Header";
@@ -9,6 +10,7 @@ import Content from "../../components/notification/Content";
 
 const NoticePost = () => {
   const {id} = useParams();
+  const navigate = useNavigate();
 
   const [notice, setNotice] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -28,8 +30,8 @@ const NoticePost = () => {
       </div>
       <div className='desc' style={{marginBottom: '30px'}}>
         {isAdmin && <>
-          <button>수정</button>
-          <button>삭제</button>
+          <button onClick={() => navigate(`/notice/write/${id}`)}>수정</button>
+          <button onClick={() => deleteNotice(id)}>삭제</button>
         </>}
       </div>
       <Content content={notice.content}/>

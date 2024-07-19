@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { successWithoutBtn } from '../utils/swal';
+import { cancelAlert, successWithoutBtn } from '../utils/swal';
 
 const access = localStorage.getItem('access');
 const SERVER_URL = 'http://localhost:8000/post/';
@@ -36,4 +36,29 @@ export const writeNotification = (user_id, title, content) => {
   })
   .then(() => successWithoutBtn('공지사항이 등록되었습니다.', '', () => window.location.href = '/notice'))
   .catch((error) => console.log(error))
+}
+
+// 수정
+export const editNotice = (id, user_id, title, content) => {
+  axios.post(`${SERVER_URL}postedit/${id}/`, {user_id, title, content}, {
+    headers: {
+      Authorization: access
+    }
+  })
+  .then((res) => successWithoutBtn('공지사항이 수정되었습니다.', '', () => window.location.href = '/notice/' + id))
+  .catch((error) => console.log(error))
+}
+
+// 삭제
+export const deleteNotice = (id) => {
+  const onDelete = () => {
+    axios.delete(`${SERVER_URL}postdelete/${id}/`, {
+      headers: {
+        Authorization: access
+      }
+    })
+    .then((res) => {window.location.href = '/notice'})
+    .catch((error) => console.log(error))
+  }
+  cancelAlert('정말 삭제하시겠습니까?', '', '예', '아니요', onDelete);
 }
