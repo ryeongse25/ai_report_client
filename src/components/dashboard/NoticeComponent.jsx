@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 
 const ReportContainer = styled.div`
   position: absolute;
-  bottom: 50px;
-  left: 50px;
+  top: 530px;
   width: 800px;
   height: 200px;
   background-color: #f5f5f5c0;

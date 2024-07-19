@@ -1,9 +1,8 @@
 import styled from 'styled-components';
+import { getUser } from '../../apis/user';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import { getUser } from '../../apis/user';
-import { Container } from "../CommonStyles";
 
 import Chart from './chart/Chart';
 import UserComponent from "./UserComponent";
@@ -12,16 +11,14 @@ import NoticeComponent from './NoticeComponent';
 
 const BodyContainer = styled.div`
   position: relative;
+  width: 1200px;
   height: 800px;
-  min-width: 1300px;
-  padding: 10px;
-  margin: 20px 0;
+  padding: 40px 0;
+  margin: 0 auto;
 `;
 
 const CalendarWrapper = styled.div`
   position: absolute;
-  top: 50px;
-  left: 50px;
   width: 800px;
   height: 450px;
   background-color: #D5D9DB55;
@@ -32,8 +29,7 @@ const CalendarWrapper = styled.div`
 
 const UserInfoContainer = styled.div`
   position: absolute;
-  top: 50px;
-  right: 50px;
+  left: 850px;
   width: 350px;
   height: 200px;
   background-color: #D5D9DB55;
@@ -44,8 +40,8 @@ const UserInfoContainer = styled.div`
 
 const StatsContainer = styled.div`
   position: absolute;
-  bottom: 50px;
-  right: 50px;
+  top: 280px;
+  left: 850px;
   width: 350px;
   height: 450px;
   background-color: #D5D9DB55;
@@ -68,20 +64,18 @@ const Body = () => {
   }, [])
 
   return (
-    <Container>
-      <BodyContainer>
-        <CalendarWrapper>
-          <CalendarComponent />
-        </CalendarWrapper>
-        <UserInfoContainer>
-          <UserComponent name={name}/>
-        </UserInfoContainer>
-        <NoticeComponent />
-        <StatsContainer>
-          <Chart />
-        </StatsContainer>
-      </BodyContainer>
-    </Container>
+    <BodyContainer>
+      <CalendarWrapper>
+        <CalendarComponent />
+      </CalendarWrapper>
+      <UserInfoContainer>
+        <UserComponent name={name}/>
+      </UserInfoContainer>
+      <NoticeComponent />
+      <StatsContainer>
+        <Chart />
+      </StatsContainer>
+    </BodyContainer>
   );
 };
 
