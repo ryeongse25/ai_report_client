@@ -21,6 +21,6 @@ export const getStats = () => {
       Authorization: access
     }
   })
-  .then((res) => {console.log(res)})
+  .then((res) => {return res.data})
   .catch((error) => console.log(error))
 }
