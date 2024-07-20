@@ -3,6 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 import axios from 'axios';
 import 'chart.js/auto';
 import './Chart.css';
+import { getStats } from '../../../apis/report';
 
 const Chart = () => {
   const [chartData, setChartData] = useState(null);
@@ -51,7 +52,7 @@ const Chart = () => {
 
   useEffect(() => {
     // 처음 로딩 시 데이터를 한 번 가져옵니다.
-    fetchChartData();
+    getStats();
   }, []);
 
   const options = {
