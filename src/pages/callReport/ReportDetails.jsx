@@ -38,65 +38,65 @@ const ReportDetails = () => {
   return (
     <div>
       <Header />
-        <div className='Details'>
-          <h1>{toKoreaTime(report.fields.date)}</h1>
-          <div className='detail-contents'>
+      <div className='Details'>
+        <h1>{toKoreaTime(report.fields.date)}</h1>
+        <div className='detail-contents'>
+          <div className='detail-item'>
+            <label>ID</label>
+            <span>{report.pk}</span>
+          </div>
+          <div className='detail-item-row'>
             <div className='detail-item'>
-              <label>ID</label>
-              <span>{report.pk}</span>
-            </div>
-            <div className='detail-item-row'>
-              <div className='detail-item'>
-                <label>주소</label>
-                <span>{report.fields.address_name}</span>
-              </div>
-              <div className='detail-item'>
-                <label>장소</label>
-                <span>{report.fields.place_name}</span>
-              </div>
-            </div>
-            <div className='detail-item-row'>
-              <div className='detail-item'>
-                <label>대분류</label>
-                <span>{report.fields.category}</span>
-              </div>
-              <div className='detail-item'>
-                <label>구급/비구급</label>
-                <span>{report.fields.emergency_type}</span>
-              </div>
+              <label>주소</label>
+              <span>{report.fields.address_name}</span>
             </div>
             <div className='detail-item'>
-              <label>내용</label>
-              <span>{report.fields.details}</span>
-            </div>
-            <div className='detail-item'>
-              <label>녹취록</label>
-              <span>{report.fields.full_text}</span>
-            </div>
-            <div className='detail-item'>
-              <label>위치</label>
-              <div style={{width: '700px', height: '300px'}}>
-                <KakaoMap />
-              </div>
-            </div>
-            <div className='detail-item'>
-              <label>녹음 파일</label>
-              <audio controls>
-                <source src={report.fields.recordingUrl} type="audio/mpeg" />
-                Your browser does not support the audio element.
-              </audio>
+              <label>장소</label>
+              <span>{report.fields.place_name}</span>
             </div>
           </div>
-            <div className="list-button-container">
-            <img 
-              src="/images/list.png" 
-              alt="목록" 
-              className="toList-button" 
-              onClick={() => navigate('/callreport')}  
-            />
-            <p>목록으로</p>
+          <div className='detail-item-row'>
+            <div className='detail-item'>
+              <label>대분류</label>
+              <span>{report.fields.category}</span>
+            </div>
+            <div className='detail-item'>
+              <label>구급/비구급</label>
+              <span>{report.fields.emergency_type}</span>
+            </div>
+          </div>
+          <div className='detail-item'>
+            <label>내용</label>
+            <span>{report.fields.details}</span>
+          </div>
+          <div className='detail-item'>
+            <label>녹취록</label>
+            <span>{report.fields.full_text}</span>
+          </div>
+          <div className='detail-item'>
+            <label>위치</label>
+            <div style={{width: '700px', height: '300px'}}>
+              <KakaoMap lat={report.fields.lat} lng={report.fields.lng} />
+            </div>
+          </div>
+          <div className='detail-item'>
+            <label>녹음 파일</label>
+            <audio controls>
+              <source src={report.fields.recordingUrl} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
           </div>
         </div>
+        <div className="list-button-container">
+          <img 
+            src="/images/list.png" 
+            alt="목록" 
+            className="toList-button" 
+            onClick={() => navigate('/callreport')}  
+          />
+          <p>목록으로</p>
+        </div>
+      </div>
     </div>
   );
 };
