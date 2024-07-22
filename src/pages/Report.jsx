@@ -1,8 +1,10 @@
-import io from 'socket.io-client';
 import { ReactMic } from 'react-mic'; 
 import React, { useState, useEffect, useRef } from 'react';
 
+import io from 'socket.io-client';
 import styled from 'styled-components';
+import Overlay from '../components/call/Overlay';
+import CallModal from '../components/call/CallModal';
 import { GoBackBtn } from '../components/CommonStyles';
 
 const socket = io('http://localhost:5000', {
@@ -350,7 +352,8 @@ const Report = () => {
 
   return (
     <WhiteContainer>
-
+      {/* <Overlay /> */}
+      {/* <CallModal /> */}
       <GoBackBtn />
       <MacWindow>
         <MacHeader>

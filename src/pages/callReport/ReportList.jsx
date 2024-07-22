@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+
 import { getReport } from '../../apis/report';
+import { toKoreaTime } from '../../utils/utils';
 
 const ReportList = () => {
   const reportsPerPage = 9;
@@ -52,11 +54,6 @@ const ReportList = () => {
     setCurrentPage(1); 
   };
 
-  const toKTime = (time) => {
-    const nyDate = new Date(time);
-    return nyDate.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }).slice(0, -3);
-  }
-
   useEffect(() => {
     getReport().then((res) => setAllReports(res))
   }, [])
@@ -95,9 +92,9 @@ const ReportList = () => {
               {reports.map((report) => (
                 <tr key={report.pk} onClick={() => navigate(`/reportdetails/${report.pk}`)}>
                   <td style={{textAlign: 'center'}}>{report.pk}</td>
-                  <td style={{textAlign: 'center'}}>{toKTime(report.fields.date)}</td>
+                  <td style={{textAlign: 'center'}}>{toKoreaTime(report.fields.date)}</td>
                   <td>{report.fields.address_name}</td>
-                  <td style={{textAlign: 'center'}}>{report.fields.location}</td>
+                  <td style={{textAlign: 'center'}}>{report.fields.place_name}</td>
                   <td style={{textAlign: 'center'}}>{report.fields.category}</td>
                   <td style={{textAlign: 'center'}}>{report.fields.emergency_type}</td>
                 </tr>
