@@ -233,6 +233,8 @@ const Report = () => {
 
   return (
     <div className="container">
+      <Overlay />
+      <CallModal />
       <GoBackBtn />
       <div className="recording-container">
         <div className="bold-text">정확한 접수를 위해 녹음버튼을 눌러주세요</div>

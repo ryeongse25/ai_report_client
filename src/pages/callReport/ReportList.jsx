@@ -8,8 +8,8 @@ const ReportList = () => {
   const reportsPerPage = 9;
   const navigate = useNavigate();
 
-  const [allReports, setAllReports] = useState([]);
   const [reports, setReports] = useState([]);
+  const [allReports, setAllReports] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -55,7 +55,7 @@ const ReportList = () => {
   };
 
   useEffect(() => {
-    getReport().then((res) => setAllReports(res))
+    getReport().then((res) => res && setAllReports(res))
   }, [])
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const ReportList = () => {
               <tr>
                 {/* 내용,녹취록은 상세페이지에서 */}
                 <th>ID</th>
-                <th style={{width: '170px'}}>시간</th>
+                <th style={{width: '180px'}}>시간</th>
                 <th>주소</th>
                 <th>장소</th>
                 <th>분류</th>
@@ -89,7 +89,7 @@ const ReportList = () => {
               </tr>
             </thead>
             <tbody>
-              {reports.map((report) => (
+              {reports.length > 0 ? reports.map((report) => (
                 <tr key={report.pk} onClick={() => navigate(`/reportdetails/${report.pk}`)}>
                   <td style={{textAlign: 'center'}}>{report.pk}</td>
                   <td style={{textAlign: 'center'}}>{toKoreaTime(report.fields.date)}</td>
@@ -98,7 +98,12 @@ const ReportList = () => {
                   <td style={{textAlign: 'center'}}>{report.fields.category}</td>
                   <td style={{textAlign: 'center'}}>{report.fields.emergency_type}</td>
                 </tr>
-              ))}
+              )) : 
+              <tr>
+                <td colSpan={6} style={{textAlign: 'center'}}>
+                  접수된 신고내역이 없습니다.
+                </td>
+              </tr>}
             </tbody>
           </table>
           <div className="pagination">
