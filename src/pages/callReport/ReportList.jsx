@@ -55,7 +55,7 @@ const ReportList = () => {
   };
 
   useEffect(() => {
-    getReport().then((res) => setAllReports(res))
+    getReport().then((res) => res && setAllReports(res))
   }, [])
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const ReportList = () => {
               <tr>
                 {/* 내용,녹취록은 상세페이지에서 */}
                 <th>ID</th>
-                <th style={{width: '170px'}}>시간</th>
+                <th style={{width: '180px'}}>시간</th>
                 <th>주소</th>
                 <th>장소</th>
                 <th>분류</th>

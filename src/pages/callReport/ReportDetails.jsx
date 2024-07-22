@@ -76,7 +76,7 @@ const ReportDetails = () => {
           <div className='detail-item'>
             <label>위치</label>
             <div style={{width: '700px', height: '300px'}}>
-              <KakaoMap />
+              <KakaoMap lat={report.fields.lat} lng={report.fields.lng} />
             </div>
           </div>
           <div className='detail-item'>
