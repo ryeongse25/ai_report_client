@@ -14,6 +14,17 @@ export const getReport = () => {
   .catch((error) => console.log(error))
 }
 
+// 아이디별 신고내역 가져오기
+export const getReportById = (id) => {
+  return axios.get(`${SERVER_URL}postlog/${id}/`, {
+    headers: {
+      Authorization: access
+    }
+  })
+  .then((res) => {return res.data})
+  .catch((error) => console.log(error))
+}
+
 // 출동통계 가져오기
 export const getStats = () => {
   return axios.get(SERVER_URL + 'categorycount/', {
