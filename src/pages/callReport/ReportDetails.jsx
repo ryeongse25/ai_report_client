@@ -85,9 +85,6 @@ const ReportDetails = () => {
               <source src={report.fields.recordingUrl} type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
-            {/* <a href={report.fields.recordingUrl} download>
-              <button>다운로드</button>
-            </a> */}
           </div>
         </div>
         <div className="list-button-container">
