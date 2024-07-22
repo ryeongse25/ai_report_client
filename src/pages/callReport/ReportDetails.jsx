@@ -78,7 +78,6 @@ const ReportDetails = () => {
               <div style={{width: '700px', height: '300px'}}>
                 <KakaoMap />
               </div>
-              {/* 지도 추가 */}
             </div>
             <div className='detail-item'>
               <label>녹음 파일</label>
@@ -86,14 +85,11 @@ const ReportDetails = () => {
                 <source src={report.fields.recordingUrl} type="audio/mpeg" />
                 Your browser does not support the audio element.
               </audio>
-              {/* <a href={report.fields.recordingUrl} download>
-                <button>다운로드</button>
-              </a> */}
             </div>
           </div>
             <div className="list-button-container">
             <img 
-              src="images/list.png" 
+              src="/images/list.png" 
               alt="목록" 
               className="toList-button" 
               onClick={() => navigate('/callreport')}  

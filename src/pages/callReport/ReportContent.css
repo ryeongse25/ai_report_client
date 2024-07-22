@@ -101,12 +101,6 @@
     border-radius: 20px;
     transition-duration: 0.4s;
   }
-  
-  /* .detail-item a button:hover {
-    background-color: #222f688f;
-    color: black;
-    border: 1px solid #222f688f;
-  }   */
 
 .list-button-container {
     display: flex;
