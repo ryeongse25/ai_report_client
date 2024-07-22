@@ -352,8 +352,8 @@ const Report = () => {
 
   return (
     <WhiteContainer>
-      {/* <Overlay /> */}
-      {/* <CallModal /> */}
+      <Overlay />
+      <CallModal />
       <GoBackBtn />
       <MacWindow>
         <MacHeader>
