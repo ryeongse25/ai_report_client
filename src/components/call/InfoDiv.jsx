@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 const DivBox = styled.div`
-  width: 500px;
   text-align: left;
   margin-bottom: 15px;
 `

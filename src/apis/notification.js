@@ -2,7 +2,7 @@ import axios from 'axios';
 import { cancelAlert, successWithoutBtn } from '../utils/swal';
 
 const access = localStorage.getItem('access');
-const SERVER_URL = 'http://localhost:8000/post/';
+const SERVER_URL = process.env.REACT_APP_POST_SERVER_URL
 
 // 전체 공지사항 가져오기
 export const getNotice = () => {

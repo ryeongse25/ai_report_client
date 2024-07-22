@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const access = localStorage.getItem('access');
-const SERVER_URL = 'http://localhost:8000/post/';
+const SERVER_URL = process.env.REACT_APP_POST_SERVER_URL
 
 // 신고내역 가져오기
 export const getReport = () => {
