@@ -93,7 +93,7 @@ const ReportDetails = () => {
           </div>
             <div className="list-button-container">
             <img 
-              src="/list.png" 
+              src="images/list.png" 
               alt="목록" 
               className="toList-button" 
               onClick={() => navigate('/callreport')}  
