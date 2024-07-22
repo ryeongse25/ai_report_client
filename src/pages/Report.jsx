@@ -235,7 +235,7 @@ const Report = () => {
   };
 
   return (
-    <div className="container">
+    <div className="report-container">
       {/* <Overlay /> */}
       {/* <CallModal /> */}
       <GoBackBtn />
