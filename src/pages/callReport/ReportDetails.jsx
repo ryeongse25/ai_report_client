@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toKoreaTime } from '../../utils/utils';
 import Header from '../../components/header/Header'; 
 import './ReportContent.css';
 
@@ -9,11 +10,11 @@ const ReportDetails = () => {
   const [report, setReport] = useState(null);
 
 
-  //서버 있을 때 사용
+  //서버
   // useEffect(() => {
   //   const fetchReport = async () => {
   //     try {
-  //       const response = await fetch(`/??/${id}`); // 서버 API 주소 (id가 외래키)
+  //       const response = await fetch(`/??/${id}`); // 서버 API 주소
   //       const data = await response.json();
   //       setReport(data);
   //     } catch (error) {
@@ -31,14 +32,15 @@ const ReportDetails = () => {
 
   useEffect(() => {
     const allReports = [
-      { id: 1, date: '2024-07-11', mainCategory: 'Category 1', subCategory: 'subcategory A', location: '대왕중학교', address: '서울시 강남구', content: '신고 내용 1', recording: '녹취록 1' },
-      { id: 2, date: '2024-07-11', mainCategory: 'Category 2', subCategory: 'subcategory B', location: '빽다방', address: '서울시 서초구', content: '신고 내용 2', recording: '녹취록 2' },
-      { id: 3, date: '2024-07-12', mainCategory: 'Category 3', subCategory: 'subcategory C', location: '스타벅스', address: '서울시 종로구', content: '신고 내용 3', recording: '녹취록 3' },
-      { id: 4, date: '2024-07-13', mainCategory: 'Category 4', subCategory: 'subcategory D', location: 'ㅇㅇ아파트', address: '서울시 강동구', content: '신고 내용 4', recording: '녹취록 4' },
-      { id: 5, date: '2024-07-14', mainCategory: 'Category 5', subCategory: 'subcategory E', location: '송파구도서관', address: '서울시 송파구', content: '신고 내용 5', recording: '녹취록 5' },
+      { pk: 1, fields: { date: '2023-01-01T10:00:00Z', address_name: '서울시 강남구', place_name: '강남역', largeCategory: '사고', midCategory: '교통사고', content: '신고 내용 1', lat: 37.497946, long: 127.027600, recording: '녹취록 1', recordingUrl: '/recordings/exRec.mp3'  } },
+      { pk: 2, fields: { date: '2023-01-02T11:00:00Z', address_name: '서울시 서초구', place_name: '서초역', largeCategory: '화재', midCategory: '방화', content: '신고 내용 2', lat: 37.491899, long: 127.007917, recording: '녹취록 2', recordingUrl: '/recordings/exRec.mp3'  } },
+      { pk: 3, fields: { date: '2023-01-03T12:00:00Z', address_name: '서울시 송파구', place_name: '잠실역', largeCategory: '응급', midCategory: '자살시도', content: '신고 내용 3', lat: 37.513276, long: 127.100199, recording: '녹취록 3', recordingUrl: '/recordings/exRec.mp3'  } },
+      { pk: 4, fields: { date: '2023-01-01T13:00:00Z', address_name: '서울시 강남구', place_name: '강남구보건소', largeCategory: '사고', midCategory: '실종자 신고', content: '신고 내용 4', lat: 37.517408, long: 127.046367, recording: '녹취록 4', recordingUrl: '/recordings/exRec.mp3'  } },
+      { pk: 5, fields: { date: '2023-01-02T15:00:00Z', address_name: '서울시 광진구', place_name: '스타벅스 자양역점', largeCategory: '사고', midCategory: '추락사고', content: '신고 내용 5', lat: 37.537846, long: 127.068785, recording: '녹취록 5', recordingUrl: '/recordings/exRec.mp3'  } },
+      { pk: 6, fields: { date: '2023-01-03T15:00:00Z', address_name: '서울시 강동구', place_name: '강동도서관', largeCategory: '화재', midCategory: '화재', content: '신고 내용 6', lat: 37.548798, long: 127.145425, recording: '녹취록 6', recordingUrl: '/recordings/exRec.mp3'  } },
     ];
 
-    const foundReport = allReports.find(report => report.id === parseInt(id));
+    const foundReport = allReports.find(report => report.pk === parseInt(id));
     setReport(foundReport);
   }, [id]);
 
@@ -50,44 +52,58 @@ const ReportDetails = () => {
     <div>
       <Header />
         <div className='Details'>
-          <h1>{report.date}</h1>
+          <h1>{toKoreaTime(report.fields.date)}</h1>
           <div className='detail-contents'>
             <div className='detail-item'>
               <label>ID</label>
-              <span>{report.id}</span>
+              <span>{report.pk}</span>
             </div>
             <div className='detail-item-row'>
               <div className='detail-item'>
                 <label>주소</label>
-                <span>{report.address}</span>
+                <span>{report.fields.address_name}</span>
               </div>
               <div className='detail-item'>
                 <label>장소</label>
-                <span>{report.location}</span>
+                <span>{report.fields.place_name}</span>
               </div>
             </div>
             <div className='detail-item-row'>
               <div className='detail-item'>
                 <label>대분류</label>
-                <span>{report.mainCategory}</span>
+                <span>{report.fields.largeCategory}</span>
               </div>
               <div className='detail-item'>
                 <label>중분류</label>
-                <span>{report.subCategory}</span>
+                <span>{report.fields.midCategory}</span>
               </div>
             </div>
             <div className='detail-item'>
               <label>내용</label>
-              <span>{report.content}</span>
+              <span>{report.fields.content}</span>
             </div>
             <div className='detail-item'>
               <label>녹취록</label>
-              <span>{report.recording}</span>
+              <span>{report.fields.recording}</span>
+            </div>
+            <div className='detail-item'>
+              <label>위치</label>
+              {/* 지도 추가 */}
+            </div>
+            <div className='detail-item'>
+              <label>녹음 파일</label>
+              <audio controls>
+                <source src={report.fields.recordingUrl} type="audio/mpeg" />
+                Your browser does not support the audio element.
+              </audio>
+              {/* <a href={report.fields.recordingUrl} download>
+                <button>다운로드</button>
+              </a> */}
             </div>
           </div>
             <div className="list-button-container">
             <img 
-              src="/images/list.png" 
+              src="/list.png" 
               alt="목록" 
               className="toList-button" 
               onClick={() => navigate('/callreport')}  
