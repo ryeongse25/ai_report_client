@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
 import { ReactMic } from 'react-mic'; 
-import io from 'socket.io-client';
-import { GoBackBtn } from '../components/CommonStyles';
+import React, { useState, useEffect, useRef } from 'react';
+
 import './Report.css';
+import io from 'socket.io-client';
+import Overlay from '../components/call/Overlay';
+import CallModal from '../components/call/CallModal';
+import { GoBackBtn } from '../components/CommonStyles';
 
 const socket = io('http://localhost:5000', {
   transports: ['websocket']
@@ -233,8 +236,8 @@ const Report = () => {
 
   return (
     <div className="container">
-      <Overlay />
-      <CallModal />
+      {/* <Overlay /> */}
+      {/* <CallModal /> */}
       <GoBackBtn />
       <div className="recording-container">
         <div className="bold-text">정확한 접수를 위해 녹음버튼을 눌러주세요</div>
@@ -244,7 +247,7 @@ const Report = () => {
             className="sound-wave"
             mimeType="audio/wav"
             strokeColor="#444445"
-            backgroundColor="#f5f5f5c0" />
+            backgroundColor="#ffffff" />
         </div>
         <div className="button-container">
           {!recording ? 
