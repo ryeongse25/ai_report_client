@@ -1,8 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Main from "./pages/Main";
-import Report from "./pages/Report";
-import Report2 from "./pages/Report2";
+import Report4 from "./pages/report/Report4";
 import Login from "./pages/login/Login";
 import Write from "./pages/notification/Write";
 import FindID from './pages/findID/FindID';
@@ -20,8 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/main' element={<Main />} />
-          <Route path='/report' element={<Report />} />
-          <Route path='/report2' element={<Report2 />} />
+          <Route path='/report' element={<Report4 />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path="/findid" element={<FindID />} />
