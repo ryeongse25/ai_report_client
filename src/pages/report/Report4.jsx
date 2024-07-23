@@ -14,10 +14,10 @@ const socket = io('http://localhost:5000', {
 });
 
 const Report4 = () => {
-  const [result, setResult] = useState('');
-  const [ttsText, setTtsText] = useState('');
+  // const [ttsText, setTtsText] = useState('');
+  const [start, setStart] = useState(false);
   const [recording, setRecording] = useState(false);
-  const [ttsFinished, setTtsFinished] = useState(false);
+  // const [ttsFinished, setTtsFinished] = useState(false);
   const [chat, setChat] = useState([{ text: '녹음 버튼을 누르고 신고를 시작해주세요.', isUser: false }]);
 
   const [done, setDone] = useState(false);
@@ -37,9 +37,17 @@ const Report4 = () => {
   useEffect(() => {
     socket.on('audio_text', (data) => {
       console.log('Received audio_text:', data);
-      setResult(data);
-      setChat(prevChat => [...prevChat, { text: data, isUser: true }]);
+      if (data == '신고가 접수되었습니다.') {
+        setDone(true);
+        setStart(false);
+      } else if (data == '이미 접수된 신고입니다.') {
+        setDone(true);
+        setStart(false);
+      }
+      setChat(prevChat => [...prevChat, { text: data, isUser: false }]);
       playTts(data);
+      setRecording(true);
+      startSilenceTimer();
     });
 
     return () => {
@@ -49,6 +57,8 @@ const Report4 = () => {
 
   // 녹음 시작
   const startRecording = () => {
+    setStart(true);
+
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then(stream => {
         mediaRecorderRef.current = new MediaRecorder(stream);
@@ -63,8 +73,8 @@ const Report4 = () => {
         };
 
         mediaRecorderRef.current.start();
-        setRecording(true);
         recognitionRef.current.start();
+        setRecording(true);
         startSilenceTimer();
       })
       .catch(err => {
@@ -94,7 +104,6 @@ const Report4 = () => {
   const startSilenceTimer = () => {
     silenceTimerRef.current = setTimeout(async () => {
       stopRecording();
-      playTts(ttsText);
     }, 3000);
   };
 
@@ -135,10 +144,8 @@ const Report4 = () => {
         }
       }
 
-      setResult(finalTranscript || interimTranscript);
       if (finalTranscript) {
         setChat(prevChat => [...prevChat, { text: finalTranscript, isUser: true }]);
-        // socket.emit('audio_text', { audio_text: finalTranscript });
       }
       resetSilenceTimer();
     };
@@ -147,6 +154,10 @@ const Report4 = () => {
       console.error('Speech Recognition Error', event.error);
     };
   }, []);
+
+  useEffect(() => {
+    console.log(recording ? '녹음중' : '녹음중지');
+  }, [recording])
 
   return (
     <div className="report-container">
@@ -166,11 +177,11 @@ const Report4 = () => {
             backgroundColor="#ffffff" />
         </div>
         <div className="button-container">
-          {!recording ? 
+          {!start ? 
             <button className="btn-border" onClick={startRecording} disabled={recording}>
               <div className="circle" />
             </button> :
-            <button className="btn-border" onClick={stopRecording} disabled={!recording}>
+            <button className="btn-border" onClick={() => setStart(false)} disabled={!recording}>
               <div className="square" />
             </button>
           }
