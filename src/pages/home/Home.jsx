@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import './Home.css';
 import styled from "styled-components";
 import Draggable from 'react-draggable';
@@ -49,10 +48,13 @@ const PopupWrapper = styled.div`
   z-index: 2;
   display: flex;
   justify-content: center;
+  align-items: center;
   pointer-events: none; /* This allows clicks to pass through the wrapper */
 `;
 
 const PopupContent = styled.div`
+  width: 600px; /* Fixed width */
+  height: 650px; /* Fixed height */
   cursor: grab;
   padding: 20px;
   background: white;
@@ -67,7 +69,16 @@ const PopupContent = styled.div`
 
 const ImageContainer = styled.div`
   width: 100%;
-  height: auto;
+  height: calc(100% - 40px); /* Adjust height to leave space for the checkbox and close button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledImage = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 `;
 
 const CloseButton = styled.button`
@@ -87,7 +98,7 @@ const CheckboxContainer = styled.div`
 const CentralTextContainer = styled.div`
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 30%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
@@ -109,9 +120,6 @@ const Home = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [showPopupToday, setShowPopupToday] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
-  const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
-  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
-  const imgRef = useRef(null);
 
   useEffect(() => {
     const lastVisit = localStorage.getItem('lastVisit');
@@ -134,18 +142,8 @@ const Home = () => {
     setIsDragging(true);
   };
 
-  const handleStop = (e, data) => {
+  const handleStop = () => {
     setIsDragging(false);
-    setPopupPosition({ x: data.x, y: data.y });
-  };
-
-  const handleImageLoad = () => {
-    if (imgRef.current) {
-      setImgSize({
-        width: imgRef.current.naturalWidth,
-        height: imgRef.current.naturalHeight
-      });
-    }
   };
 
   return (
@@ -164,29 +162,18 @@ const Home = () => {
       </Navbar>
       <CentralTextContainer>
         <Subheading>긴급 신고 자동화 시스템</Subheading>
-        <Description>AI 기술을 이용한 신고 자동화로 <br></br>신속하고 효율적인 신고 접수를 지원합니다</Description>
+        <Description>AI 기술을 이용한 신고 자동화로 <br />신속하고 효율적인 신고 접수를 지원합니다</Description>
       </CentralTextContainer>
 
       {isPopupOpen && (
         <PopupWrapper>
-          <Draggable
-            onStart={handleStart}
-            onStop={handleStop}
-            position={popupPosition}
-            bounds="parent"
-          >
-            <PopupContent
-              className={isDragging ? 'dragging' : ''}
-              style={{ width: imgSize.width, height: imgSize.height + 80 }}
-            >
+          <Draggable onStart={handleStart} onStop={handleStop} bounds="parent">
+            <PopupContent className={isDragging ? 'dragging' : ''}>
               <ImageContainer>
                 <a href="https://www.nfa.go.kr/nfa/publicrelations/emergencyservice/119emergencydeclaration/" target="_blank" rel="noopener noreferrer">
-                  <img
+                  <StyledImage
                     src="/images/emergency_report.jpg"
                     alt="Popup"
-                    ref={imgRef}
-                    onLoad={handleImageLoad}
-                    style={{ width: '100%', height: '100%' }}
                   />
                 </a>
               </ImageContainer>
