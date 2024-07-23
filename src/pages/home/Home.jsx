@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import axios from 'axios';
+import React, { useState, useEffect } from "react";
+
 import './Home.css';
 import styled from "styled-components";
 import Draggable from 'react-draggable';
@@ -145,6 +147,11 @@ const Home = () => {
   const handleStop = () => {
     setIsDragging(false);
   };
+
+  useEffect(() => {
+    // csrf token 가져오기
+    axios.get(process.env.REACT_APP_USER_SERVER_URL + 'signup/')
+  }, [])
 
   return (
     <div className="home-container">
