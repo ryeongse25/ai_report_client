@@ -2,35 +2,36 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { ReactMic } from 'react-mic';
 import { convertToWav } from '../../utils/report';
+import { errorWithoutBtn } from '../../utils/swal';
 
 import './Report.css';
 import io from 'socket.io-client';
 import Overlay from '../../components/call/Overlay';
 import CallModal from '../../components/call/CallModal';
 import { GoBackBtn } from '../../components/CommonStyles';
+import { getReportById } from '../../apis/report';
+import { toKoreaTime } from '../../utils/utils';
 
 const socket = io('http://localhost:5000', {
   transports: ['websocket']
 });
 
 const Report4 = () => {
-  // const [ttsText, setTtsText] = useState('');
   const [start, setStart] = useState(false);
   const [recording, setRecording] = useState(false);
-  // const [ttsFinished, setTtsFinished] = useState(false);
   const [chat, setChat] = useState([{ text: '녹음 버튼을 누르고 신고를 시작해주세요.', isUser: false }]);
   const [interimTranscript, setInterimTranscript] = useState('');
 
   const [done, setDone] = useState(false);
-  const [address, setAddress] = useState('서울 강서구 화곡동 980-16');
-  const [place, setPlace] = useState('강서구청')
-  const [time, setTime] = useState(new Date('2024-07-19 07:48:39.428767'))
-  const [content, setContent] = useState('불이 크게 일고 있고 사람들이 숨을 쉬지 못하는 상황입니다.');
-  const [lat, setLat] = useState(37.45978574975834);
-  const [lng, setLng] = useState(126.9511239870991);
+  const [address, setAddress] = useState('');
+  const [place, setPlace] = useState('')
+  const [time, setTime] = useState('')
+  const [content, setContent] = useState('');
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
 
-  const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
+  const mediaRecorderRef = useRef(null);
   const recognitionRef = useRef(null);
   const silenceTimerRef = useRef(null);
 
@@ -38,17 +39,27 @@ const Report4 = () => {
   useEffect(() => {
     socket.on('audio_text', (data) => {
       console.log('Received audio_text:', data);
-      if (data == '신고가 접수되었습니다.') {
+
+      let msg = '';
+      if (data.log_id) {
+        getReportById(data.log_id).then((res) => {
+          console.log(res);
+          setAddress(res.fields.address_name);
+          setPlace(res.fields.place_name);
+          setTime(toKoreaTime(res.fields.date));
+          setContent(res.fields.details);
+          setLat(res.fields.lat);
+          setLng(res.fields.lng);
+        })
         setDone(true);
         setStart(false);
-      } else if (data == '이미 접수된 신고입니다.') {
-        setDone(true);
-        setStart(false);
+        msg = data.message;
+      } else if (data.message.includes('GPT')) errorWithoutBtn('알 수 없는 오류가 발생했습니다.');
+      else {
+        msg = data.message.split(':')[1] + '에 대한 정보가 부족합니다. 다시 한번 말씀해주세요.';
+        setChat(prevChat => [...prevChat, { text: msg, isUser: false }]);
       }
-      setChat(prevChat => [...prevChat, { text: data, isUser: false }]);
-      playTts(data);
-      setRecording(true);
-      startSilenceTimer();
+      playTts(msg);
     });
 
     return () => {
@@ -83,14 +94,20 @@ const Report4 = () => {
       });
   };
 
-  // 녹음 끝
-  const stopRecording = () => {
+  // 녹음 중지
+  const pauseRecording = () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
       recognitionRef.current.stop();
       setRecording(false);
       clearTimeout(silenceTimerRef.current);
     }
+  }
+
+  // 녹음 끝
+  const stopRecording = () => {
+    setStart(false);
+    pauseRecording();
   };
 
   const processChunks = async () => {
@@ -104,7 +121,7 @@ const Report4 = () => {
 
   const startSilenceTimer = () => {
     silenceTimerRef.current = setTimeout(async () => {
-      stopRecording();
+      pauseRecording();
     }, 3000);
   };
 
@@ -118,6 +135,10 @@ const Report4 = () => {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'ko-KR';
     window.speechSynthesis.speak(utterance);
+
+    utterance.onend = () => {
+      startRecording();
+    };
   };
 
   // stt
@@ -188,7 +209,7 @@ const Report4 = () => {
             <button className="btn-border" onClick={startRecording} disabled={recording}>
               <div className="circle" />
             </button> :
-            <button className="btn-border" onClick={() => setStart(false)} disabled={!recording}>
+            <button className="btn-border" onClick={stopRecording} disabled={!recording}>
               <div className="square" />
             </button>
           }
