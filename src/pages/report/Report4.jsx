@@ -19,6 +19,7 @@ const Report4 = () => {
   const [recording, setRecording] = useState(false);
   const [ttsFinished, setTtsFinished] = useState(false);
   const [chat, setChat] = useState([{ text: '녹음 버튼을 누르고 신고를 시작해주세요.', isUser: false }]);
+  const [interimTranscript, setInterimTranscript] = useState('');
 
   const [done, setDone] = useState(false);
   const [address, setAddress] = useState('서울 강서구 화곡동 980-16');
@@ -135,11 +136,15 @@ const Report4 = () => {
         }
       }
 
+      setInterimTranscript(interimTranscript); // 실시간으로 인식된 텍스트 업데이트
       setResult(finalTranscript || interimTranscript);
+
       if (finalTranscript) {
         setChat(prevChat => [...prevChat, { text: finalTranscript, isUser: true }]);
+        setInterimTranscript(''); // 최종 텍스트가 인식되면 interim 텍스트 초기화
         // socket.emit('audio_text', { audio_text: finalTranscript });
       }
+
       resetSilenceTimer();
     };
 
@@ -182,6 +187,11 @@ const Report4 = () => {
             {msg.text}
           </div>
         ))}
+        {interimTranscript && (
+          <div className="chat-bubble user">
+            {interimTranscript}
+          </div>
+        )}
       </div>
     </div>
   );
