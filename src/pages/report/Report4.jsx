@@ -1,5 +1,7 @@
-import { ReactMic } from 'react-mic';
 import React, { useState, useEffect, useRef } from 'react';
+
+import { ReactMic } from 'react-mic';
+import { convertToWav } from '../../utils/report';
 
 import './Report.css';
 import io from 'socket.io-client';
@@ -15,7 +17,8 @@ const Report4 = () => {
   const [result, setResult] = useState('');
   const [ttsText, setTtsText] = useState('');
   const [recording, setRecording] = useState(false);
-  const [chat, setChat] = useState([{ text: '신고 시작', isUser: false }]);
+  const [ttsFinished, setTtsFinished] = useState(false);
+  const [chat, setChat] = useState([{ text: '녹음 버튼을 누르고 신고를 시작해주세요.', isUser: false }]);
 
   const [done, setDone] = useState(false);
   const [address, setAddress] = useState('서울 강서구 화곡동 980-16');
@@ -30,12 +33,13 @@ const Report4 = () => {
   const recognitionRef = useRef(null);
   const silenceTimerRef = useRef(null);
 
+  // 백 -> 프론트 소켓
   useEffect(() => {
     socket.on('audio_text', (data) => {
       console.log('Received audio_text:', data);
       setResult(data);
-      setChat(prevChat => [...prevChat, { text: data.audio_text, isUser: true }]);
-      playTts(data.audio_text);
+      setChat(prevChat => [...prevChat, { text: data, isUser: true }]);
+      playTts(data);
     });
 
     return () => {
@@ -43,39 +47,7 @@ const Report4 = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      console.error('Web Speech API is not supported by this browser.');
-      return;
-    }
-
-    recognitionRef.current = new SpeechRecognition();
-    recognitionRef.current.continuous = true;
-    recognitionRef.current.interimResults = true;
-    recognitionRef.current.lang = 'ko-KR';
-
-    recognitionRef.current.onresult = (event) => {
-      let interimTranscript = '';
-      let finalTranscript = '';
-
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-          finalTranscript += event.results[i][0].transcript;
-        } else {
-          interimTranscript += event.results[i][0].transcript;
-        }
-      }
-
-      setResult(finalTranscript || interimTranscript);
-      resetSilenceTimer();
-    };
-
-    recognitionRef.current.onerror = (event) => {
-      console.error('Speech Recognition Error', event.error);
-    };
-  }, []);
-
+  // 녹음 시작
   const startRecording = () => {
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then(stream => {
@@ -100,6 +72,7 @@ const Report4 = () => {
       });
   };
 
+  // 녹음 끝
   const stopRecording = () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
@@ -130,91 +103,50 @@ const Report4 = () => {
     startSilenceTimer();
   };
 
+  // tts
   const playTts = (text) => {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'ko-KR';
     window.speechSynthesis.speak(utterance);
   };
 
-  const convertToWav = async (audioData) => {
-    const audioContext = new AudioContext();
-    const audioBuffer = await audioContext.decodeAudioData(audioData.buffer);
-
-    const targetSampleRate = 16000;
-    const numChannels = audioBuffer.numberOfChannels;
-    const length = audioBuffer.length * targetSampleRate / audioBuffer.sampleRate;
-    const offlineContext = new OfflineAudioContext(numChannels, length, targetSampleRate);
-
-    const bufferSource = offlineContext.createBufferSource();
-    bufferSource.buffer = audioBuffer;
-
-    bufferSource.connect(offlineContext.destination);
-    bufferSource.start(0);
-
-    const resampledBuffer = await offlineContext.startRendering();
-    return encodeWAV(resampledBuffer);
-  };
-
-  const encodeWAV = (audioBuffer) => {
-    const numChannels = audioBuffer.numberOfChannels;
-    const sampleRate = audioBuffer.sampleRate;
-    const format = 1; // PCM
-    const bitDepth = 16;
-    const bytesPerSample = bitDepth / 8;
-
-    let buffers = [];
-    for (let i = 0; i < numChannels; i++) {
-      buffers.push(audioBuffer.getChannelData(i));
+  // stt
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      console.error('Web Speech API is not supported by this browser.');
+      return;
     }
 
-    const interleaved = interleave(buffers);
-    const buffer = new ArrayBuffer(44 + interleaved.length * bytesPerSample);
-    const view = new DataView(buffer);
+    recognitionRef.current = new SpeechRecognition();
+    recognitionRef.current.continuous = true;
+    recognitionRef.current.interimResults = true;
+    recognitionRef.current.lang = 'ko-KR';
 
-    writeString(view, 0, 'RIFF');
-    view.setUint32(4, 36 + interleaved.length * bytesPerSample, true);
-    writeString(view, 8, 'WAVE');
-    writeString(view, 12, 'fmt ');
-    view.setUint32(16, 16, true);
-    view.setUint16(20, format, true);
-    view.setUint16(22, numChannels, true);
-    view.setUint32(24, sampleRate, true);
-    view.setUint32(28, sampleRate * numChannels * bytesPerSample, true);
-    view.setUint16(32, numChannels * bytesPerSample, true);
-    view.setUint16(34, bitDepth, true);
-    writeString(view, 36, 'data');
-    view.setUint32(40, interleaved.length * bytesPerSample, true);
+    recognitionRef.current.onresult = (event) => {
+      let interimTranscript = '';
+      let finalTranscript = '';
 
-    floatTo16BitPCM(view, 44, interleaved);
-
-    return buffer;
-  };
-
-  const writeString = (view, offset, string) => {
-    for (let i = 0; i < string.length; i++) {
-      view.setUint8(offset + i, string.charCodeAt(i));
-    }
-  };
-
-  const interleave = (buffers) => {
-    const length = buffers[0].length;
-    const result = new Float32Array(length * buffers.length);
-
-    let inputIndex = 0;
-    for (let i = 0; i < length; i++) {
-      for (let j = 0; j < buffers.length; j++) {
-        result[inputIndex++] = buffers[j][i];
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        } else {
+          interimTranscript += event.results[i][0].transcript;
+        }
       }
-    }
-    return result;
-  };
 
-  const floatTo16BitPCM = (output, offset, input) => {
-    for (let i = 0; i < input.length; i++, offset += 2) {
-      const s = Math.max(-1, Math.min(1, input[i]));
-      output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-    }
-  };
+      setResult(finalTranscript || interimTranscript);
+      if (finalTranscript) {
+        setChat(prevChat => [...prevChat, { text: finalTranscript, isUser: true }]);
+        // socket.emit('audio_text', { audio_text: finalTranscript });
+      }
+      resetSilenceTimer();
+    };
+
+    recognitionRef.current.onerror = (event) => {
+      console.error('Speech Recognition Error', event.error);
+    };
+  }, []);
 
   return (
     <div className="report-container">
