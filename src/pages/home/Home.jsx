@@ -49,16 +49,16 @@ const PopupWrapper = styled.div`
   z-index: 2;
   display: flex;
   justify-content: center;
-  background-color: rgb(0, 0, 0, 0.5);
+  pointer-events: none; /* This allows clicks to pass through the wrapper */
 `;
 
 const PopupContent = styled.div`
   cursor: grab;
   padding: 20px;
-  margin-top: 70px;
   background: white;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  pointer-events: all; /* This allows clicks to interact with the popup content */
 
   &.dragging {
     cursor: grabbing;
@@ -87,7 +87,7 @@ const CheckboxContainer = styled.div`
 const CentralTextContainer = styled.div`
   position: absolute;
   top: 50%;
-  left: 30%;
+  left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
@@ -110,6 +110,7 @@ const Home = () => {
   const [showPopupToday, setShowPopupToday] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
+  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
   const imgRef = useRef(null);
 
   useEffect(() => {
@@ -133,8 +134,9 @@ const Home = () => {
     setIsDragging(true);
   };
 
-  const handleStop = () => {
+  const handleStop = (e, data) => {
     setIsDragging(false);
+    setPopupPosition({ x: data.x, y: data.y });
   };
 
   const handleImageLoad = () => {
@@ -167,15 +169,20 @@ const Home = () => {
 
       {isPopupOpen && (
         <PopupWrapper>
-          <Draggable onStart={handleStart} onStop={handleStop} bounds="parent">
+          <Draggable
+            onStart={handleStart}
+            onStop={handleStop}
+            position={popupPosition}
+            bounds="parent"
+          >
             <PopupContent
               className={isDragging ? 'dragging' : ''}
               style={{ width: imgSize.width, height: imgSize.height + 80 }}
             >
               <ImageContainer>
-                <a href="https://www.police.go.kr/index.do" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.nfa.go.kr/nfa/publicrelations/emergencyservice/119emergencydeclaration/" target="_blank" rel="noopener noreferrer">
                   <img
-                    src="/images/popup.jpg"
+                    src="/images/emergency_report.jpg"
                     alt="Popup"
                     ref={imgRef}
                     onLoad={handleImageLoad}
