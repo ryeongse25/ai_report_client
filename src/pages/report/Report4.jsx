@@ -21,6 +21,7 @@ const Report4 = () => {
   const [recording, setRecording] = useState(false);
   const [chat, setChat] = useState([{ text: '녹음 버튼을 누르고 신고를 시작해주세요.', isUser: false }]);
   const [interimTranscript, setInterimTranscript] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [done, setDone] = useState(false);
   const [address, setAddress] = useState('');
@@ -39,6 +40,7 @@ const Report4 = () => {
   useEffect(() => {
     socket.on('audio_text', (data) => {
       console.log('Received audio_text:', data);
+      setIsProcessing(false); // 처리 중 상태 해제
 
       let msg = '';
       if (data.log_id) {
@@ -46,7 +48,7 @@ const Report4 = () => {
           console.log(res);
           setAddress(res.fields.address_name);
           setPlace(res.fields.place_name);
-          setTime(res.fields.date);
+          setTime(toKoreaTime(res.fields.date));
           setContent(res.fields.details);
           setLat(res.fields.lat);
           setLng(res.fields.lng);
@@ -54,9 +56,9 @@ const Report4 = () => {
         setDone(true);
         setStart(false);
         msg = data.message;
-      }
+      } else if (data.message.includes('GPT')) errorWithoutBtn('알 수 없는 오류가 발생했습니다.');
       else {
-        msg = data.message;
+        msg = data.message.split(':')[1] + '에 대한 정보가 부족합니다. 다시 한번 말씀해주세요.';
         setChat(prevChat => [...prevChat, { text: msg, isUser: false }]);
       }
       playTts(msg);
@@ -81,6 +83,7 @@ const Report4 = () => {
         };
 
         mediaRecorderRef.current.onstop = async () => {
+          setIsProcessing(true); // 처리 중 상태 설정
           await processChunks();
         };
 
@@ -167,12 +170,10 @@ const Report4 = () => {
       }
 
       setInterimTranscript(interimTranscript); // 실시간으로 인식된 텍스트 업데이트
-      // setResult(finalTranscript || interimTranscript);
 
       if (finalTranscript) {
         setChat(prevChat => [...prevChat, { text: finalTranscript, isUser: true }]);
         setInterimTranscript(''); // 최종 텍스트가 인식되면 interim 텍스트 초기화
-        // socket.emit('audio_text', { audio_text: finalTranscript });
       }
 
       resetSilenceTimer();
@@ -182,10 +183,6 @@ const Report4 = () => {
       console.error('Speech Recognition Error', event.error);
     };
   }, []);
-
-  useEffect(() => {
-    console.log(recording ? '녹음중' : '녹음중지');
-  }, [recording])
 
   return (
     <div className="report-container">
@@ -219,6 +216,9 @@ const Report4 = () => {
         {chat.map((msg, index) => (
           <div key={index} className={`chat-bubble ${msg.isUser ? 'user' : 'system'}`}>
             {msg.text}
+            {isProcessing && msg.isUser && index === chat.length - 1 && (
+              <div className="processing-text">처리 중입니다. 잠시만 기다려주세요.</div>
+            )}
           </div>
         ))}
         {interimTranscript && (
