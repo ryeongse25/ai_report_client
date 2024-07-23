@@ -5,7 +5,7 @@ import axios from 'axios';
 import { ReactMic } from 'react-mic'; 
 
 import styled from 'styled-components';
-import { FullContainer, GoBackBtn } from '../components/CommonStyles';
+import { FullContainer, GoBackBtn } from '../../components/CommonStyles';
 
 const SERVER_URL = 'http://localhost:8000/stt/';
 const socket = io('http://localhost:5000', {
