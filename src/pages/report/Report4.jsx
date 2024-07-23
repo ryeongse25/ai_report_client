@@ -17,7 +17,7 @@ const Report4 = () => {
   const [recording, setRecording] = useState(false);
   const [chat, setChat] = useState([{ text: '신고 시작', isUser: false }]);
 
-  const [done, setDone] = useState(true);
+  const [done, setDone] = useState(false);
   const [address, setAddress] = useState('서울 강서구 화곡동 980-16');
   const [place, setPlace] = useState('강서구청')
   const [time, setTime] = useState(new Date('2024-07-19 07:48:39.428767'))
