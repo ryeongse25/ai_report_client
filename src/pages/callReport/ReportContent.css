@@ -5,6 +5,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'GothicA1-Bold';
+  src: url('../../fonts/GothicA1-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .Details {
     padding: 20px;
     max-width: 800px;
@@ -110,10 +117,10 @@
   }
   
 .list-button-container p {
-    margin-top: 10px;
-    font-size: 22px;
+    margin-top: 13px;
+    font-size: 20px;
     color: #222f68;
-    font-family: 'KimjungchulGothic';
+    font-family: 'GothicA1-Bold';
     font-weight: bold;
   }
   

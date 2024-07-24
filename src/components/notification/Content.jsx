@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 const ContentBox = styled.div`
   padding: 30px;
   border-radius: 20px;
-  background-color: #D5D9DB62;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-image: linear-gradient(180deg, #ffffff 0%, #ebedeed0 100%);
+  box-shadow: rgba(51, 51, 51, 0.253) 0px 5px 15px;
   
   img {
     width: 100%;
