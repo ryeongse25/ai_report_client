@@ -28,7 +28,6 @@ const Report4 = () => {
   const [content, setContent] = useState('');
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
-  const [logId, setLogId] = useState(null);
 
   const chunksRef = useRef([]);
   const allChunksRef = useRef([]);
@@ -51,11 +50,10 @@ const Report4 = () => {
           setContent(res.fields.details);
           setLat(res.fields.lat);
           setLng(res.fields.lng);
-          setLogId(data.log_id);
         })
         msg = data.message;
         setDone(true);
-        processChunks(true);
+        processChunks(true, data.log_id);
       }
       msg = data.message;
       setChat(prevChat => [...prevChat, { text: msg, isUser: false }]);
@@ -112,13 +110,13 @@ const Report4 = () => {
     pauseRecording();
   };
 
-  const processChunks = async (isFinal = false) => {
+  const processChunks = async (isFinal = false, id = 0) => {
     if (isFinal) {
       const allBlob = new Blob(allChunksRef.current, { 'type': 'audio/webm' });
       const allArrayBuffer = await allBlob.arrayBuffer();
       const allAudioData = new Uint8Array(allArrayBuffer);
       const allWavBuffer = await convertToWav(allAudioData);
-      socket.emit('audio_full', {'wav' : allWavBuffer, 'log_id' : logId});
+      socket.emit('audio_full', {'wav' : allWavBuffer, 'log_id' : id});
       allChunksRef.current = [];
       socket.disconnect();
     } else {
