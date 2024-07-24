@@ -1,5 +1,7 @@
 import axios from 'axios';
+import { getCookie } from '../utils/cookie';
 
+const csrftoken = getCookie('csrftoken');
 const access = localStorage.getItem('access');
 const SERVER_URL = process.env.REACT_APP_POST_SERVER_URL
 
@@ -18,7 +20,7 @@ export const getReport = () => {
 export const getReportById = (id) => {
   return axios.get(`${SERVER_URL}postlog/${id}/`, {
     headers: {
-      Authorization: access
+      'X-CSRFToken': csrftoken
     }
   })
   .then((res) => {return res.data})
