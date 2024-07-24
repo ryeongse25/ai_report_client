@@ -20,7 +20,8 @@ const CalendarWrapper = styled.div`
   position: absolute;
   width: 800px;
   height: 450px;
-  background-color: #D5D9DB55;
+  background-color: #ffffffc0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   padding: 20px;
 `;
@@ -30,7 +31,8 @@ const UserInfoContainer = styled.div`
   left: 850px;
   width: 350px;
   height: 200px;
-  background-color: #D5D9DB55;
+  background-color: #ffffffc0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   padding: 20px;
 `;
@@ -41,7 +43,8 @@ const StatsContainer = styled.div`
   left: 850px;
   width: 350px;
   height: 450px;
-  background-color: #D5D9DB55;
+  background-color: #ffffffc0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   padding: 20px;
 `;

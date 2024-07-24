@@ -10,7 +10,8 @@ const UserComponentContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background-color: #f2f2f2;
+  background-color: #ffffffc0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   width: 100%;
   height: 100%;
@@ -22,7 +23,7 @@ const UserName = styled.h3`
 `;
 
 const CenterName = styled.h3`
-  color: grey;
+  color: rgb(15,15,15);
   font-size: 18px;
   padding: 0 10px;
 `;
@@ -50,7 +51,7 @@ const EditButton = styled.button`
 `;
 
 const LogoutButton = styled.button`
-  background-color: #CCCCCC;
+  background-color: #ebedee;
   color: black;
   padding: 10px 20px;
   border: none;
@@ -69,12 +70,12 @@ const UserComponent = ({name}) => {
 
   return (
     <UserComponentContainer>
-      <div style={{display: 'flex', alignItems: 'center'}}>
+      <div style={{display: 'flex', alignItems: 'center', marginTop: '10px'}}>
         <div style={{width: '180px'}}>
           <UserName>{name}</UserName> 
           <CenterName>분당 119 안전센터</CenterName> 
         </div>
-        <img src="images\userIcon.png" alt="User Icon" width="90" height="90" />
+        <img src="images\userIcon.png" alt="User Icon" width="60" height="60" />
       </div>
       <ButtonGroupContainer>
         <EditButton onClick={onEdit}>정보수정</EditButton>

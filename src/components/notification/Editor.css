@@ -6,6 +6,13 @@
 	}
 }
 
+@font-face {
+  font-family: 'GothicA1-Thin';
+  src: url('../../fonts/GothicA1-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .main-container {
 	font-family: 'Lato';
 	width: 100%;
@@ -30,9 +37,11 @@ textarea {
   padding: 10px;
   font-size: 16px;
   font-weight: 900;
+  font-family: 'GothicA1-Thin';
   border: none;
   border-radius: 20px;
-  background-color: #D5D9DB62;
+  background-color: white;
+  box-shadow: rgba(51, 51, 51, 0.35) 0px 5px 15px;
   margin-bottom: 10px;
 }
 
@@ -47,13 +56,16 @@ textarea {
   font-weight: 900;
   padding: 6px 12px;
   border-radius: 20px;
-  background-color: #D5D9DB62;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-image: linear-gradient(180deg, #fdfbfb 0%, #ebedeed0 100%);
+  box-shadow: rgba(51, 51, 51, 0.35) 0px 5px 15px;
   cursor: pointer;
+  padding: 5px 10px;
+  font-weight: 900;
+  font-family: 'GothicA1-Thin';
 }
 
 .btns button:hover {
-  background-color: #d5d9db;
+  background-color: #7e9fceee;
 }
 
 .btns button:first-child {

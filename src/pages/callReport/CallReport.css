@@ -56,6 +56,8 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    gap: 5px;
+    padding: 5px;
   }
 
 .searchBar input {
@@ -70,6 +72,13 @@
 
 .searchBar input:hover {
   box-shadow: 0 0 5px rgba(98, 98, 100, 0.5); 
+}
+
+.searchBar input::placeholder {
+  font-weight: 900;
+  font-family: 'GothicA1-Thin';
+  padding: 10px;
+  font-size: 16px;
 }
 
 .searchBar button {
