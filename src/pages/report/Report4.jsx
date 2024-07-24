@@ -30,6 +30,7 @@ const Report4 = () => {
   const [lng, setLng] = useState(0);
 
   const chunksRef = useRef([]);
+  const allChunksRef = useRef([]);
   const mediaRecorderRef = useRef(null);
   const recognitionRef = useRef(null);
   const silenceTimerRef = useRef(null);
@@ -43,7 +44,6 @@ const Report4 = () => {
       let msg = '';
       if (data.log_id) {
         getReportById(data.log_id).then((res) => {
-          console.log(res);
           setAddress(res.fields.address_name);
           setPlace(res.fields.place_name);
           setTime(res.fields.date);
@@ -51,14 +51,12 @@ const Report4 = () => {
           setLat(res.fields.lat);
           setLng(res.fields.lng);
         })
+        msg = data.message;
         setDone(true);
-        setStart(false);
-        msg = data.message;
+        processChunks(true);
       }
-      else {
-        msg = data.message;
-        setChat(prevChat => [...prevChat, { text: msg, isUser: false }]);
-      }
+      msg = data.message;
+      setChat(prevChat => [...prevChat, { text: msg, isUser: false }]);
       playTts(msg);
     });
 
@@ -78,6 +76,7 @@ const Report4 = () => {
 
         mediaRecorderRef.current.ondataavailable = e => {
           chunksRef.current.push(e.data);
+          allChunksRef.current.push(e.data);
         };
 
         mediaRecorderRef.current.onstop = async () => {
@@ -111,13 +110,23 @@ const Report4 = () => {
     pauseRecording();
   };
 
-  const processChunks = async () => {
-    const blob = new Blob(chunksRef.current, { 'type': 'audio/webm' });
-    const arrayBuffer = await blob.arrayBuffer();
-    const audioData = new Uint8Array(arrayBuffer);
-    const wavBuffer = await convertToWav(audioData);
-    socket.emit('audio_data', wavBuffer);
-    chunksRef.current = [];
+  const processChunks = async (isFinal = false) => {
+    if (isFinal) {
+      const allBlob = new Blob(allChunksRef.current, { 'type': 'audio/webm' });
+      const allArrayBuffer = await allBlob.arrayBuffer();
+      const allAudioData = new Uint8Array(allArrayBuffer);
+      const allWavBuffer = await convertToWav(allAudioData);
+      socket.emit('audio_full', allWavBuffer);
+      allChunksRef.current = [];
+      socket.disconnect();
+    } else {
+      const blob = new Blob(chunksRef.current, { 'type': 'audio/webm' });
+      const arrayBuffer = await blob.arrayBuffer();
+      const audioData = new Uint8Array(arrayBuffer);
+      const wavBuffer = await convertToWav(audioData);
+      socket.emit('audio_data', wavBuffer);
+      chunksRef.current = [];
+    }
   };
 
   const startSilenceTimer = () => {
