@@ -28,6 +28,7 @@ const Report4 = () => {
   const [content, setContent] = useState('');
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
+  const [logId, setLogId] = useState(null);
 
   const chunksRef = useRef([]);
   const allChunksRef = useRef([]);
@@ -50,6 +51,7 @@ const Report4 = () => {
           setContent(res.fields.details);
           setLat(res.fields.lat);
           setLng(res.fields.lng);
+          setLogId(data.log_id);
         })
         msg = data.message;
         setDone(true);
@@ -116,7 +118,7 @@ const Report4 = () => {
       const allArrayBuffer = await allBlob.arrayBuffer();
       const allAudioData = new Uint8Array(allArrayBuffer);
       const allWavBuffer = await convertToWav(allAudioData);
-      socket.emit('audio_full', allWavBuffer);
+      socket.emit('audio_full', {'wav' : allWavBuffer, 'log_id' : logId});
       allChunksRef.current = [];
       socket.disconnect();
     } else {
