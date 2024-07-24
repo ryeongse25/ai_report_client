@@ -4,7 +4,7 @@ import KakaoMap from './KaKaoMap';
 import { useNavigate } from 'react-router-dom';
 import { toKoreaTime } from '../../utils/utils';
 
-const CallModal = ({address, place, time, content, lat, lng}) => {
+const CallModal = ({address, place, time, content, where, lat, lng}) => {
   const navigate = useNavigate();
 
   return <>
@@ -17,6 +17,7 @@ const CallModal = ({address, place, time, content, lat, lng}) => {
             <InfoDiv title='장소' text={place} />
             <InfoDiv title='신고시각' text={toKoreaTime(time)} />
             <InfoDiv title='접수 내용' text={content} />
+            <InfoDiv title='유관 기관' text={where} />
           </div>
           <div className='map'>
             <KakaoMap lat={lat} lng={lng} />
