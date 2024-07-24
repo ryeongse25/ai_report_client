@@ -84,7 +84,7 @@ const ReportDetails = () => {
           <div className='detail-item'>
             <label>녹음 파일</label>
             <audio controls>
-              <source src={ `${process.env.REACT_APP_SERVER_URL}media/full_audio/${report.fields.audio_file.slice(11)}`} type="audio/mpeg" />
+              <source src={ `${process.env.REACT_APP_SERVER_URL}media/full_audio/${report.fields.audio_file.slice(17)}`} type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
           </div>
