@@ -26,6 +26,7 @@ const Report4 = () => {
   const [place, setPlace] = useState('')
   const [time, setTime] = useState('')
   const [content, setContent] = useState('');
+  const [where, setWhere] = useState('');
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
 
@@ -48,6 +49,7 @@ const Report4 = () => {
           setPlace(res.fields.place_name);
           setTime(res.fields.date);
           setContent(res.fields.details);
+          setWhere(res.fields.jurisdiction);
           setLat(res.fields.lat);
           setLng(res.fields.lng);
         })
@@ -195,7 +197,7 @@ const Report4 = () => {
     <div className="report-container">
       {done && <>
         <Overlay />
-        <CallModal address={address} place={place} time={time} content={content} lat={lat} lng={lng} />
+        <CallModal address={address} place={place} time={time} content={content} where={where} lat={lat} lng={lng} />
       </>}
       <GoBackBtn />
       <div className="recording-container">
