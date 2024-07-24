@@ -1,7 +1,21 @@
+@font-face {
+    font-family: 'GothicA1-Bold';
+    src: url('../../fonts/GothicA1-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+@font-face {
+    font-family: 'KimjungchulGothic';
+    src: url('../../fonts/KimjungchulGothic-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
 .login-container .container {
     width: 750px; 
     display: flex;
-    background-color: #E5E8E962;
+    background-color: #ffffffc0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
 }
@@ -27,7 +41,7 @@
 .login-container .login-header {
     display: flex;
     align-items: center;
-    margin-bottom: 7px;
+    margin-bottom: 15px;
 }
 
 .login-container .login-header img {
@@ -39,10 +53,11 @@
 }
 
 .login-container .login-header span {
-    font-family: 'KimjungchulGothic';
+    font-family: 'GothicA1-Bold';
     font-size: 27px;
     font-weight: bold;
     color: #675C58;
+    margin-top: 3px;
 }
 
 .login-container form {
@@ -58,23 +73,36 @@
     padding: 0.5rem;
     border-radius: 15px;
     border: 1px solid #e3e4e4;
-    background-color: #f1f5f6;
+    background-color: white;
+    box-shadow: rgba(51, 51, 51, 0.35) 0px 5px 15px;
+}
+
+.login-container form input:hover {
+    box-shadow: 0 0 5px rgba(98, 98, 100, 0.5); 
+}
+
+.login-container form input::placeholder {
+    font-family: 'GothicA1-Bold';
+    font-size: 12px;
 }
 
 .login-container form button {
     width: 80%;
     margin: 0.5rem;
+    margin-top: 15px;
     padding: 0.5rem;
     color: white;
     border: none;
     border-radius: 10px;
-    background-color: #e43d59b5;
+    background-image: linear-gradient(180deg, #e7616da6 0%, #fe5176e0 100%);
+    box-shadow: rgba(51, 51, 51, 0.35) 0px 5px 15px;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
+    font-family: 'KimjungchulGothic';
 }
 
 .login-container form button:hover {
-    background-color: #817f7fad;
+    background-color: #ff004ca1;
 }
 
 /* 회원가입, ID 찾기, PW 변경 버튼 */
@@ -88,7 +116,7 @@
     font: inherit;
     margin: 0 5px;
     cursor: pointer;
-    color: #143252;
+    color: #675C58;
     background-color: transparent;
     text-decoration: underline; 
 }
@@ -96,18 +124,3 @@
 .login-container .link-button:hover {
     color: #14325280; 
 }
-
-@font-face {
-    font-family: 'Do Hyeon';
-    src: url('../../fonts/DoHyeon-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'KimjungchulGothic';
-    src: url('../../fonts/KimjungchulGothic-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  

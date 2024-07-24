@@ -1,3 +1,24 @@
+@font-face {
+  font-family: 'KimjungchulGothic';
+  src: url('../../fonts/KimjungchulGothic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GothicA1-Bold';
+  src: url('../../fonts/GothicA1-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GothicA1-Thin';
+  src: url('../../fonts/GothicA1-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .signupContainer {
   width: 100%;
   height: 100%;
@@ -11,7 +32,7 @@
   width: 750px;
   height: 500px;
   border-radius: 30px;
-  background-color: #E5E8E962;
+  background-color: #ffffffc0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -23,7 +44,7 @@
   width: 500px;
   padding: 20px;
   border-radius: 30px;
-  background-color: white;
+  background-color: #ffffffc0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -35,7 +56,7 @@
 .signupContainer h4 {
   margin: 20px 0;
   text-align: center;
-  font-family: 'Do Hyeon';
+  font-family: 'KimjungchulGothic';
   font-size: 30px;
   font-weight: bold;
   color: #675C58;
@@ -58,8 +79,9 @@
   font-size: 13px;
   font-weight: bold;
   border-radius: 10px;
-  color: #ffffffd2;
-  background-color: #e43d59b5;
+  color: black;
+  background-image: linear-gradient(180deg, #fdfbfb 0%, #d2d5d6d0 100%);
+  box-shadow: rgba(97, 97, 97, 0.178) 0px 5px 15px;
 }
 
 /* input css */
@@ -67,18 +89,19 @@
   width: 100%;
   padding: 10px;
   border-radius: 15px;
-  background-color: #f1f5f6;
   border: 1px solid #f1f5f6;
+  background-color: white;
+  box-shadow: rgba(51, 51, 51, 0.144) 0px 5px 15px;
 }
 
 .signupContainer input:hover {
-  border-color: #deeaed;
-  background-color: #deeaed;
+  box-shadow: 0 0 5px rgba(98, 98, 100, 0.5); 
 }
 
 .signupContainer input::placeholder {
   color: #817f7f;
   font-weight: bold;
+  font-family: 'GothicA1-Bold';
 }
 
 /* button css */
@@ -86,15 +109,17 @@
   padding: 10px;
   color: white;
   font-size: 17px;
+  font-family: 'GothicA1-Thin';
   border: none;
   font-weight: bold;
   text-align: center;
-  background-color: #817f7f;
+  background-image: linear-gradient(180deg, #e7616da6 0%, #fe5176e0 100%);
+  box-shadow: rgba(51, 51, 51, 0.35) 0px 5px 15px;
   cursor: pointer;
 }
 
 .signupContainer button:hover {
-  background-color: #e43d59b5;
+  background-color: #ff004ca1;
 }
 
 .signupContainer .fieldContainer input {
@@ -135,11 +160,4 @@
   width: 500px;
   margin: 20px 0;
   border-radius: 15px;
-}
-
-@font-face {
-  font-family: 'Do Hyeon';
-  src: url('../../fonts/DoHyeon-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
 }
